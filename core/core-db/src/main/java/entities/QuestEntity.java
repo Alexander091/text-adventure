@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "Quest", schema = "public", catalog = "NetCrackerProject")
 public class QuestEntity {
-    private int id;
+    private Long id;
     private String description;
     private String genre;
     private Integer version;
@@ -22,7 +22,7 @@ public class QuestEntity {
     private NodeEntity startNode;
 
     @OneToOne
-    @JoinColumn(name="StartNode", referencedColumnName = "Id")
+    @JoinColumn(name="start_node", referencedColumnName = "id")
     public NodeEntity getStartNode() {
         return startNode;
     }
@@ -60,17 +60,19 @@ public class QuestEntity {
     }
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="quest_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="quest_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2000)
     public String getDescription() {
         return description;
     }
@@ -80,7 +82,7 @@ public class QuestEntity {
     }
 
     @Basic
-    @Column(name = "Genre", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "genre", nullable = false, insertable = true, updatable = true, length = 100)
     public String getGenre() {
         return genre;
     }
@@ -90,7 +92,7 @@ public class QuestEntity {
     }
 
     @Basic
-    @Column(name = "Version", nullable = true, insertable = true, updatable = true)
+    @Column(name = "version", nullable = true, insertable = true, updatable = true)
     public Integer getVersion() {
         return version;
     }
@@ -100,7 +102,7 @@ public class QuestEntity {
     }
 
     @Basic
-    @Column(name = "AgeLimit", nullable = true, insertable = true, updatable = true)
+    @Column(name = "ageLimit", nullable = true, insertable = true, updatable = true)
     public Integer getAgeLimit() {
         return ageLimit;
     }
@@ -110,7 +112,7 @@ public class QuestEntity {
     }
 
     @Basic
-    @Column(name = "Rating", nullable = true, insertable = true, updatable = true, precision = 8)
+    @Column(name = "rating", nullable = true, insertable = true, updatable = true, precision = 8)
     public Float getRating() {
         return rating;
     }
@@ -120,7 +122,7 @@ public class QuestEntity {
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 200)
     public String getName() {
         return name;
     }
@@ -149,7 +151,7 @@ public class QuestEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (genre != null ? genre.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);

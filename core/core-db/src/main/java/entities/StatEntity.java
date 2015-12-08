@@ -6,26 +6,28 @@ import javax.persistence.*;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "Stat", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "stat", schema = "public", catalog = "netcracker")
 public class StatEntity {
-    private int id;
+    private Long id;
     private String name;
     private Float value;
     private String description;
     private QuestEntity questByQuestId;
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="stat_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="stat_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 200)
     public String getName() {
         return name;
     }
@@ -35,7 +37,7 @@ public class StatEntity {
     }
 
     @Basic
-    @Column(name = "Value", nullable = true, insertable = true, updatable = true, precision = 8)
+    @Column(name = "value", nullable = true, insertable = true, updatable = true, precision = 8)
     public Float getValue() {
         return value;
     }
@@ -45,7 +47,7 @@ public class StatEntity {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2000)
     public String getDescription() {
         return description;
     }
@@ -71,7 +73,7 @@ public class StatEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (value != null ? value.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
@@ -79,7 +81,7 @@ public class StatEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "QuestId", referencedColumnName = "Id", nullable = false)
+    @JoinColumn(name = "quest_id", referencedColumnName = "Id", nullable = false)
     public QuestEntity getQuestByQuestId() {
         return questByQuestId;
     }

@@ -7,9 +7,9 @@ import java.util.List;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "User", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "user", schema = "public", catalog = "netcracker")
 public class UserEntity {
-    private int id;
+    private Long id;
     private String name;
     private String surname;
     private String logName;
@@ -18,7 +18,7 @@ public class UserEntity {
     private List<GameEntity> games;
     private UserRoleEntity userRole;
 
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "user")
     public List<GameEntity> getGames() {
         return games;
     }
@@ -28,7 +28,7 @@ public class UserEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "UserRole", referencedColumnName = "Id")
+    @JoinColumn(name = "user_role", referencedColumnName = "id")
     public UserRoleEntity getUserRole() {
         return userRole;
     }
@@ -38,17 +38,19 @@ public class UserEntity {
     }
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="user_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Name", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "name", nullable = true, insertable = true, updatable = true, length = 100)
     public String getName() {
         return name;
     }
@@ -58,7 +60,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Surname", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "surname", nullable = true, insertable = true, updatable = true, length = 200)
     public String getSurname() {
         return surname;
     }
@@ -68,7 +70,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "LogName", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "log_name", nullable = false, insertable = true, updatable = true, length = 100)
     public String getLogName() {
         return logName;
     }
@@ -78,7 +80,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Password", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "password", nullable = false, insertable = true, updatable = true, length = 200)
     public String getPassword() {
         return password;
     }
@@ -88,7 +90,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Email", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "email", nullable = false, insertable = true, updatable = true, length = 200)
     public String getEmail() {
         return email;
     }
@@ -116,7 +118,7 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (logName != null ? logName.hashCode() : 0);

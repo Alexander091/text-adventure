@@ -7,9 +7,9 @@ import java.util.List;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "Action", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "action", schema = "public", catalog = "netcracker")
 public class ActionEntity {
-    private int id;
+    private Long id;
     private String type;
     private String condition;
     private Float value;
@@ -20,7 +20,7 @@ public class ActionEntity {
     private StatEntity stat;
     private List<ActionEntity> nextActions;
     @OneToMany
-    @JoinColumn(name = "Id", referencedColumnName = "Parent")
+    @JoinColumn(name = "id", referencedColumnName = "parent")
     public List<ActionEntity> getNextActions() {
         return nextActions;
     }
@@ -30,7 +30,7 @@ public class ActionEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name="Resource", referencedColumnName = "Id")
+    @JoinColumn(name="resource", referencedColumnName = "id")
     public ResourceEntity getResource() {
         return resource;
     }
@@ -39,7 +39,7 @@ public class ActionEntity {
         this.resource = resource;
     }
     @ManyToOne
-    @JoinColumn(name="Item", referencedColumnName = "Id")
+    @JoinColumn(name="item", referencedColumnName = "id")
     public ItemEntity getItem() {
         return item;
     }
@@ -48,7 +48,7 @@ public class ActionEntity {
         this.item = item;
     }
     @ManyToOne
-    @JoinColumn(name="Stat", referencedColumnName = "Id")
+    @JoinColumn(name="stat", referencedColumnName = "id")
     public StatEntity getStat() {
         return stat;
     }
@@ -58,18 +58,19 @@ public class ActionEntity {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="action_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="action_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Type", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "type", nullable = false, insertable = true, updatable = true, length = 100)
     public String getType() {
         return type;
     }
@@ -79,7 +80,7 @@ public class ActionEntity {
     }
 
     @Basic
-    @Column(name = "Condition", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "condition", nullable = false, insertable = true, updatable = true, length = 200)
     public String getCondition() {
         return condition;
     }
@@ -89,7 +90,7 @@ public class ActionEntity {
     }
 
     @Basic
-    @Column(name = "Value", nullable = true, insertable = true, updatable = true, precision = 8)
+    @Column(name = "value", nullable = true, insertable = true, updatable = true, precision = 8)
     public Float getValue() {
         return value;
     }
@@ -119,7 +120,7 @@ public class ActionEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + type.hashCode();
         result = 31 * result + condition.hashCode();
         result = 31 * result + (value != null ? value.hashCode() : 0);

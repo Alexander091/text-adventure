@@ -7,12 +7,12 @@ import java.util.List;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "Game", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "game", schema = "public", catalog = "netcracker")
 public class GameEntity {
-    private int id;
+    private Long id;
     private List<SavedItemEntity> savedItems;
     private List<SavedStatEntity> savedStats;
-    private UserEntity player;
+    private UserEntity user;
     private QuestEntity quest;
 
     @OneToMany(mappedBy = "gameByGameId")
@@ -34,17 +34,17 @@ public class GameEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "PlayerId")
-    public UserEntity getPlayer() {
-        return player;
+    @JoinColumn(name = "user_id")
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setPlayer(UserEntity player) {
-        this.player = player;
+    public void setUser(UserEntity player) {
+        this.user = player;
     }
 
     @ManyToOne
-    @JoinColumn(name = "QuestId")
+    @JoinColumn(name = "quest_id")
     public QuestEntity getQuest() {
         return quest;
     }
@@ -54,12 +54,14 @@ public class GameEntity {
     }
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="game_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="game_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -77,6 +79,6 @@ public class GameEntity {
 
     @Override
     public int hashCode() {
-        return id;
+        return (int)((long)id);
     }
 }

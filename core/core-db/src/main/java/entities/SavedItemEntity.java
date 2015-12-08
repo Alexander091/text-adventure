@@ -6,19 +6,21 @@ import javax.persistence.*;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "SavedItem", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "saved_item", schema = "public", catalog = "netcracker")
 public class SavedItemEntity {
-    private int id;
+    private Long id;
     private GameEntity gameByGameId;
     private ItemEntity itemByItemId;
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="saved_item_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="saved_item_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,11 +38,11 @@ public class SavedItemEntity {
 
     @Override
     public int hashCode() {
-        return id;
+        return (int)(long)id;
     }
 
     @ManyToOne
-    @JoinColumn(name = "GameId", referencedColumnName = "Id", nullable = false)
+    @JoinColumn(name = "game_id", referencedColumnName = "id", nullable = false)
     public GameEntity getGameByGameId() {
         return gameByGameId;
     }
@@ -50,7 +52,7 @@ public class SavedItemEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ItemId", referencedColumnName = "Id", nullable = false)
+    @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false)
     public ItemEntity getItemByItemId() {
         return itemByItemId;
     }

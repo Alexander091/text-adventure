@@ -6,25 +6,27 @@ import javax.persistence.*;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "Transition", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "transition", schema = "public", catalog = "netcracker")
 public class TransitionEntity {
-    private int id;
+    private Long id;
     private String condition;
     private NodeEntity nodeByToNode;
     private NodeEntity nodeByFromNode;
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="transition_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="transition_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Condition", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "condition", nullable = false, insertable = true, updatable = true, length = 1000)
     public String getCondition() {
         return condition;
     }
@@ -48,13 +50,13 @@ public class TransitionEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (condition != null ? condition.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "ToNode", referencedColumnName = "Id", nullable = false)
+    @JoinColumn(name = "to_node", referencedColumnName = "id", nullable = false)
     public NodeEntity getNodeByToNode() {
         return nodeByToNode;
     }
@@ -64,7 +66,7 @@ public class TransitionEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "FromNode", referencedColumnName = "Id", nullable = false)
+    @JoinColumn(name = "from_node", referencedColumnName = "id", nullable = false)
     public NodeEntity getNodeByFromNode() {
         return nodeByFromNode;
     }

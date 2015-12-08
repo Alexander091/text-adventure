@@ -7,9 +7,9 @@ import java.util.List;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "Node", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "node", schema = "public", catalog = "netcracker")
 public class NodeEntity {
-    private int id;
+    private Long id;
     private String name;
     private String description;
     private QuestEntity questByQuestId;
@@ -26,17 +26,19 @@ public class NodeEntity {
     }
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="node_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="node_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 200)
     public String getName() {
         return name;
     }
@@ -46,7 +48,7 @@ public class NodeEntity {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2000)
     public String getDescription() {
         return description;
     }
@@ -71,14 +73,14 @@ public class NodeEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "QuestId", referencedColumnName = "Id", nullable = false)
+    @JoinColumn(name = "quest_id", referencedColumnName = "id", nullable = false)
     public QuestEntity getQuestByQuestId() {
         return questByQuestId;
     }

@@ -6,26 +6,28 @@ import javax.persistence.*;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "Resource", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "resource", schema = "public", catalog = "netcracker")
 public class ResourceEntity {
-    private int id;
+    private Long id;
     private String type;
     private String name;
     private String path;
     private QuestEntity questByQuestId;
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="resource_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="resource_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Type", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "type", nullable = false, insertable = true, updatable = true, length = 200)
     public String getType() {
         return type;
     }
@@ -35,7 +37,7 @@ public class ResourceEntity {
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 200)
     public String getName() {
         return name;
     }
@@ -45,7 +47,7 @@ public class ResourceEntity {
     }
 
     @Basic
-    @Column(name = "Path", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "path", nullable = false, insertable = true, updatable = true, length = 1000)
     public String getPath() {
         return path;
     }
@@ -71,7 +73,7 @@ public class ResourceEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (path != null ? path.hashCode() : 0);
@@ -79,7 +81,7 @@ public class ResourceEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "QuestId", referencedColumnName = "Id", nullable = false)
+    @JoinColumn(name = "quest_id", referencedColumnName = "id", nullable = false)
     public QuestEntity getQuestByQuestId() {
         return questByQuestId;
     }

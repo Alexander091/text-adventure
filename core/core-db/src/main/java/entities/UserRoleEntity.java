@@ -7,33 +7,35 @@ import java.util.List;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "UserRole", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "user_role", schema = "public", catalog = "netcracker")
 public class UserRoleEntity {
-    private int id;
+    private Long id;
     private String name;
-   // private List<UserEntity> users;
+    private List<UserEntity> users;
 
-    //@OneToMany(mappedBy = "userRole")
-    //public List<UserEntity> getUsers() {
-        //return users;
-    //}
+    @OneToMany(mappedBy = "userRole")
+    public List<UserEntity> getUsers() {
+        return users;
+    }
 
-   // public void setUsers(List<UserEntity> users) {
-      //  this.users = users;
-    //}
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
+    }
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="user_role_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_role_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 200)
     public String getName() {
         return name;
     }
@@ -57,7 +59,7 @@ public class UserRoleEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

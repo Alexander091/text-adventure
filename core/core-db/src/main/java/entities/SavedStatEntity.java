@@ -6,15 +6,15 @@ import javax.persistence.*;
  * Created by ִלטענטי on 02.12.2015.
  */
 @Entity
-@Table(name = "SavedStat", schema = "public", catalog = "NetCrackerProject")
+@Table(name = "saved_stat", schema = "public", catalog = "netcracker")
 public class SavedStatEntity {
-    private int id;
+    private Long id;
     private float value;
     private GameEntity gameByGameId;
     private StatEntity stat;
 
     @OneToOne
-    @JoinColumn(name = "StatId", referencedColumnName = "Id")
+    @JoinColumn(name = "stat_id", referencedColumnName = "id")
     public StatEntity getStat() {
         return stat;
     }
@@ -24,17 +24,19 @@ public class SavedStatEntity {
     }
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    @SequenceGenerator(name="saved_stat_sequence",sequenceName="entity_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="saved_stat_sequence")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Value", nullable = false, insertable = true, updatable = true, precision = 8)
+    @Column(name = "value", nullable = false, insertable = true, updatable = true, precision = 8)
     public float getValue() {
         return value;
     }
@@ -58,13 +60,13 @@ public class SavedStatEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (value != +0.0f ? Float.floatToIntBits(value) : 0);
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "GameId", referencedColumnName = "Id", nullable = false)
+    @JoinColumn(name = "game_id", referencedColumnName = "id", nullable = false)
     public GameEntity getGameByGameId() {
         return gameByGameId;
     }
