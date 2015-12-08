@@ -14,6 +14,7 @@
         <module>quest-editor</module>
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>
+        <module>dashboard</module>
     </modules>
 
     <build>
