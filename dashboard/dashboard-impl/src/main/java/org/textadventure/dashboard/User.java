@@ -10,6 +10,13 @@ public class User {
     private String passwordHash;
     private boolean banned;
 
+    public User(int id,String login, String passwordHash, boolean banned){
+        this.id = id;
+        this.login = login;
+        this.passwordHash = passwordHash;
+        this.banned = banned;
+    }
+
 
     public void setLogin(String login){}
     public String getLogin(){return login;}
@@ -21,3 +28,20 @@ public class User {
     public boolean isBanned(){return banned;}
 
 }
+
+
+
+/*@Bean
+public class UserController {
+    private UserDAO userDao;
+    public User getUser(){
+        User user = new User();
+        return user;
+    }
+}
+
+public class UserDAO{
+    public User getUserById(long id){
+
+    }
+}*/

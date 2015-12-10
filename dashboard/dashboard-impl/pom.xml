@@ -12,5 +12,7 @@
 
     <artifactId>dashboard-impl</artifactId>
 
+    <dependencies>
 
+    </dependencies>
 </project>

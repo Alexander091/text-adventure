@@ -15,7 +15,36 @@
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>
         <module>dashboard</module>
+        <module>parent</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.2.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>1.2_15</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.1-b04</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+
+    </dependencies>
 
     <build>
         <pluginManagement>
