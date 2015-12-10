@@ -1,4 +1,4 @@
-package org.textadventure.questeditor.questeditorapi;
+package org.textadventure.questeditor.api;
 
 import java.util.Iterator;
 
