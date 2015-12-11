@@ -18,7 +18,7 @@ public class UserControllerBean implements Serializable{
     public UserControllerBean(){
         userDAO = new UserDAO();
 
-}
+    }
 
     public User getUserByID(int id)
     {
