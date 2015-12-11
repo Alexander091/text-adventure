@@ -11,7 +11,7 @@
 <h:body>
     <h3>User</h3>
     <h:form>
-        User id: <h:outputLabel> #{userControllerBean.user.getLogin}</h:outputLabel>
+        User login: <h:outputLabel> #{userControllerBean.getUserByID(1).login}</h:outputLabel>
 
     </h:form>
 </h:body>
