@@ -13,7 +13,7 @@
         <module>core</module>
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>
-        <module>db</module>
+        <module>dao-manager</module>
     </modules>
 
     <build>
