@@ -4,12 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by Äìèòðèé on 02.12.2015.
+ * Created by Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹ on 02.12.2015.
  */
 @Entity
 @Table(name = "node", schema = "public", catalog = "netcracker")
-public class NodeEntity {
-    private Long id;
+public class NodeEntity extends CommonEntity{
     private String name;
     private String description;
     private QuestEntity questByQuestId;
@@ -23,18 +22,6 @@ public class NodeEntity {
 
     public void setTransitions(List<TransitionEntity> transitions) {
         this.transitions = transitions;
-    }
-
-    @Id
-    @SequenceGenerator(name="node_sequence",sequenceName="entity_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="node_sequence")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Basic

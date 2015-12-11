@@ -4,12 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by Äìèòðèé on 02.12.2015.
+ * Created by Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹ on 02.12.2015.
  */
 @Entity
 @Table(name = "user", schema = "public", catalog = "netcracker")
-public class UserEntity {
-    private Long id;
+public class UserEntity extends CommonEntity{
     private String name;
     private String surname;
     private String logName;
@@ -35,18 +34,6 @@ public class UserEntity {
 
     public void setUserRole(UserRoleEntity userRole) {
         this.userRole = userRole;
-    }
-
-    @Id
-    @SequenceGenerator(name="user_sequence",sequenceName="entity_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_sequence")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Basic

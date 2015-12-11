@@ -3,28 +3,15 @@ package entities;
 import javax.persistence.*;
 
 /**
- * Created by Äìèòðèé on 02.12.2015.
+ * Created by Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹ on 02.12.2015.
  */
 @Entity
 @Table(name = "stat", schema = "public", catalog = "netcracker")
-public class StatEntity {
-    private Long id;
+public class StatEntity extends CommonEntity{
     private String name;
     private Float value;
     private String description;
     private QuestEntity questByQuestId;
-
-    @Id
-    @SequenceGenerator(name="stat_sequence",sequenceName="entity_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="stat_sequence")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 200)

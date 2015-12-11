@@ -3,36 +3,23 @@ package entities;
 import javax.persistence.*;
 
 /**
- * Created by Äìèòðèé on 02.12.2015.
+ * Created by Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹ on 02.12.2015.
  */
 @Entity
 @Table(name = "resource", schema = "public", catalog = "netcracker")
-public class ResourceEntity {
-    private Long id;
-    private String type;
+public class ResourceEntity extends CommonEntity{
+    private TypeOfResourceEntity type;
     private String name;
     private String path;
     private QuestEntity questByQuestId;
 
-    @Id
-    @SequenceGenerator(name="resource_sequence",sequenceName="entity_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="resource_sequence")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "type", nullable = false, insertable = true, updatable = true, length = 200)
-    public String getType() {
+    @ManyToOne
+    @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false)
+    public TypeOfResourceEntity getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TypeOfResourceEntity type) {
         this.type = type;
     }
 

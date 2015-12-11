@@ -4,12 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by Äìèòðèé on 02.12.2015.
+ * Created by Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹ on 02.12.2015.
  */
 @Entity
 @Table(name = "game", schema = "public", catalog = "netcracker")
-public class GameEntity {
-    private Long id;
+public class GameEntity extends CommonEntity{
     private List<SavedItemEntity> savedItems;
     private List<SavedStatEntity> savedStats;
     private UserEntity user;
@@ -39,8 +38,8 @@ public class GameEntity {
         return user;
     }
 
-    public void setUser(UserEntity player) {
-        this.user = player;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @ManyToOne
@@ -51,18 +50,6 @@ public class GameEntity {
 
     public void setQuest(QuestEntity quest) {
         this.quest = quest;
-    }
-
-    @Id
-    @SequenceGenerator(name="game_sequence",sequenceName="entity_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="game_sequence")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override

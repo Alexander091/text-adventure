@@ -4,24 +4,26 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/netcracker</property>
-    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">1234</property>
-    <property name="hibernate.hbm2ddl.auto">update</property>
-    <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
-    <mapping class="entities.ActionEntity"/>
-    <mapping class="entities.GameEntity"/>
-    <mapping class="entities.ItemEntity"/>
-    <mapping class="entities.NodeEntity"/>
-    <mapping class="entities.QuestEntity"/>
-    <mapping class="entities.ResourceEntity"/>
-    <mapping class="entities.SavedItemEntity"/>
-    <mapping class="entities.SavedStatEntity"/>
-    <mapping class="entities.StatEntity"/>
-    <mapping class="entities.TransitionEntity"/>
-    <mapping class="entities.UserEntity"/>
-    <mapping class="entities.UserRoleEntity"/>
+      <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/netcracker</property>
+      <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+      <property name="hibernate.connection.username">postgres</property>
+      <property name="hibernate.connection.password">1234</property>
+      <property name="hibernate.hbm2ddl.auto">update</property>
+      <property name="hibernate.show_sql">true</property>
+      <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+      <mapping class="entities.ActionEntity"/>
+      <mapping class="entities.GameEntity"/>
+      <mapping class="entities.ItemEntity"/>
+      <mapping class="entities.NodeEntity"/>
+      <mapping class="entities.QuestEntity"/>
+      <mapping class="entities.ResourceEntity"/>
+      <mapping class="entities.SavedItemEntity"/>
+      <mapping class="entities.SavedStatEntity"/>
+      <mapping class="entities.StatEntity"/>
+      <mapping class="entities.TransitionEntity"/>
+      <mapping class="entities.UserEntity"/>
+      <mapping class="entities.UserRoleEntity"/>
+      <mapping class="entities.TypeOfActionEntity"/>
+      <mapping class="entities.TypeOfResourceEntity"/>
   </session-factory>
 </hibernate-configuration>

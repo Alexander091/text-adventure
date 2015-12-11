@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by Äìèòðèé on 02.12.2015.
+ * Created by Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹ on 02.12.2015.
  */
 @Entity
 @Table(name = "action", schema = "public", catalog = "netcracker")
-public class ActionEntity {
-    private Long id;
-    private String type;
+public class ActionEntity extends CommonEntity {
+    private TypeOfActionEntity type;
     private String condition;
     private Float value;
     private ActionEntity parent;
@@ -19,8 +18,7 @@ public class ActionEntity {
     private ResourceEntity resource;
     private StatEntity stat;
     private List<ActionEntity> nextActions;
-    @OneToMany
-    @JoinColumn(name = "id", referencedColumnName = "parent")
+    @OneToMany(mappedBy = "parent")
     public List<ActionEntity> getNextActions() {
         return nextActions;
     }
@@ -57,25 +55,13 @@ public class ActionEntity {
         this.stat = stat;
     }
 
-    @Id
-    @SequenceGenerator(name="action_sequence",sequenceName="entity_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="action_sequence")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "type", nullable = false, insertable = true, updatable = true, length = 100)
-    public String getType() {
+    @ManyToOne
+    @JoinColumn(name="type_id", referencedColumnName = "id", nullable = false)
+    public TypeOfActionEntity getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TypeOfActionEntity type) {
         this.type = type;
     }
 

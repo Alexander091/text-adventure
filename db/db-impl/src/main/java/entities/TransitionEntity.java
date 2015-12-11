@@ -3,27 +3,14 @@ package entities;
 import javax.persistence.*;
 
 /**
- * Created by Äìèòðèé on 02.12.2015.
+ * Created by Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹ on 02.12.2015.
  */
 @Entity
 @Table(name = "transition", schema = "public", catalog = "netcracker")
-public class TransitionEntity {
-    private Long id;
+public class TransitionEntity extends CommonEntity {
     private String condition;
     private NodeEntity nodeByToNode;
     private NodeEntity nodeByFromNode;
-
-    @Id
-    @SequenceGenerator(name="transition_sequence",sequenceName="entity_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="transition_sequence")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "condition", nullable = false, insertable = true, updatable = true, length = 1000)
