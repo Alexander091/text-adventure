@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+      <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/netcracker</property>
+      <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+      <property name="hibernate.connection.username">postgres</property>
+      <property name="hibernate.connection.password">1234</property>
+      <property name="hibernate.hbm2ddl.auto">update</property>
+      <property name="hibernate.show_sql">true</property>
+      <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.ActionEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.GameEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.ItemEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.NodeEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.QuestEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.ResourceEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.SavedItemEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.SavedStatEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.StatEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.TransitionEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.UserEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.UserRoleEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.TypeOfActionEntity"/>
+      <mapping class="org.my.adventure.dao_manager.impl.entities.TypeOfResourceEntity"/>
+  </session-factory>
+</hibernate-configuration>

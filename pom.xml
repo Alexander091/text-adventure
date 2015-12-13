@@ -16,6 +16,7 @@
         <module>text-adventure-common</module>
         <module>dashboard</module>
         <module>parent</module>
+        <module>dao-manager</module>
     </modules>
 
     <dependencies>
@@ -59,7 +60,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.3</version>
                 </plugin>
-
+                
             </plugins>
         </pluginManagement>
         <plugins>
