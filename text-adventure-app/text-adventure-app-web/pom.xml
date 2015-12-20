@@ -40,9 +40,8 @@
         </dependency>
     </dependencies>
 
-
     <build>
-        <finalName>TextAdventure</finalName>
+        <finalName>TextAdventureWebApp</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -89,6 +88,16 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>APP-INF/lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>
