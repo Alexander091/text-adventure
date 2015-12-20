@@ -12,7 +12,7 @@ import org.junit.*;
  */
 public class HibernateTest {
 
-    private static SessionFactory sessionFactory;
+    /*private static SessionFactory sessionFactory;
     private Session session;
 
     @BeforeClass
@@ -60,5 +60,5 @@ public class HibernateTest {
     @After
     public void closeSession(){
         session.close();
-    }
+    }*/
 }

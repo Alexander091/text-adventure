@@ -9,11 +9,11 @@ import org.my.adventure.dao_manager.impl.entities.UserRoleEntity;
  * Created by Дмитрий on 11.12.2015.
  */
 public class DAOTest {
-    @Test
+    /*@Test
     public void testDAOClasses(){
         UserRoleEntity role = new UserRoleEntity();
         role.setName("test_role");
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
         userRoleDAO.saveOrUpdate(role);
-    }
+    }*/
 }

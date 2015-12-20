@@ -10,6 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.text-adventure.dashboard</groupId>
     <artifactId>dashboard</artifactId>
     <packaging>pom</packaging>
     <modules>

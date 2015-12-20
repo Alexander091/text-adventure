@@ -16,7 +16,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>core-api</module>
+
         <module>core-imp</module>
         <module>core-webapp</module>
     </modules>
