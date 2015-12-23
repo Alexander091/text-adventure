@@ -3,7 +3,7 @@
   <display-name>text-adventure-app-ear</display-name>
   <module>
     <web>
-      <web-uri>SmartHomeWebApp.war</web-uri>
+      <web-uri>TextAdventure.war</web-uri>
       <context-root>/text-adventure</context-root>
     </web>
   </module>

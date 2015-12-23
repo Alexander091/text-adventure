@@ -25,7 +25,7 @@ public class HibernateTest {
         session = sessionFactory.openSession();
     }
 
-    @Test
+    //@Test
     public void hibernateConnectionToUserRoleTableTest(){
         UserRoleEntity userRoleEntity = new UserRoleEntity();
         userRoleEntity.setName("test_role");
@@ -37,7 +37,7 @@ public class HibernateTest {
         session.flush();
     }
 
-    @Test
+    //@Test
     public void hibernateConnectionToUserTableTest(){
         UserEntity userEntity = new UserEntity();
         userEntity.setName("test_user");
