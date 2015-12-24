@@ -6,8 +6,12 @@ package org.textadventure.dashboard;
 public class UserDAO {
 
     public User getUserByID(int id){
-        User user = new User(id, getLogin(), getPasswordHash(),isBanned());
+        User user = new User(id, getLogin(), getUserName(), getPasswordHash(),isBanned());
         return user;
+    }
+
+    private String getUserName() {
+        return "Maksim Zheltoukhov";
     }
 
     public void setLogin(String login){}
