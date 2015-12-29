@@ -19,6 +19,14 @@
         <module>dao-manager</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>Prime Repo</name>
+            <url>http://repository.primefaces.org</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.sun.faces</groupId>
@@ -43,11 +51,11 @@
             <artifactId>jstl-api</artifactId>
             <version>1.2</version>
         </dependency>
+
         <dependency>
-            <groupId>net.bootsfaces</groupId>
-            <artifactId>bootsfaces</artifactId>
-            <version>0.8.0</version>
-            <scope>compile</scope>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>5.3</version>
         </dependency>
 
 

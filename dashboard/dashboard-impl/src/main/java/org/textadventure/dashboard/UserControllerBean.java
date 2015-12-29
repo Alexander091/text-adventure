@@ -29,4 +29,20 @@ public class UserControllerBean implements Serializable{
     public String getUserName(){
         return user.getUserName();
     }
+
+    public int getAge(){
+        return user.getAge();
+    }
+
+    public String getDate(){
+        return user.getDate();
+    }
+
+    public int getQuestCount(){
+        return user.getQuestCount();
+    }
+
+    public float getRating(){
+        return user.getRating();
+    }
 }
