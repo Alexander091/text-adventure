@@ -2,29 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
+        <artifactId>text-adventure-base</artifactId>
         <groupId>org.text-adventure</groupId>
-        <artifactId>text-adventure-app</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>text-adventure-app-web</artifactId>
+    <artifactId>quest-storage</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <!--<dependencies>-->
-        <!--<dependency>-->
-            <!--<groupId>org.text-adventure.core</groupId>-->
-            <!--<artifactId>core-webapp</artifactId>-->
-            <!--<version>1.0-SNAPSHOT</version>-->
-            <!--<type>war</type>-->
-        <!--</dependency>-->
-    <!--</dependencies>-->
+    <dependencies>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>5.3</version>
+        </dependency>
+    </dependencies>
 
     <build>
-        <finalName>TextAdventureWebApp</finalName>
+        <finalName>QuestStorageWebApp</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -41,4 +39,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

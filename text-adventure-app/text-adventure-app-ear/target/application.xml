@@ -3,8 +3,8 @@
   <display-name>text-adventure-app-ear</display-name>
   <module>
     <web>
-      <web-uri>SmartHomeWebApp.war</web-uri>
-      <context-root>/text-adventure</context-root>
+      <web-uri>TextAdventureWebApp.war</web-uri>
+      <context-root>/TextAdventure</context-root>
     </web>
   </module>
   <library-directory>APP-INF/lib</library-directory>
