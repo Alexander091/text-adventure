@@ -10,16 +10,15 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>core</artifactId>
-    <groupId>org.text-adventure.core</groupId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <modules>
+    <groupId>org.text-adventure</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-        <module>core-imp</module>
-        <module>core-webapp</module>
-    </modules>
+    <dependencyManagement>
+        <dependencies>
 
-
+        </dependencies>
+    </dependencyManagement>
 </project>

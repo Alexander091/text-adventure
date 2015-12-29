@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <p:outputPanel>
+        <div class="ui-grid ui-grid-responsive">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-3">
+                    <p></p>
+                    <p:graphicImage id="pic" url="http://cs623730.vk.me/v623730114/318d2/Tg3W68CvZT8.jpg" style="width:80%;
+                                                                                                            border: 5px solid #1295bf ;
+                                                                                                            box-shadow: -3px -1px 3px -3px #E06B2A, 5px 10px 20px -5px hsla(0, 0%, 0%, .4);
+                                                                                                            border-bottom-right-radius: 20px"/>
+                </div>
+                <div class="ui-grid-col-6">
+                    <h2><h:outputLabel> #{userControllerBean.userName}</h:outputLabel></h2>
+                    <h5><h:outputText value="Age: : " /><h:outputLabel> #{userControllerBean.age}</h:outputLabel></h5>
+                    <h5><h:outputText value="Registration Date: " /><h:outputLabel> #{userControllerBean.date}</h:outputLabel></h5>
+                    <h5><h:outputText value="Completed quests: " /><h:outputLabel> #{userControllerBean.questCount}</h:outputLabel></h5>
+                    <h4><h:outputText value="Raiting: " /><h:outputLabel style="color: #cc0000"> #{userControllerBean.rating}</h:outputLabel></h4>
+                </div>
+                <div class="ui-grid-col-3">
+
+                </div>
+
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-6">
+                    <p></p>
+                    <p></p>
+                    <h:form id="form">
+                        <h3 style="margin-top:0">Quests:</h3>
+                        <p:tabView>
+                            <p:tab title="Started quests">
+                                <p:dataGrid var="startedQuests" value="#{quests.startedQuests}" columns="3" layout="grid"
+                                            rows="3" paginator="true" >
+                                    <p:panel header="#{quest.name}" style="text-align:center">
+                                        <h:panelGrid columns="1" style="width:100%">
+
+                                            <h:outputLink  value="#">
+                                                <p:graphicImage library="images" name="1.jpeg"  style="width:100%"/>
+                                            </h:outputLink>
+
+                                        </h:panelGrid>
+                                    </p:panel>
+
+                                </p:dataGrid>
+                            </p:tab>
+                            <p:tab title="Completed quests">
+                                <p:dataGrid var="completedQuests" value="#{quests.completedQuests}" columns="3" layout="grid"
+                                            rows="3" paginator="true" >
+                                    <p:panel header="#{quest.name}" style="text-align:center">
+                                        <h:panelGrid columns="1" style="width:100%">
+
+                                            <h:outputLink  value="#">
+                                                <p:graphicImage library="images" name="1.jpeg"  style="width:100%"/>
+                                            </h:outputLink>
+
+                                        </h:panelGrid>
+                                    </p:panel>
+
+                                </p:dataGrid>
+                            </p:tab>
+                            <p:tab title="My quests">
+                                <p:dataGrid var="myQuests" value="#{quests.myQuests}" columns="3" layout="grid"
+                                            rows="3" paginator="true" >
+                                    <p:panel header="#{quest.name}" style="text-align:center">
+                                        <h:panelGrid columns="1" style="width:100%">
+
+                                            <h:outputLink  value="#">
+                                                <p:graphicImage library="images" name="1.jpeg"  style="width:100%"/>
+                                            </h:outputLink>
+
+                                        </h:panelGrid>
+                                    </p:panel>
+
+                                </p:dataGrid>
+                            </p:tab>
+                        </p:tabView>
+                    </h:form>
+                </div>
+                <div class="ui-grid-col-6"></div>
+
+            </div>
+            <div class="ui-grid-row">
+
+            </div>
+        </div>
+    </p:outputPanel>
+
+</h:body>
+</html>
+
+
