@@ -22,6 +22,12 @@
             <type>war</type>
         </dependency>
         <dependency>
+            <groupId>org.text-adventure.quest-editor</groupId>
+            <artifactId>quest-editor-webapp</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>2.2.11</version>
@@ -51,44 +57,20 @@
     </dependencies>
 
     <build>
-        <finalName>TextAdventure</finalName>
+        <finalName>TextAdventureWebApp</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>process-overlay</id>
-                        <goals>
-                            <goal>
-                                exploded
-                            </goal>
-                        </goals>
-                        <phase>prepare-package</phase>
-                        <configuration>
-                            <overlays>
-                                <overlay>
-                                    <groupId>org.text-adventure.core</groupId>
-                                    <artifactId>core-webapp</artifactId>
-                                </overlay>
-                            </overlays>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-war</id>
-                        <configuration>
-                            <overlays>
-                                <overlay>
-                                    <groupId>org.text-adventure.core</groupId>
-                                    <artifactId>core-webapp</artifactId>
-                                    <skip>true</skip>
-                                </overlay>
-                            </overlays>
-                            <packagingExcludes>
-                                **/*-sources.jar, **/*-classes.jar
-                            </packagingExcludes>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>APP-INF/lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>

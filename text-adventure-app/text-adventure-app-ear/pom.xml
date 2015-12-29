@@ -32,18 +32,20 @@
                 <version>2.10.1</version>
                 <configuration>
                     <version>7</version>
-                    <outputDirectory>C:\EAI\wildfly-9.0.2.Final\standalone\deployments</outputDirectory>
                     <defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
+                    <useBaseVersion>true</useBaseVersion>
                     <modules>
                         <webModule>
                             <groupId>org.text-adventure</groupId>
                             <artifactId>text-adventure-app-web</artifactId>
                             <unpack>true</unpack>
                             <bundleFileName>TextAdventure.war</bundleFileName>
-                            <contextRoot>/text-adventure</contextRoot>
+                            <contextRoot>/TextAdventure</contextRoot>
                         </webModule>
                     </modules>
+                    <earSourceExcludes>
+                    </earSourceExcludes>
                 </configuration>
             </plugin>
         </plugins>
