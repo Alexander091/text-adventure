@@ -34,15 +34,18 @@
                     <version>7</version>
                     <defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
+                    <useBaseVersion>true</useBaseVersion>
                     <modules>
                         <webModule>
                             <groupId>org.text-adventure</groupId>
                             <artifactId>text-adventure-app-web</artifactId>
                             <unpack>true</unpack>
-                            <bundleFileName>SmartHomeWebApp.war</bundleFileName>
-                            <contextRoot>/text-adventure</contextRoot>
+                            <bundleFileName>TextAdventureWebApp.war</bundleFileName>
+                            <contextRoot>/TextAdventure</contextRoot>
                         </webModule>
                     </modules>
+                    <earSourceExcludes>
+                    </earSourceExcludes>
                 </configuration>
             </plugin>
         </plugins>

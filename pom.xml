@@ -11,6 +11,7 @@
 
     <modules>
         <module>core</module>
+        <module>quest-editor</module>
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>
         <module>dao-manager</module>
@@ -29,7 +30,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.3</version>
                 </plugin>
-                
+
             </plugins>
         </pluginManagement>
         <plugins>
