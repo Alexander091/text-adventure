@@ -1,8 +1,8 @@
 package hibernate;
 
+import org.my.adventure.dao_manager.api.entities.User;
+import org.my.adventure.dao_manager.api.entities.UserRole;
 import org.my.adventure.dao_manager.impl.configurations.HibernateUtil;
-import org.my.adventure.dao_manager.impl.entities.UserEntity;
-import org.my.adventure.dao_manager.impl.entities.UserRoleEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.*;
@@ -27,11 +27,11 @@ public class HibernateTest {
 
     @Test
     public void hibernateConnectionToUserRoleTableTest(){
-        UserRoleEntity userRoleEntity = new UserRoleEntity();
+        UserRole userRoleEntity = new UserRole();
         userRoleEntity.setName("test_role");
         session.save(userRoleEntity);
         session.flush();
-        UserRoleEntity userRoleFromDB = (UserRoleEntity) session.get(UserRoleEntity.class, userRoleEntity.getId());
+        UserRole userRoleFromDB = (UserRole) session.get(UserRole.class, userRoleEntity.getId());
         Assert.assertEquals(userRoleEntity,userRoleFromDB);
         session.delete(userRoleFromDB);
         session.flush();
@@ -39,14 +39,14 @@ public class HibernateTest {
 
     @Test
     public void hibernateConnectionToUserTableTest(){
-        UserEntity userEntity = new UserEntity();
+        User userEntity = new User();
         userEntity.setName("test_user");
         userEntity.setPassword("1234");
         userEntity.setEmail("kgodgdg");
         userEntity.setLogName("log");
         session.save(userEntity);
         session.flush();
-        UserEntity userFromDB = (UserEntity) session.get(UserEntity.class, userEntity.getId());
+        User userFromDB = (User) session.get(User.class, userEntity.getId());
         Assert.assertEquals(userEntity,userFromDB);
         session.delete(userFromDB);
         session.flush();

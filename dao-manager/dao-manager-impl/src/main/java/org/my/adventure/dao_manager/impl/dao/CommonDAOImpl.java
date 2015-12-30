@@ -1,8 +1,8 @@
 package org.my.adventure.dao_manager.impl.dao;
 
 import org.my.adventure.dao_manager.api.dao.CommonDAO;
+import org.my.adventure.dao_manager.api.entities.Common;
 import org.my.adventure.dao_manager.impl.configurations.HibernateUtil;
-import org.my.adventure.dao_manager.impl.entities.CommonEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Дмитрий on 11.12.2015.
  */
-public class CommonDAOImpl<T extends CommonEntity> implements CommonDAO<T> {
+public abstract class CommonDAOImpl<T extends Common> implements CommonDAO<T> {
     private Class<T> type;
     protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
