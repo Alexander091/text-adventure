@@ -1,9 +1,10 @@
 package org.my.adventure.dao_manager.impl.dao;
 
-import org.my.adventure.dao_manager.impl.entities.ItemEntity;
+import org.my.adventure.dao_manager.api.entities.Item;
 
 /**
  * Created by Дмитрий on 11.12.2015.
  */
-public class ItemDAOImpl extends CommonDAOImpl<ItemEntity>{
+public class ItemDAOImpl extends CommonDAOImpl<Item>{
+
 }

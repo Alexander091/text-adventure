@@ -3,7 +3,6 @@ package hibernate;
 import org.junit.Test;
 import org.my.adventure.dao_manager.api.entities.UserRole;
 import org.my.adventure.dao_manager.impl.dao.UserRoleDAOImpl;
-import org.my.adventure.dao_manager.impl.entities.UserRoleEntity;
 
 /**
  * Created by Дмитрий on 11.12.2015.
@@ -11,9 +10,11 @@ import org.my.adventure.dao_manager.impl.entities.UserRoleEntity;
 public class DAOTest {
     @Test
     public void testDAOClasses(){
-        UserRoleEntity role = new UserRoleEntity();
+        UserRole role = new UserRole();
         role.setName("test_role");
         UserRoleDAOImpl userRoleDAO = new UserRoleDAOImpl();
         userRoleDAO.saveOrUpdate(role);
+        UserRole userRoleFromDB = userRoleDAO.getById(role.getId());
+        userRoleDAO.delete(role);
     }
 }
