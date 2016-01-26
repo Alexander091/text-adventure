@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h:panelGrid columns="2" cellpadding="10" style="vertical-align: top;">
+        <p:column rowspan="3">
+            <div  style="width: 500px; height: 500px; background-color: blue; margin: 0px">
+                <p  style="color: white; font-size: 48pt; text-align: center;">Здесь будет граф</p>
+            </div>
+        </p:column>
+        <p:column>
+            <h:panelGrid columns="2" cellpadding="10">
+                        <h:outputText value="Название локации:" />
+                        <h:inputText value="#{test.getHelloWorld()}"></h:inputText>
+
+                        <h:outputText value="Описание:" />
+                        <h:inputTextarea value="#{test.getHelloWorld()}" rows="7" cols="50"></h:inputTextarea>
+
+            </h:panelGrid>
+            <p:accordionPanel>
+                <p:tab title="Действия">
+                    <p:scrollPanel style="height: 250px; width:600px" mode="native">
+                        <p:button value="Добавить" style="margin: 5px"></p:button>
+                        <h:panelGrid columns="3" cellpadding="3">
+                            Действие 1
+                            <p:button value="Изменить"></p:button>
+                            <p:button value="Удалить"></p:button>
+                            Действие 2
+                            <p:button value="Изменить"></p:button>
+                            <p:button value="Удалить"></p:button>
+                            Действие 3
+                            <p:button value="Изменить"></p:button>
+                            <p:button value="Удалить"></p:button>
+                            Действие 4
+                            <p:button value="Изменить"></p:button>
+                            <p:button value="Удалить"></p:button>
+                            Действие 5
+                            <p:button value="Изменить"></p:button>
+                            <p:button value="Удалить"></p:button>
+                            Действие 6
+                            <p:button value="Изменить"></p:button>
+                            <p:button value="Удалить"></p:button>
+                            Действие 7
+                            <p:button value="Изменить"></p:button>
+                            <p:button value="Удалить"></p:button>
+                            Действие 8
+                            <p:button value="Изменить"></p:button>
+                            <p:button value="Удалить"></p:button>
+                        </h:panelGrid>
+                    </p:scrollPanel>
+                </p:tab>
+            </p:accordionPanel>
+        </p:column>
+    </h:panelGrid>
+
+</ui:composition>
