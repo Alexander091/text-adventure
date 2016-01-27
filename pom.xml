@@ -14,9 +14,16 @@
         <module>quest-editor</module>
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>
-        <module>dao-manager</module>
+        <!--<module>dao-manager</module>-->
     </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
     <build>
         <pluginManagement>
             <plugins>

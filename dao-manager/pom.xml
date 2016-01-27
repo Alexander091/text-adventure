@@ -16,6 +16,7 @@
     <modules>
         <module>dao-manager-impl</module>
         <module>dao-manager-api</module>
+        <module>dao-manager-db</module>
     </modules>
     <build>
         <plugins>
