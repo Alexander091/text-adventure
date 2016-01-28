@@ -1,4 +1,4 @@
-package org.my.adventure.dao_manager.impl.dao;
+package org.my.adventure.dao_manager.ejb.dao;
 
 import org.my.adventure.dao_manager.api.entities.Resource;
 

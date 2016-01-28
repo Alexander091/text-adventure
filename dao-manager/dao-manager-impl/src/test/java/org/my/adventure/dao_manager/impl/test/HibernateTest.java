@@ -1,4 +1,4 @@
-package hibernate;
+package org.my.adventure.dao_manager.impl.test;
 
 import org.my.adventure.dao_manager.api.entities.User;
 import org.my.adventure.dao_manager.api.entities.UserRole;

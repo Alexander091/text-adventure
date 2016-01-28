@@ -21,7 +21,7 @@ import java.util.List;
 @RequestScoped
 public class QuestController {
     //@Inject
-    //QuestDAO questDAO;
+    QuestDAO questDAO;
 
     public String getName() {
         return "Test Quest";

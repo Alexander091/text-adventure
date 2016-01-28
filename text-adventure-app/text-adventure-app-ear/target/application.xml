@@ -7,5 +7,11 @@
       <context-root>/TextAdventure</context-root>
     </web>
   </module>
+  <module>
+    <ejb>dao-manager-ejb-1.0-SNAPSHOT.jar</ejb>
+  </module>
+  <module>
+    <ejb>quest-editor-impl-1.0-SNAPSHOT.jar</ejb>
+  </module>
   <library-directory>APP-INF/lib</library-directory>
 </application>

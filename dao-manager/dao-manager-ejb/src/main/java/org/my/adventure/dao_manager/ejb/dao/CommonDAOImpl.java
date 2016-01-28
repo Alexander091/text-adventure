@@ -1,10 +1,11 @@
-package org.my.adventure.dao_manager.impl.dao;
+package org.my.adventure.dao_manager.ejb.dao;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.my.adventure.dao_manager.api.dao.CommonDAO;
 import org.my.adventure.dao_manager.api.entities.Common;
 import org.my.adventure.dao_manager.impl.configurations.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
