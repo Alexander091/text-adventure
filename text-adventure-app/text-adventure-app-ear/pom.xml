@@ -21,6 +21,18 @@
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
         </dependency>
+        <dependency>
+            <groupId>org.text-adventure</groupId>
+            <artifactId>quest-editor-impl</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>org.text-adventure</groupId>
+            <artifactId>dao-manager-ejb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -40,9 +52,17 @@
                             <groupId>org.text-adventure</groupId>
                             <artifactId>text-adventure-app-web</artifactId>
                             <unpack>true</unpack>
-                            <bundleFileName>TextAdventureWebApp.war</bundleFileName>
+                            <bundleFileName>TextAdventure.war</bundleFileName>
                             <contextRoot>/TextAdventure</contextRoot>
                         </webModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>dao-manager-ejb</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>quest-editor-impl</artifactId>
+                        </ejbModule>
                     </modules>
                     <earSourceExcludes>
                     </earSourceExcludes>

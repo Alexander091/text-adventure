@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Hello World!</title>
+</h:head>
+<h:body>
+    <h:form id="form">
+
+        <p:growl id="msgs" showDetail="true" />
+
+        <h3 style="margin-top:0">Test Quest v0.1</h3>
+        <p:toolbar style="margin-bottom: 3px">
+            <f:facet name="left">
+                <p:commandButton type="button" value="Сохранить"></p:commandButton>
+            </f:facet>
+        </p:toolbar>
+        <p:tabView dynamic="true" cache="true">
+            <p:tab  title="Квест">
+                <ui:include src="quest.xhtml"/>
+            </p:tab>
+            <p:tab title="Граф">
+                <ui:include src="graph.xhtml"/>
+            </p:tab>
+            <p:tab title="Характеристики">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="text2" />
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="Предметы">
+                <ui:include src="items.xhtml"/>
+            </p:tab>
+            <p:tab title="Умения">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="text3..." />
+                </h:panelGrid>
+            </p:tab>
+
+            <p:tab title="Звуки">
+                <ui:include src="sounds.xhtml"/>
+            </p:tab>
+            <p:tab title="Картинки">
+                <ui:include src="images.xhtml"/>
+            </p:tab>
+        </p:tabView>
+    </h:form>
+</h:body>
+</html>
