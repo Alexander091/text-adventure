@@ -20,14 +20,14 @@ import java.util.List;
 @ManagedBean(name = "questBean")
 @RequestScoped
 public class QuestController {
-    //@Inject
+    @EJB
     QuestDAO questDAO;
 
     public String getName() {
         return "Test Quest";
     }
-    public String getDescription() {
-        return "222";//questDAO.getTestObject().getDescription();
+    public String getDescription(){
+        return questDAO.getTestObject().getDescription();
     }
     public String[] getAllGenres() {
         return new String[]{"Comedy", "Fantasy", "Horror"};
