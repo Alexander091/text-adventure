@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.text-adventure.quest-editor</groupId>
+        <groupId>org.text-adventure</groupId>
         <artifactId>quest-editor</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>quest-editor-db</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
 
 </project>
