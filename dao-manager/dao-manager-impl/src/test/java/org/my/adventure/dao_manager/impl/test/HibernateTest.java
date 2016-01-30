@@ -37,7 +37,7 @@ public class HibernateTest {
         session.flush();
     }
 
-    //@Test
+    @Test
     public void hibernateConnectionToUserTableTest(){
         User userEntity = new User();
         userEntity.setName("test_user");
