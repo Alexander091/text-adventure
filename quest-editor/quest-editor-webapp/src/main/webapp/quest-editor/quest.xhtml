@@ -9,16 +9,14 @@
         <h:outputText value="Краткое описание:" />
         <h:inputTextarea value="#{questBean.description}" rows="10" cols="50"></h:inputTextarea>
         <h:outputText value="Жанр:" />
-        <p:selectOneMenu value="Choose one">
-            <f:selectItems value="#{questBean.allGenres}"/>
-        </p:selectOneMenu>
+        <p:inputText value="#{questBean.genre}" />
         <h:outputText value="Версия:" />
         <p:inputText value="#{questBean.version}" validatorMessage="Только цифры!">
             <f:validateRegex pattern="^[0-9]+$"/>
         </p:inputText>
-        <h:outputText value="Возрастные ограничения:" />
-        <p:selectOneMenu value="Choose one">
-            <f:selectItems value="#{questBean.allAgeLimits}"/>
-        </p:selectOneMenu>
+        <h:outputText value="Минимальный возраст:" />
+        <p:inputText value="#{questBean.ageLimit}" validatorMessage="Только цифры!">
+            <f:validateRegex pattern="^[0-9]+$"/>
+        </p:inputText>
     </h:panelGrid>
 </ui:composition>
