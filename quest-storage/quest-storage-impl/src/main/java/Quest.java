@@ -1,6 +1,12 @@
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 /**
  * Created by al on 30.12.2015.
  */
+@ManagedBean
+@ViewScoped
 public class Quest {
 
     private String name;

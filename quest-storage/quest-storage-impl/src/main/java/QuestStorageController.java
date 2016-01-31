@@ -1,4 +1,6 @@
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import java.util.ArrayList;
 
 /**
@@ -6,6 +8,7 @@ import java.util.ArrayList;
  */
 
 @ManagedBean
+@ViewScoped
 public class QuestStorageController {
 
     ArrayList<Quest> quests;

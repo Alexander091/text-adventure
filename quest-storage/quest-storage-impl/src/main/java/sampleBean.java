@@ -1,11 +1,11 @@
-import com.sun.org.glassfish.gmbal.ManagedData;
-
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  * Created by al on 31.12.2015.
  */
 @ManagedBean
+@SessionScoped
 public class sampleBean {
 
     private String name = "Success";
