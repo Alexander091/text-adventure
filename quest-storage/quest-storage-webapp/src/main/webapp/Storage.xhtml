@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<h:head></h:head>
+<h:body>
+    <h:form>
+        <p:growl id="messages"/>
+
+    </h:form>
+    <div align="center" style="width: 50%;margin-left: 25%;">
+        <br/><br/><br/><br/>
+        hello
+        <h:outputText value="#{userControllerBean.name} "/>
+        <h:outputText value="#{userControllerBean.UGserAge} "/>
+        <h:outputText value="#{userControllerBean.s} "/>
+        <h:form>
+            <p:dataScroller value="#{questStorageController.quests}" var="quest" chunkSize="2">
+                <f:facet name="header">
+                    Scroll Down to Load More Quests
+                </f:facet>
+
+                <div align="left">
+                    <h:panelGrid columns="10" columnClasses="logo,detail">
+                        <!--<p:graphicImage name="1.jpg" />-->
+                        <p:graphicImage url="https://media.textadventures.co.uk/coverart/8b3d268d-ed3e-4e3f-9c4c-7eaddc4b943b.jpg" height="150px" width="150px"/>
+                        <p:outputPanel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Name:" />
+                                <h:outputText value="#{quest.name}" style="font-weight: bold"/>
+
+                                <h:outputText value="genre:" />
+                                <h:outputText value="#{quest.genre}" style="font-weight: bold"/>
+
+                                <h:outputText value="Rating:" />
+                                <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
+
+                                <h:outputText value="Difficulty:" />
+                                <h:outputText value="#{quest.difficulty}" style="font-weight: bold"/>
+
+                                <p:button outcome="index" value="Play" icon="ui-icon-star">
+                                    <f:param name="productId" value="10" />
+                                </p:button>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </div>
+            </p:dataScroller>
+        </h:form>
+        <br/><br/><br/>
+        <h:form id="form">
+            <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="2" layout="grid"
+                        rows="2" paginator="true" id="quests"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="2, 6,12,16">
+
+                <f:facet name="header">
+                    Quests to play
+                </f:facet>
+
+                <p:panel header="#{quest.name}" style="text-align: center">
+                    <p:graphicImage url="https://media.textadventures.co.uk/coverart/8b3d268d-ed3e-4e3f-9c4c-7eaddc4b943b.jpg" height="150px" width="150px"/>
+                    <h:panelGrid columns="2" style="width: 100%">
+
+                        <h:outputText value="genre:"  style="text-align: right;"/>
+                        <h:outputText value="#{quest.genre}" style="font-weight: bold; text-align: left"/>
+
+                        <h:outputText value="Rating:" />
+                        <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
+
+                        <h:outputText value="Difficulty:" />
+                        <h:outputText value="#{quest.difficulty}" style="font-weight: bold"/>
+                    </h:panelGrid>
+
+                    <p:button outcome="index" value="Play" icon="ui-icon-star">
+                    <f:param name="productId" value="10" />
+                </p:button>
+                </p:panel>
+            </p:dataGrid>
+        </h:form>
+    </div>
+</h:body>
+</html>

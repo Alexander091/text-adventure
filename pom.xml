@@ -10,11 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!--<module>core</module>-->
-        <module>quest-editor</module>
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>
-        <module>dao-manager</module>
         <module>quest-storage</module>
     </modules>
     <dependencies>
