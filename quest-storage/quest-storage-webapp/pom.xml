@@ -6,48 +6,28 @@
 
     <parent>
         <groupId>org.text-adventure</groupId>
-        <artifactId>text-adventure-app</artifactId>
+        <artifactId>quest-storage</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>text-adventure-app-web</artifactId>
+    <artifactId>quest-storage-webapp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <dependencies>
         <dependency>
             <groupId>org.text-adventure</groupId>
-            <artifactId>quest-storage-webapp</artifactId>
+            <artifactId>quest-storage-impl</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.text-adventure</groupId>
-            <artifactId>quest-editor-webapp</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.text-adventure</groupId>
-            <artifactId>quest-editor-impl</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
-
     <build>
-        <finalName>TextAdventureWebApp</finalName>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>APP-INF/lib/</classpathPrefix>
-                        </manifest>
-                    </archive>
                 </configuration>
             </plugin>
         </plugins>

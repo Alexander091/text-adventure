@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!--<module>core</module>-->
         <module>quest-editor</module>
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>
@@ -18,12 +17,6 @@
         <module>quest-storage</module>
     </modules>
     <dependencies>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>

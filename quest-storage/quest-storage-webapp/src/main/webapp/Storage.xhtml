@@ -4,23 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
-<h:head></h:head>
+<h:head>
+    Quest storage
+</h:head>
 <h:body>
     <h:form>
         <p:growl id="messages"/>
-
     </h:form>
     <div align="center" style="width: 50%;margin-left: 25%;">
         <br/><br/><br/><br/>
+        <h:outputText value="#{sampleBean.name}"/>
         <h:form>
             <p:dataScroller value="#{questStorageController.quests}" var="quest" chunkSize="2">
                 <f:facet name="header">
                     Scroll Down to Load More Quests
                 </f:facet>
-
                 <div align="left">
                     <h:panelGrid columns="10" columnClasses="logo,detail">
-                        <p:graphicImage name="1.jpg" />
                         <p:graphicImage url="https://media.textadventures.co.uk/coverart/8b3d268d-ed3e-4e3f-9c4c-7eaddc4b943b.jpg" height="150px" width="150px"/>
                         <p:outputPanel>
                             <h:panelGrid columns="2" cellpadding="5">
