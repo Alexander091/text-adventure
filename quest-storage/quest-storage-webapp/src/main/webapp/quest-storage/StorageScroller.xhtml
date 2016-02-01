@@ -5,15 +5,13 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-    Quest storage
+    <title>Quest storage scroller</title>
 </h:head>
 <h:body>
     <h:form>
         <p:growl id="messages"/>
     </h:form>
-    <div align="center" style="width: 50%;margin-left: 25%;">
-        <br/><br/><br/><br/>
-        <h:outputText value="#{sampleBean.name}"/>
+    <div align="center">
         <h:form>
             <p:dataScroller value="#{questStorageController.quests}" var="quest" chunkSize="2">
                 <f:facet name="header">
@@ -33,48 +31,34 @@
                                 <h:outputText value="Rating:" />
                                 <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
 
-                                <h:outputText value="Difficulty:" />
-                                <h:outputText value="#{quest.difficulty}" style="font-weight: bold"/>
+                                <h:outputText value="Age limit:" />
+                                <h:outputText value="#{quest.ageLimit}" style="font-weight: bold"/>
+
+                                <h:outputText value="Version:" />
+                                <h:outputText value="#{quest.version}" style="font-weight: bold"/>
+
+                                <h:outputText value="Description:" />
+                                <h:outputText value="#{quest.description}" style="font-weight: bold"/>
 
                                 <p:button outcome="index" value="Play" icon="ui-icon-star">
                                     <f:param name="productId" value="10" />
                                 </p:button>
+
+                                <div>
+                                    <p:commandButton value="Delete" id="ajax"
+                                                     actionListener="#{questStorageController.deleteQuest(quest)}" styleClass="ui-priority-primary" />
+                                    <p:button outcome="quest-editor/editor.xhtml" value="Edit" icon="ui-icon-star">
+                                        <f:param name="productId" value="10" />
+                                    </p:button>
+                                    <!--<p:commandButton value="Non ajax delete" id="nonAjax"-->
+                                                     <!--actionListener="#{questStorageController.deleteQuest(quest)}" ajax="false" />-->
+                                </div>
+
                             </h:panelGrid>
                         </p:outputPanel>
                     </h:panelGrid>
                 </div>
             </p:dataScroller>
-        </h:form>
-        <br/><br/><br/>
-        <h:form id="form">
-            <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="2" layout="grid"
-                        rows="2" paginator="true" id="quests"
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="2, 6,12,16">
-
-                <f:facet name="header">
-                    Quests to play
-                </f:facet>
-
-                <p:panel header="#{quest.name}" style="text-align: center">
-                    <p:graphicImage url="https://media.textadventures.co.uk/coverart/8b3d268d-ed3e-4e3f-9c4c-7eaddc4b943b.jpg" height="150px" width="150px"/>
-                    <h:panelGrid columns="2" style="width: 100%">
-
-                        <h:outputText value="genre:"  style="text-align: right;"/>
-                        <h:outputText value="#{quest.genre}" style="font-weight: bold; text-align: left"/>
-
-                        <h:outputText value="Rating:" />
-                        <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
-
-                        <h:outputText value="Difficulty:" />
-                        <h:outputText value="#{quest.difficulty}" style="font-weight: bold"/>
-                    </h:panelGrid>
-
-                    <p:button outcome="index" value="Play" icon="ui-icon-star">
-                    <f:param name="productId" value="10" />
-                </p:button>
-                </p:panel>
-            </p:dataGrid>
         </h:form>
     </div>
 </h:body>

@@ -7,7 +7,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class Quest {
+public class LocalQuest {
 
     private String name;
     private String genre;
@@ -15,10 +15,10 @@ public class Quest {
     private QuestDifficulty difficulty;
 
 
-    public Quest() {
+    public LocalQuest() {
     }
 
-    public Quest(String name, String genre, double rating, QuestDifficulty difficulty) {
+    public LocalQuest(String name, String genre, double rating, QuestDifficulty difficulty) {
         this.name = name;
         this.genre = genre;
         this.rating = rating;
