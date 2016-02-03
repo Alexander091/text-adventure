@@ -15,16 +15,17 @@
         <p:column>
             <h:panelGrid columns="2" cellpadding="10">
                         <h:outputText value="Название локации:" />
-                        <h:inputText value="#{test.getHelloWorld()}"></h:inputText>
+                        <h:inputText styleClass="locationName"></h:inputText>
 
                         <h:outputText value="Описание:" />
-                        <h:inputTextarea value="#{test.getHelloWorld()}" rows="7" cols="50"></h:inputTextarea>
+                        <h:inputTextarea rows="7" cols="50"></h:inputTextarea>
 
             </h:panelGrid>
             <p:accordionPanel>
                 <p:tab title="Действия">
                     <p:scrollPanel style="height: 175px; width:600px" mode="native">
-                        <p:button id="add_action_button" value="Добавить" style="margin: 5px"></p:button>
+                        <!--<p:button id="add_action_button" value="Добавить" style="margin: 5px"></p:button>-->
+                        <button id="add_action_button" value="Add" style="margin: 5px">Add</button>
                         <h:panelGrid columns="3" cellpadding="3">
                             Действие 1
                             <p:button value="Изменить"></p:button>
@@ -56,5 +57,5 @@
             </p:accordionPanel>
         </p:column>
     </h:panelGrid>
-
+    <!--<h:inputHidden id="questData" value="#{questController.questData}"></h:inputHidden>-->
 </ui:composition>

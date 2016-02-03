@@ -1,6 +1,6 @@
-$(function() { // on dom ready
-    $('#cy').cytoscape({
-
+$(document).ready(function() { // on dom ready
+    var cy = cytoscape({
+        container: document.getElementById('cy'),
         style: cytoscape.stylesheet()
             .selector('node')
             .css({
@@ -27,97 +27,117 @@ $(function() { // on dom ready
                 'text-opacity': 0
             }),
 
-        elements: {
-            nodes: [{
-                data: {
-                    id: 'j',
-                    name: 'Jerry'
-                }
-            }, {
-                data: {
-                    id: 'e',
-                    name: 'Elaine'
-                }
-            }, {
-                data: {
-                    id: 'k',
-                    name: 'Kramer'
-                }
-            }, {
-                data: {
-                    id: 'g',
-                    name: 'George'
-                }
-            }],
-            edges: [{
-                data: {
-                    source: 'j',
-                    target: 'e'
-                }
-            }, {
-                data: {
-                    source: 'j',
-                    target: 'k'
-                }
-            }, {
-                data: {
-                    source: 'j',
-                    target: 'g'
-                }
-            }, {
-                data: {
-                    source: 'e',
-                    target: 'j'
-                }
-            }, {
-                data: {
-                    source: 'e',
-                    target: 'k'
-                }
-            }, {
-                data: {
-                    source: 'k',
-                    target: 'j'
-                }
-            }, {
-                data: {
-                    source: 'k',
-                    target: 'e'
-                }
-            }, {
-                data: {
-                    source: 'k',
-                    target: 'g'
-                }
-            }, {
-                data: {
-                    source: 'g',
-                    target: 'j'
-                }
-            }]
-        },
+        //elements: {
+        //    nodes: [{
+        //        data: {
+        //            id: 'j',
+        //            name: 'Jerry'
+        //        }
+        //    }, {
+        //        data: {
+        //            id: 'e',
+        //            name: 'Elaine'
+        //        }
+        //    }, {
+        //        data: {
+        //            id: 'k',
+        //            name: 'Kramer'
+        //        }
+        //    }, {
+        //        data: {
+        //            id: 'g',
+        //            name: 'George'
+        //        }
+        //    }],
+        //    edges: [{
+        //        data: {
+        //            source: 'j',
+        //            target: 'e'
+        //        }
+        //    }, {
+        //        data: {
+        //            source: 'j',
+        //            target: 'k'
+        //        }
+        //    }, {
+        //        data: {
+        //            source: 'j',
+        //            target: 'g'
+        //        }
+        //    }, {
+        //        data: {
+        //            source: 'e',
+        //            target: 'j'
+        //        }
+        //    }, {
+        //        data: {
+        //            source: 'e',
+        //            target: 'k'
+        //        }
+        //    }, {
+        //        data: {
+        //            source: 'k',
+        //            target: 'j'
+        //        }
+        //    }, {
+        //        data: {
+        //            source: 'k',
+        //            target: 'e'
+        //        }
+        //    }, {
+        //        data: {
+        //            source: 'k',
+        //            target: 'g'
+        //        }
+        //    }, {
+        //        data: {
+        //            source: 'g',
+        //            target: 'j'
+        //        }
+        //    }]
+        //},
 
-        ready: function() {
-            window.cy = this;
-
-            // giddy up...
-
-            cy.elements().unselectify();
-
-            cy.on('tap', 'node', function(e) {
-                var node = e.cyTarget;
-                var neighborhood = node.neighborhood().add(node);
-
-                cy.elements().addClass('faded');
-                neighborhood.removeClass('faded');
-            });
-
-            cy.on('tap', function(e) {
-                if (e.cyTarget === cy) {
-                    cy.elements().removeClass('faded');
-                }
-            });
-        }
+        //ready: function() {
+        //    window.cy = this;
+        //
+        //    // giddy up...
+        //
+        //    cy.elements().unselectify();
+        //
+        //    cy.on('tap', 'node', function(e) {
+        //        var node = e.cyTarget;
+        //        var neighborhood = node.neighborhood().add(node);
+        //
+        //        cy.elements().addClass('faded');
+        //        neighborhood.removeClass('faded');
+        //    });
+        //
+        //    cy.on('tap', function(e) {
+        //        if (e.cyTarget === cy) {
+        //            cy.elements().removeClass('faded');
+        //        }
+        //    });
+        //}
 
     });
+    cy.on('tap', 'node', function(e) {
+        var node = e.cyTarget;
+        var neighborhood = node.neighborhood().add(node);
+
+        cy.elements().addClass('faded');
+        neighborhood.removeClass('faded');
+    });
+
+    cy.on('tap', function(e) {
+        if (e.cyTarget === cy) {
+            cy.elements().removeClass('faded');
+        }
+    });
+    $.getJSON("http://localhost:8080/TextAdventure/rest/quest/getData")
+        .success(function(data) {
+            console.log("graph data fetched from service");
+            cy.add(data);
+        })
+        .error(function() {console.log("error on fetching graph data from service")});
 }); // on dom ready
+

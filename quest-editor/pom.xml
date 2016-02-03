@@ -18,6 +18,7 @@
         <module>quest-editor-impl</module>
         <module>quest-editor-webapp</module>
         <module>quest-editor-db</module>
+        <module>quest-editor-web</module>
     </modules>
 
 
