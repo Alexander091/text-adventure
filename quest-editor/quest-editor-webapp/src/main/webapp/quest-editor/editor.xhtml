@@ -9,24 +9,26 @@
 
 <h:head>
     <title>Hello World!</title>
+    <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+    <h:outputScript library="js" name="cytoscape.js"></h:outputScript>
+    <h:outputScript library="js" name="script.js"></h:outputScript>
+    <!--<h:outputScript library="js" name="help.js"></h:outputScript>-->
 </h:head>
 <h:body>
     <h:form id="form">
 
         <p:growl id="msgs" showDetail="true" />
-
-        <h3 style="margin-top:0">Test Quest v0.1</h3>
         <p:toolbar style="margin-bottom: 3px">
             <f:facet name="left">
                 <p:commandButton type="button" value="Сохранить"></p:commandButton>
             </f:facet>
         </p:toolbar>
-        <p:tabView dynamic="true" cache="true">
-            <p:tab  title="Квест">
-                <ui:include src="quest.xhtml"/>
-            </p:tab>
+        <p:tabView dynamic="true">
             <p:tab title="Граф">
                 <ui:include src="graph.xhtml"/>
+            </p:tab>
+            <p:tab  title="Квест">
+                <ui:include src="quest.xhtml"/>
             </p:tab>
             <p:tab title="Характеристики">
                 <h:panelGrid columns="2" cellpadding="10">

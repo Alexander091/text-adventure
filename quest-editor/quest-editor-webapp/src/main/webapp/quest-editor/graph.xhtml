@@ -3,10 +3,13 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
+    <h:outputScript library="js" name="cytoscape.js"></h:outputScript>
+    <h:outputScript library="js" name="script.js"></h:outputScript>
     <h:panelGrid columns="2" cellpadding="10" style="vertical-align: top;">
-        <p:column rowspan="3">
-            <div  style="width: 500px; height: 500px; background-color: blue; margin: 0px">
-                <p  style="color: white; font-size: 48pt; text-align: center;">Здесь будет граф</p>
+        <p:column>
+            <div style="height: 500px; width: 500px;">
+                <div id="cy">
+                </div>
             </div>
         </p:column>
         <p:column>
@@ -20,8 +23,8 @@
             </h:panelGrid>
             <p:accordionPanel>
                 <p:tab title="Действия">
-                    <p:scrollPanel style="height: 250px; width:600px" mode="native">
-                        <p:button value="Добавить" style="margin: 5px"></p:button>
+                    <p:scrollPanel style="height: 175px; width:600px" mode="native">
+                        <p:button id="add_action_button" value="Добавить" style="margin: 5px"></p:button>
                         <h:panelGrid columns="3" cellpadding="3">
                             Действие 1
                             <p:button value="Изменить"></p:button>
