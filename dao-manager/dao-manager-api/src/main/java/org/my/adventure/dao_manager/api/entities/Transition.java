@@ -7,18 +7,29 @@ import javax.persistence.*;
 @Entity
 @Table(name = "transition", schema = "public", catalog = "netcracker")
 public class Transition extends Common{
+    private String name;
     private String condition;
     private Node nodeByToNode;
     private Node nodeByFromNode;
 
     @Basic
-    @Column(name = "condition", nullable = false, insertable = true, updatable = true, length = 1000)
-    public String getCondition() {
+     @Column(name = "condition", nullable = false, insertable = true, updatable = true, length = 1000)
+     public String getCondition() {
         return condition;
     }
 
     public void setCondition(String condition) {
         this.condition = condition;
+    }
+
+    @Basic
+    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 200)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @ManyToOne
