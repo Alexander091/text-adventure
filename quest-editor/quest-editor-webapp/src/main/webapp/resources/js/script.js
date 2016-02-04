@@ -133,6 +133,7 @@ $(document).ready(function() { // on dom ready
             cy.elements().removeClass('faded');
         }
     });
+
     $.getJSON("http://localhost:8080/TextAdventure/rest/quest/getData/123")
         .success(function(data) {
             console.log("graph data fetched from service");

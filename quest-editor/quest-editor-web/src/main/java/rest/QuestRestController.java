@@ -2,8 +2,10 @@ package rest;
 
 import org.my.adventure.dao_manager.api.dao.NodeDAO;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
+import org.my.adventure.dao_manager.api.dao.TransitionDAO;
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Transition;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
 
@@ -23,6 +25,8 @@ import java.util.List;
 public class QuestRestController {
     @EJB
     NodeDAO nodeDAO;
+    @EJB
+    TransitionDAO transitionDAO;
     @GET
     @Path("/getData/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -33,9 +37,9 @@ public class QuestRestController {
             JSONObject nodeJson = new JSONObject();
             nodeJson.put("group", "nodes");
             JSONObject dataJson = new JSONObject();
-            dataJson.put("id", node.getId());
+            dataJson.put("id", "n"+node.getId());
             dataJson.put("name", node.getName());
-            dataJson.put("description", node.getDescription());
+            //dataJson.put("description", node.getDescription());
             nodeJson.put("data", dataJson);
             String position = node.getPosition();
             Integer posx = Integer.parseInt(position.split(" ")[0]);
@@ -46,10 +50,31 @@ public class QuestRestController {
             nodeJson.put("position", positionJson);
             resultJsonArray.put(nodeJson);
         }
+        for (Node node : nodes) {
+            List<Transition> transitions = node.getTransitions();
+            for(Transition transition : transitions)
+            {
+                JSONObject transitionJson = new JSONObject();
+                transitionJson.put("group", "edges");
+                JSONObject dataJson = new JSONObject();
+                dataJson.put("id", "e"+transition.getId());//l
+//                dataJson.put("name", transition.getName());
+                dataJson.put("source","n"+ transition.getNodeByFromNode().getId());
+                dataJson.put("target","n"+ transition.getNodeByToNode().getId());
+                transitionJson.put("data", dataJson);
+                resultJsonArray.put(transitionJson);
+            }
+        }
         String result = resultJsonArray.toString();
-        return result;
-//        return "[{\"group\": \"nodes\", \"data\": {\"id\": \"n0\"}, \"position\": { \"x\": 100, \"y\": 100}}, " +
-//                "{\"group\": \"nodes\", \"data\": {\"id\": \"n1\"}, \"position\": { \"x\": 200, \"y\": 200}}, " +
-//                "{\"group\": \"edges\", \"data\": {\"id\": \"e0\", \"source\": \"n0\", \"target\": \"n1\"}}]";
+        return result;/*
+        return "[{\"group\": \"nodes\", \"data\": {\"id\": \"n0\", \"name\": \"a\"}, \"position\": { \"x\": 100, \"y\": 100}}, " +
+                "{\"group\": \"nodes\", \"data\": {\"id\": \"n1\", \"name\": \"b\"}, \"position\": { \"x\": 200, \"y\": 200}}, " +
+                "{\"group\": \"nodes\", \"data\": {\"id\": \"n2\", \"name\": \"c\"}, \"position\": { \"x\": 300, \"y\": 300}}, " +
+                "{\"group\": \"edges\", \"data\": {\"id\": \"e0\", \"source\": \"n0\", \"target\": \"n1\"}}," +
+                "{\"group\": \"edges\", \"data\": {\"id\": \"e1\", \"source\": \"n1\", \"target\": \"n2\"}}," +
+                "{\"group\": \"edges\", \"data\": {\"id\": \"e2\", \"source\": \"n1\", \"target\": \"n0\"}}," +
+                "{\"group\": \"edges\", \"data\": {\"id\": \"e3\", \"source\": \"n2\", \"target\": \"n1\"}}," +
+                "{\"group\": \"edges\", \"data\": {\"id\": \"e4\", \"source\": \"n0\", \"target\": \"n2\"}}," +
+                "{\"group\": \"edges\", \"data\": {\"id\": \"e5\", \"source\": \"n2\", \"target\": \"n0\"}}]";*/
     }
 }
