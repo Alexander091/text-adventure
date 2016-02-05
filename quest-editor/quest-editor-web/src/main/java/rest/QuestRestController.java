@@ -28,9 +28,9 @@ public class QuestRestController {
     @EJB
     TransitionDAO transitionDAO;
     @GET
-    @Path("/getData/{id}")
+    @Path("/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String testData(@PathParam("id") Long id) {
+    public String getData(@PathParam("id") Long id) {
         List<Node> nodes = nodeDAO.getNodesByQuestId(id);
         JSONArray resultJsonArray = new JSONArray();
         for(Node node : nodes){
@@ -39,7 +39,6 @@ public class QuestRestController {
             JSONObject dataJson = new JSONObject();
             dataJson.put("id", "n"+node.getId());
             dataJson.put("name", node.getName());
-            //dataJson.put("description", node.getDescription());
             nodeJson.put("data", dataJson);
             String position = node.getPosition();
             Integer posx = Integer.parseInt(position.split(" ")[0]);
@@ -57,8 +56,7 @@ public class QuestRestController {
                 JSONObject transitionJson = new JSONObject();
                 transitionJson.put("group", "edges");
                 JSONObject dataJson = new JSONObject();
-                dataJson.put("id", "e"+transition.getId());//l
-//                dataJson.put("name", transition.getName());
+                dataJson.put("id", "e"+transition.getId());
                 dataJson.put("source","n"+ transition.getNodeByFromNode().getId());
                 dataJson.put("target","n"+ transition.getNodeByToNode().getId());
                 transitionJson.put("data", dataJson);

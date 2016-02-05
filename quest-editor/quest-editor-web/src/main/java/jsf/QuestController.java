@@ -45,8 +45,8 @@ public class QuestController {
     public int getAgeLimit() {
         return questBean.getAgeLimit();
     }
-    public String getQuestData() {
+    public String getData() {
         String data = questBean.getQuestData();
         return questBean.getQuestData();
     }
-}
+}//l

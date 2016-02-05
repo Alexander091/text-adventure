@@ -13,49 +13,63 @@
             </div>
         </p:column>
         <p:column>
-            <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Название локации:" />
-                        <h:inputText styleClass="locationName"></h:inputText>
-
-                        <h:outputText value="Описание:" />
-                        <h:inputTextarea rows="7" cols="50"></h:inputTextarea>
-
-            </h:panelGrid>
-            <p:accordionPanel>
-                <p:tab title="Действия">
-                    <p:scrollPanel style="height: 175px; width:600px" mode="native">
-                        <!--<p:button id="add_action_button" value="Добавить" style="margin: 5px"></p:button>-->
-                        <button id="add_action_button" value="Add" style="margin: 5px">Add</button>
-                        <h:panelGrid columns="3" cellpadding="3">
-                            Действие 1
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 2
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 3
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 4
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 5
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 6
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 7
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 8
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                        </h:panelGrid>
-                    </p:scrollPanel>
-                </p:tab>
-            </p:accordionPanel>
+            <div id="nodeInfo">
+                <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="Название локации:" />
+                            <h:inputText styleClass="nodeName"></h:inputText>
+                            <h:outputText value="Описание:" />
+                            <h:inputTextarea rows="7" cols="50" styleClass="nodeDescription"></h:inputTextarea>
+                            <h:inputHidden styleClass="nodeId"/>
+                </h:panelGrid>
+                <p:accordionPanel>
+                    <p:tab title="Действия">
+                        <p:scrollPanel style="height: 175px; width:600px" mode="native">
+                            <!--<p:button id="add_action_button" value="Добавить" style="margin: 5px"></p:button>-->
+                            <button id="add_action_button" value="Add" style="margin: 5px">Add</button>
+                            <h:panelGrid columns="3" cellpadding="3">
+                                Действие 1
+                                <p:button value="Изменить"></p:button>
+                                <p:button value="Удалить"></p:button>
+                                Действие 2
+                                <p:button value="Изменить"></p:button>
+                                <p:button value="Удалить"></p:button>
+                                Действие 3
+                                <p:button value="Изменить"></p:button>
+                                <p:button value="Удалить"></p:button>
+                                Действие 4
+                                <p:button value="Изменить"></p:button>
+                                <p:button value="Удалить"></p:button>
+                                Действие 5
+                                <p:button value="Изменить"></p:button>
+                                <p:button value="Удалить"></p:button>
+                                Действие 6
+                                <p:button value="Изменить"></p:button>
+                                <p:button value="Удалить"></p:button>
+                                Действие 7
+                                <p:button value="Изменить"></p:button>
+                                <p:button value="Удалить"></p:button>
+                                Действие 8
+                                <p:button value="Изменить"></p:button>
+                                <p:button value="Удалить"></p:button>
+                            </h:panelGrid>
+                        </p:scrollPanel>
+                    </p:tab>
+                </p:accordionPanel>
+            </div>
+            <div id="transitionInfo" style="display:none;">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="Название перехода:" />
+                    <h:inputText styleClass="transitionName"></h:inputText>
+                    <h:outputText value="Откуда:" />
+                    <h:inputText styleClass="sourceName"></h:inputText>
+                    <h:outputText value="Куда:" />
+                    <h:inputText styleClass="targetName"></h:inputText>
+                    <h:inputHidden styleClass="sourceId"/>
+                    <h:inputHidden styleClass="targetId"/>
+                    <h:inputHidden styleClass="transitionId"/>
+                </h:panelGrid>
+            </div>
         </p:column>
+
     </h:panelGrid>
-    <!--<h:inputHidden id="questData" value="#{questController.questData}"></h:inputHidden>-->
 </ui:composition>
