@@ -8,20 +8,20 @@
     <title>Quest storage scroller</title>
 </h:head>
 <h:body>
-    <h:form>
-        <p:growl id="messages"/>
-    </h:form>
     <div align="center">
-        <h:form>
-            <p:dataScroller value="#{questStorageController.quests}" var="quest" chunkSize="2">
+        <h:form id="scroller">
+            <p:dataScroller value="#{questStorageController.quests}" var="quest" chunkSize="3" id="dataScroller">
                 <f:facet name="header">
                     Scroll Down to Load More Quests
                 </f:facet>
                 <div align="left">
                     <h:panelGrid columns="10" columnClasses="logo,detail">
-                        <p:graphicImage url="https://media.textadventures.co.uk/coverart/8b3d268d-ed3e-4e3f-9c4c-7eaddc4b943b.jpg" height="150px" width="150px"/>
+                        <p:graphicImage url="/resources/images/arrow.png" height="150px" width="150px"/>
                         <p:outputPanel>
                             <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{quest.id}" style="font-weight: bold"/>
+
                                 <h:outputText value="Name:" />
                                 <h:outputText value="#{quest.name}" style="font-weight: bold"/>
 
@@ -43,15 +43,8 @@
                                 <p:button outcome="index" value="Play" icon="ui-icon-star">
                                     <f:param name="productId" value="10" />
                                 </p:button>
-
+                                <p:commandButton value="Delete" id="Ajax" actionListener="#{questStorageController.deleteQuest(quest.id)}" ajax="false"/>
                                 <div>
-                                    <p:commandButton value="Delete" id="ajax"
-                                                     actionListener="#{questStorageController.deleteQuest(quest)}" styleClass="ui-priority-primary" />
-                                    <p:button outcome="quest-editor/editor.xhtml" value="Edit" icon="ui-icon-star">
-                                        <f:param name="productId" value="10" />
-                                    </p:button>
-                                    <!--<p:commandButton value="Non ajax delete" id="nonAjax"-->
-                                                     <!--actionListener="#{questStorageController.deleteQuest(quest)}" ajax="false" />-->
                                 </div>
 
                             </h:panelGrid>
