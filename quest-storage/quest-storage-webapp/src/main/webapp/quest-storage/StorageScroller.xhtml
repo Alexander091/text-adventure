@@ -10,15 +10,16 @@
 <h:body>
     <div align="center">
         <h:form id="scroller">
+
             <p:dataScroller value="#{questStorageController.quests}" var="quest" chunkSize="3" id="dataScroller">
                 <f:facet name="header">
                     Scroll Down to Load More Quests
                 </f:facet>
                 <div align="left">
-                    <h:panelGrid columns="10" columnClasses="logo,detail">
-                        <p:graphicImage url="/resources/images/arrow.png" height="150px" width="150px"/>
+                    <p:panelGrid columns="3" style="width: 100%">
+                        <p:graphicImage url="#{quest.imageResource.path}" width="150px" />
                         <p:outputPanel>
-                            <h:panelGrid columns="2" cellpadding="5">
+                            <p:panelGrid columns="2">
                                 <h:outputText value="Id:" />
                                 <h:outputText value="#{quest.id}" style="font-weight: bold"/>
 
@@ -36,20 +37,22 @@
 
                                 <h:outputText value="Version:" />
                                 <h:outputText value="#{quest.version}" style="font-weight: bold"/>
-
-                                <h:outputText value="Description:" />
-                                <h:outputText value="#{quest.description}" style="font-weight: bold"/>
-
-                                <p:button outcome="index" value="Play" icon="ui-icon-star">
-                                    <f:param name="productId" value="10" />
-                                </p:button>
-                                <p:commandButton value="Delete" id="Ajax" actionListener="#{questStorageController.deleteQuest(quest.id)}" ajax="false"/>
-                                <div>
-                                </div>
-
-                            </h:panelGrid>
+                            </p:panelGrid>
                         </p:outputPanel>
-                    </h:panelGrid>
+                        <p:outputPanel>
+                            <h:outputText value="Description: " />
+                            <h:outputText value="#{quest.description}" style="font-weight: bold"/>
+                        </p:outputPanel>
+                        <!--<p:button outcome="index" value="Play" icon="ui-icon-star">-->
+                        <!--<f:param name="productId" value="10" />-->
+                        <!--</p:button>-->
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Delete" id="Ajax"
+                                             actionListener="#{questStorageController.deleteQuest(quest.id)}"
+                                             ajax="true" update="dataScroller"/>
+                        </f:facet>
+                    </p:panelGrid>
                 </div>
             </p:dataScroller>
         </h:form>

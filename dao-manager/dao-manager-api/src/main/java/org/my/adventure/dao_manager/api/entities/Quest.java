@@ -19,6 +19,18 @@ public class Quest extends Common{
     private List<Resource> resources;
     private List<Stat> stats;
     private Node startNode;
+    private Resource imageResource;
+
+
+    @OneToOne
+    @JoinColumn(name="image_resource", referencedColumnName = "id")
+    public Resource getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(Resource imageResource) {
+        this.imageResource = imageResource;
+    }
 
     @OneToOne
     @JoinColumn(name="start_node", referencedColumnName = "id")

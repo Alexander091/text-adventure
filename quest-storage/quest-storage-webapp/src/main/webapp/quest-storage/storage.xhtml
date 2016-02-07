@@ -5,20 +5,36 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <title>Quest storage</title>
-</h:head>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:body>
-    <h:form>
-        <p:tabView dynamic="true" cache="true">
-            <p:tab  title="Scroller">
-                <ui:include src="StorageScroller.xhtml"/>
-            </p:tab>
-            <p:tab title="Grid">
-                <ui:include src="StorageGrid.xhtml"/>
-            </p:tab>
-        </p:tabView>
-    </h:form>
+    <ui:composition template="/templates/layout.xhtml">
+        <ui:define name="content">
+            <!--<h:form>-->
+                <!--<h:inputText value="#{questStorageController.layout}"/>-->
+                <!--<h:outputText value="#{questStorageController.layout}" id="lay"/>-->
+                <!--<p:commandButton value="lay" update="lay, lay2" />-->
+            <!--</h:form>-->
+            <div style="width: 90%">
+
+                <h:form>
+                    <c:choose>
+                        <c:when test="#{questStorageController.layout.equals('scroller')}">
+                            <ui:include src="StorageScroller.xhtml"/>
+                        </c:when>
+                        <c:when test="#{questStorageController.layout.equals('grid')}">
+                            <ui:include src="StorageGrid.xhtml"/>
+                        </c:when>
+                        <c:otherwise>
+                            <!--<ui:include src="StorageGrid.xhtml"/>-->
+                        </c:otherwise>
+                    </c:choose>
+                    <!--<p:button outcome="storage.xhtml" value="submit" icon="ui-icon-star">-->
+                    <!--<f:param name="productId" value="10" />-->
+                    <!--</p:button>-->
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>
