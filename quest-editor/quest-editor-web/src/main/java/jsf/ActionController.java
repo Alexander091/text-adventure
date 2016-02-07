@@ -1,5 +1,4 @@
-package org.my.adventure.questeditor.impl;
-
+package jsf;
 
 import javax.faces.bean.ManagedBean;
 import javax.inject.Named;

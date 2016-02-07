@@ -5,21 +5,21 @@ rating, version, start_node)
 
 
 
-INSERT INTO public.node(id, description, name, quest_id)
+INSERT INTO public.node(id, description, name, quest_id, position)
  VALUES(1, 'Дом, милый дом',
-  'Дом', 123);
+  'Дом', 123, '250 125');
 
-INSERT INTO public.node(id, description, name, quest_id)
+INSERT INTO public.node(id, description, name, quest_id, position)
  VALUES(2, 'Странные звуки доносятся из этого леса ночью...',
-  'Лес', 123);
+  'Лес', 123, '125 250');
 
- INSERT INTO public.node(id, description, name, quest_id)
+ INSERT INTO public.node(id, description, name, quest_id, position)
  VALUES(3, 'Немало странников пропало на этой дороге',
-  'Дорога', 123);
+  'Дорога', 123, '375 250');
 
- INSERT INTO public.node(id, description, name, quest_id)
+ INSERT INTO public.node(id, description, name, quest_id, position)
  VALUES(4, 'Вы прошли все трудности и победили! Поздравляем!',
-  'Финал', 123);
+  'Финал', 123, '250 375');
 
  INSERT INTO public.transition(id, condition, name, from_node, to_node)
  VALUES(1, 'Тест', 'Пройтись в лес', 1, 2);
