@@ -9,17 +9,8 @@
     <title>Welcome to text adventures world!</title>
 </h:head>
 <h:body>
-    <p:growl id="messages"/>
-    <h:form>
-        <div align="center" style="width: 90%;margin-left: 5%;">
-            <ui:insert name="menu">
-                <ui:include src="menu.xhtml"/>
-            </ui:insert>
-            <ui:insert name="content">
-                <ui:include src="quest-editor/editor.xhtml"/>
-            </ui:insert>
-        </div>
-        <p:sticky target="tb" />
-    </h:form>
+    <ui:insert name="content">
+        <ui:include src="/quest-storage/storage.xhtml"/>
+    </ui:insert>
 </h:body>
 </html>

@@ -1,8 +1,8 @@
 import org.hibernate.HibernateError;
-import org.my.adventure.dao_manager.api.dao.QuestDAO;
+import org.my.adventure.dao_manager.api.dao.*;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Resource;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
@@ -14,7 +14,7 @@ import java.util.List;
  * Created by al on 30.12.2015.
  */
 
-@ManagedBean
+@ManagedBean(name = "questStorageController")
 @SessionScoped
 public class QuestStorageController implements Serializable{
 
@@ -35,11 +35,6 @@ public class QuestStorageController implements Serializable{
     public QuestStorageController(){
     }
 
-    @PostConstruct
-    private void init(){
-        quest = questDAO.getById(123L);
-    }
-
     public List<Quest> getQuests(){
         List<Quest> quests = questDAO.getAll();
         quests.sort(new Comparator<Quest>() {
@@ -53,7 +48,8 @@ public class QuestStorageController implements Serializable{
     public void deleteQuest(Long id){
         System.out.println("deleting " + id+ " " + questDAO.getById(id));
         try {
-            questDAO.delete(questDAO.getById(id));
+            Quest quest = questDAO.getById(id);
+            questDAO.delete(quest);
         }catch (HibernateError h){
             System.out.println(h.getMessage());
         }

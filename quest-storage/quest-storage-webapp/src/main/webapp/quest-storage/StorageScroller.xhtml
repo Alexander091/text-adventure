@@ -17,7 +17,7 @@
                 </f:facet>
                 <div align="left">
                     <p:panelGrid columns="3" style="width: 100%">
-                        <p:graphicImage url="#{quest.imageResource.path}" width="150px" />
+                        <p:graphicImage url="#{quest.imagePath}" width="250px" />
                         <p:outputPanel>
                             <p:panelGrid columns="2">
                                 <h:outputText value="Id:" />
@@ -43,11 +43,13 @@
                             <h:outputText value="Description: " />
                             <h:outputText value="#{quest.description}" style="font-weight: bold"/>
                         </p:outputPanel>
-                        <!--<p:button outcome="index" value="Play" icon="ui-icon-star">-->
-                        <!--<f:param name="productId" value="10" />-->
-                        <!--</p:button>-->
-
                         <f:facet name="footer">
+                            <p:button outcome="/index.xhtml" value="Play" icon="ui-icon-star">
+                                <f:param name="questId" value="#{quest.id}" />
+                            </p:button>
+                            <p:button outcome="/quest-editor/editor.xhtml" value="Edit" icon="ui-icon-star">
+                                <f:param name="questId" value="#{quest.id}" />
+                            </p:button>
                             <p:commandButton value="Delete" id="Ajax"
                                              actionListener="#{questStorageController.deleteQuest(quest.id)}"
                                              ajax="true" update="dataScroller"/>

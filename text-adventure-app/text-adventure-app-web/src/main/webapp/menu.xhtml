@@ -10,17 +10,17 @@
     <ui:composition>
         <p:toolbar id="tb">
             <f:facet name="left">
-                <!--<p:button outcome="/index.x" value="Home" icon="ui-icon-star">-->
-                    <!--<f:param name="questId" value="10" />-->
-                <!--</p:button>-->
-                <!--<p:button outcome="/" value="Quest editor" icon="ui-icon-star">-->
-                    <!--<f:param name="questId" value="10" />-->
-                <!--</p:button>-->
-                <!--<p:button outcome="/" value="Quest storage" icon="ui-icon-star">-->
-                    <!--<f:param name="questId" value="10" />-->
-                <!--</p:button>-->
-                <p:commandButton type="button" value="New" icon="ui-icon-document" />
-                <p:commandButton type="button" value="Open" icon="ui-icon-folder-open"/>
+                <p:button outcome="/index.xhtml" value="Home" icon="ui-icon-star">
+                    <f:param name="questId" value="10" />
+                </p:button>
+                <p:button outcome="/quest-editor/editor.xhtml" value="Quest editor" icon="ui-icon-star">
+                    <f:param name="questId" value="10" />
+                </p:button>
+                <p:button outcome="/quest-storage/storage.xhtml" value="Quest storage" icon="ui-icon-star">
+                    <f:param name="questId" value="10" />
+                </p:button>
+                <!--<p:commandButton type="button" value="New" icon="ui-icon-document" />-->
+                <!--<p:commandButton type="button" value="Open" icon="ui-icon-folder-open"/>-->
             </f:facet>
             <f:facet name="right">
                 <!--<p:button outcome="index.xhtml" value="User data" icon="ui-icon-star">-->
