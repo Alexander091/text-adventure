@@ -1,9 +1,9 @@
 package org.my.adventure.dao_manager.api.entities;
+import javax.persistence.*;
 
 /**
  * Created by Дмитрий on 02.12.2015.
  */
-import javax.persistence.*;
 @Entity
 @Table(name = "resource", schema = "public", catalog = "netcracker")
 public class Resource extends Common{

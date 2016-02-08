@@ -19,7 +19,17 @@ public class Quest extends Common{
     private List<Resource> resources;
     private List<Stat> stats;
     private Node startNode;
-    private String imagePath;
+    private Resource image;
+
+    @OneToOne
+    @JoinColumn(name = "image")
+    public Resource getImage() {
+        return image;
+    }
+
+    public void setImage(Resource image) {
+        this.image = image;
+    }
 
     @OneToOne
     @JoinColumn(name="start_node", referencedColumnName = "id")
@@ -118,15 +128,5 @@ public class Quest extends Common{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Basic
-    @Column(name = "image_path")
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 }

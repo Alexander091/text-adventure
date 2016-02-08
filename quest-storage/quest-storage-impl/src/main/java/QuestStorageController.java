@@ -20,7 +20,6 @@ public class QuestStorageController implements Serializable{
 
     @EJB
     QuestDAO questDAO;
-    Quest quest = null;
 
     String layout = "scroller";
 
