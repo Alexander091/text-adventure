@@ -5,6 +5,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.my.adventure.dao_manager.api.dao.NodeDAO;
 import org.my.adventure.dao_manager.api.entities.Node;
+import org.my.adventure.dao_manager.api.entities.Transition;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -22,6 +23,16 @@ public class NodeDAOImpl extends CommonDAOImpl<Node> implements NodeDAO{
         Query query = session.createQuery(hql);
         query.setParameter("id", questId);
         List<Node> result = query.list();
+        session.close();
+        return result;
+    }
+
+    public List<Transition> getNeighborTransitions(long nodeId) {
+        Session session = sessionFactory.openSession();
+        String hql = "FROM org.my.adventure.dao_manager.api.entities.Transition as Trans WHERE Trans.nodeByToNode.id = :id or Trans.nodeByFromNode.id=:id";
+        Query query = session.createQuery(hql);
+        query.setParameter("id", nodeId);
+        List<Transition> result = query.list();
         session.close();
         return result;
     }

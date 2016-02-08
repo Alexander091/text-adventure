@@ -1,6 +1,7 @@
 package org.my.adventure.dao_manager.api.dao;
 
 import org.my.adventure.dao_manager.api.entities.Node;
+import org.my.adventure.dao_manager.api.entities.Transition;
 
 import java.util.List;
 
@@ -9,4 +10,5 @@ import java.util.List;
  */
 public interface NodeDAO extends CommonDAO<Node> {
     List<Node> getNodesByQuestId(long questId);
+    List<Transition> getNeighborTransitions(long nodeId);
 }

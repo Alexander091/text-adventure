@@ -1,6 +1,7 @@
 package jsf;
 
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
+import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.questeditor.impl.QuestBean;
 
@@ -49,4 +50,7 @@ public class QuestController {
         String data = questBean.getQuestData();
         return questBean.getQuestData();
     }
-}//l
+    public List<Node> getAllNodes() {
+        return questBean.getAllNodes();
+    }
+}
