@@ -1,8 +1,7 @@
-package jsf;
+package org.my.adventure.questeditor.impl;
 
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
 import org.my.adventure.dao_manager.api.entities.Quest;
-import org.my.adventure.questeditor.impl.QuestBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -18,35 +17,29 @@ import java.util.List;
 /**
  * Created by dimko_000 on 10.12.2015.
  */
-@ManagedBean(name = "questController")
-@SessionScoped
+@ManagedBean(name = "questBean")
+@RequestScoped
 public class QuestController {
-    @Inject
-    QuestBean questBean = null;
+    @EJB
+    QuestDAO questDAO;
+    Quest quest = null;
     @PostConstruct
-    public void init() {
-        loadQuest(123L);
-    }
-    public void loadQuest(long id) {
-        questBean.loadQuest(id);
+    private void init() {
+        quest = questDAO.getById(123L);
     }
     public String getName() {
-        return questBean.getName();
+        return quest.getName();
     }
     public String getDescription(){
-        return questBean.getDescription();
+        return quest.getDescription();
     }
     public String getGenre() {
-        return questBean.getGenre();
+        return quest.getGenre();
     }
     public int getVersion() {
-        return questBean.getVersion();
+        return quest.getVersion();
     }
     public int getAgeLimit() {
-        return questBean.getAgeLimit();
+        return quest.getAgeLimit();
     }
-    public String getData() {
-        String data = questBean.getQuestData();
-        return questBean.getQuestData();
-    }
-}//l
+}
