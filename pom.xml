@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>core</module>
+       <!--- <module>core</module> -->
         <module>quest-editor</module>
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>

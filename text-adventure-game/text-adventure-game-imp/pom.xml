@@ -7,11 +7,19 @@
     <parent>
         <groupId>org.text-adventure.game</groupId>
         <artifactId>text-adventure-game</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <artifactId>text-adventure-game-imp</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.text-adventure.quest-editor</groupId>
+            <artifactId>quest-editor-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
