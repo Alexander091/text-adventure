@@ -8,6 +8,6 @@ import java.rmi.RemoteException;
 /**
  * Created by Дмитрий on 11.12.2015.
  */
-public interface QuestDAO extends CommonDAO<Quest> {
+public interface QuestDAO{
     Quest getTestObject();
 }

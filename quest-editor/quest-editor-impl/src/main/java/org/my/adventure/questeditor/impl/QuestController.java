@@ -22,24 +22,20 @@ import java.util.List;
 public class QuestController {
     @EJB
     QuestDAO questDAO;
-    Quest quest = null;
-    @PostConstruct
-    private void init() {
-        quest = questDAO.getById(123L);
-    }
+
     public String getName() {
-        return quest.getName();
+        return "Test Quest";
     }
     public String getDescription(){
-        return quest.getDescription();
+        return questDAO.getTestObject().getDescription();
     }
-    public String getGenre() {
-        return quest.getGenre();
+    public String[] getAllGenres() {
+        return new String[]{"Comedy", "Fantasy", "Horror"};
     }
     public int getVersion() {
-        return quest.getVersion();
+        return 1;
     }
-    public int getAgeLimit() {
-        return quest.getAgeLimit();
+    public String[] getAllAgeLimits() {
+        return new String[] {"0+","3+","6+","12+", "16+", "18+"};
     }
 }
