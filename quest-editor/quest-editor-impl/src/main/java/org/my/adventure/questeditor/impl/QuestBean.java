@@ -7,13 +7,14 @@ import org.my.adventure.dao_manager.api.entities.Quest;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by dimko_000 on 03.02.2016.
  */
 @Stateful
-public class QuestBean {
+public class QuestBean implements Serializable{
     @EJB
     QuestDAO questDAO;
     @EJB
@@ -39,6 +40,24 @@ public class QuestBean {
     }
     public int getAgeLimit() {
         return quest.getAgeLimit();
+    }
+    public void setName(String name) {
+        quest.setName(name);
+    }
+    public void setDescription(String description) {
+        quest.setDescription(description);
+    }
+    public void setGenre(String genre) {
+        quest.setGenre(genre);
+    }
+    public void setVersion(int version) {
+        quest.setVersion(version);
+    }
+    public void setAgeLimit(int ageLimit) {
+        quest.setAgeLimit(ageLimit);
+    }
+    public void saveQuest() {
+        questDAO.saveOrUpdate(quest);
     }
     public List<Node> getAllNodes() {
         List<Node> nodes = nodeDAO.getNodesByQuestId(quest.getId());

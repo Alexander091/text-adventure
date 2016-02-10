@@ -12,8 +12,12 @@
     <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
 </h:head>
 <h:body>
+    <f:metadata>
+        <f:viewParam name="questId" value="#{questController.questId}"/>
+        <f:viewAction action="#{questController.init}"/>
+    </f:metadata>
     <h:form id="form">
-
+        <h:inputText styleClass="questIdInput" style="display: none;" value="#{questController.questId}"></h:inputText>
         <p:growl id="msgs" showDetail="true" />
         <!--<p:toolbar style="margin-bottom: 3px">-->
             <!--<f:facet name="left">-->

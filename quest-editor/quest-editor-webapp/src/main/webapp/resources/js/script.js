@@ -230,7 +230,7 @@ $(document).ready(function() { // on dom ready
         }
     });
 
-    $.getJSON("http://localhost:8080/TextAdventure/rest/quest/get/123")
+    $.getJSON("http://localhost:8080/TextAdventure/rest/quest/get/" + $('.questIdInput').val())
         .success(function(data) {
             console.log("graph data fetched from service");
             cy.add(data);
