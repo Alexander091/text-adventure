@@ -1,4 +1,4 @@
-package rest;
+package org.my.adventure.questeditor.web.rest;
 
 import org.my.adventure.dao_manager.api.dao.NodeDAO;
 import org.my.adventure.dao_manager.api.dao.TransitionDAO;

@@ -1,4 +1,4 @@
-package rest;
+package org.my.adventure.questeditor.web.rest;
 
 import jdk.nashorn.internal.parser.JSONParser;
 import org.hibernate.Query;
@@ -84,10 +84,10 @@ public class NodeRestController {
     @Path("/delete/{id}")
     public void deleteNode(@PathParam("id") Long id) {
         Node node = nodeDAO.getById(id);
-        List<Transition> neighborTransitions = nodeDAO.getNeighborTransitions(id);
+       /* List<Transition> neighborTransitions = nodeDAO.getNeighborTransitions(id);
         for(Transition t : neighborTransitions) {
             transitionDAO.delete(t);
-        }
+        }*/
         nodeDAO.delete(node);
     }
 }

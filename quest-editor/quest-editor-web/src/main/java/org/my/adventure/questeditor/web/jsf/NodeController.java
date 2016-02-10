@@ -1,4 +1,4 @@
-package jsf;
+package org.my.adventure.questeditor.web.jsf;
 
 import org.my.adventure.questeditor.impl.NodeBean;
 
