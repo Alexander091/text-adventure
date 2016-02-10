@@ -1,12 +1,12 @@
 package org.my.adventure.dao_manager.api.entities;
+import javax.persistence.*;
 
 /**
  * Created by Дмитрий on 02.12.2015.
  */
-import javax.persistence.*;
 @Entity
 @Table(name = "resource", schema = "public", catalog = "netcracker")
-public class Resource extends Common {
+public class Resource extends Common{
     private TypeOfResource type;
     private String name;
     private String path;
@@ -43,7 +43,7 @@ public class Resource extends Common {
     }
 
     @ManyToOne
-    @JoinColumn(name = "quest_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "quest_id", referencedColumnName = "id", nullable = true)
     public Quest getQuestByQuestId() {
         return questByQuestId;
     }

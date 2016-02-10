@@ -10,12 +10,21 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>core</module>
         <module>quest-editor</module>
         <module>text-adventure-app</module>
         <module>text-adventure-common</module>
         <module>dao-manager</module>
+        <module>quest-storage</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>Prime Repo</name>
+            <url>http://repository.primefaces.org</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -28,7 +37,18 @@
             <artifactId>primefaces</artifactId>
             <version>5.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>glass-x</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
+        </dependency>
     </dependencies>
+
     <build>
         <pluginManagement>
             <plugins>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+    <h:form>
+        <p:growl id="messages"/>
+    </h:form>
+    <div align="center">
+        <h:form id="form">
+            <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="2" layout="grid"
+                        rows="4" paginator="true" id="quests"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                        {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="2,4,6,12,16">
+
+                <f:facet name="header">
+                    Quests to play
+                </f:facet>
+
+                <p:panel header="#{quest.name}" style="text-align: center">
+                    <p:graphicImage url="/resources/images/arrow.png" height="150px" width="150px"/>
+                    <h:panelGrid columns="2" style="width: 100%">
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{quest.id}" style="font-weight: bold"/>
+
+                        <h:outputText value="Name:" />
+                        <h:outputText value="#{quest.name}" style="font-weight: bold"/>
+
+                        <h:outputText value="genre:" />
+                        <h:outputText value="#{quest.genre}" style="font-weight: bold"/>
+
+                        <h:outputText value="Rating:" />
+                        <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
+
+                        <h:outputText value="Age limit:" />
+                        <h:outputText value="#{quest.ageLimit}" style="font-weight: bold"/>
+
+                        <h:outputText value="Version:" />
+                        <h:outputText value="#{quest.version}" style="font-weight: bold"/>
+
+                        <h:outputText value="Description:" />
+                        <h:outputText value="#{quest.description}" style="font-weight: bold"/>
+                    </h:panelGrid>
+
+                    <p:button outcome="index" value="Play" icon="ui-icon-star">
+                        <f:param name="productId" value="10" />
+                    </p:button>
+                    <p:commandButton value="Delete" id="nonAjax"
+                                     actionListener="#{questStorageController.deleteQuest(quest.id)}" ajax="true" />
+                </p:panel>
+            </p:dataGrid>
+        </h:form>
+    </div>
+</h:body>
+</html>
