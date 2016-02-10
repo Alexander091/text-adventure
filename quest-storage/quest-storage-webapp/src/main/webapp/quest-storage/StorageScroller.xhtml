@@ -3,7 +3,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
     <title>Quest storage scroller</title>
 </h:head>
@@ -50,9 +51,14 @@
                             <p:button outcome="/quest-editor/editor.xhtml" value="Edit" icon="ui-icon-star">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:commandButton value="Delete" id="Ajax"
-                                             actionListener="#{questStorageController.deleteQuest(quest.id)}"
-                                             ajax="true" update="dataScroller"/>
+                            <p:commandButton value="Delete" actionListener="#{questStorageController.deleteQuest(quest.id)}" update="dataScroller">
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
                         </f:facet>
                     </p:panelGrid>
                 </div>
