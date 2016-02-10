@@ -48,7 +48,8 @@ public class NodeRestController {
         node.setDescription(jsonData.getString("description"));
         node.setQuestByQuestId(questDAO.getById(jsonData.getLong("questId")));
         node.setPosition(jsonData.getString("position"));
-        nodeDAO.saveOrUpdate(node);
+        Long id = nodeDAO.saveOrUpdate(node);
+        node.setId(id);
         JSONObject outputJson = new JSONObject();
         outputJson.put("group", "nodes");
         JSONObject dataJson = new JSONObject();

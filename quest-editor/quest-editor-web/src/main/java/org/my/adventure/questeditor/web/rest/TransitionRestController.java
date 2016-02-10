@@ -41,7 +41,8 @@ public class TransitionRestController {
         transition.setNodeByFromNode(nodeDAO.getById(jsonData.getLong("source")));
         transition.setNodeByToNode(nodeDAO.getById(jsonData.getLong("target")));
         transition.setCondition("test condition");
-        transitionDAO.saveOrUpdate(transition);
+        Long id = transitionDAO.saveOrUpdate(transition);
+        transition.setId(id);
         JSONObject outputJson = new JSONObject();
         outputJson.put("group", "edges");
         JSONObject dataJson = new JSONObject();

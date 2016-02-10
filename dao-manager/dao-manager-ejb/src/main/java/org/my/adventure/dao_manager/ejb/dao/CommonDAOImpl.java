@@ -30,11 +30,12 @@ public abstract class CommonDAOImpl<T extends Common> implements CommonDAO<T> {
         return result;
     }
 
-    public void saveOrUpdate(Common object){
+    public Long saveOrUpdate(Common object){
         Session session = sessionFactory.openSession();
         session.saveOrUpdate(object);
         session.flush();
         session.close();
+        return object.getId();
     }
 
     public List<T> getAll(){
