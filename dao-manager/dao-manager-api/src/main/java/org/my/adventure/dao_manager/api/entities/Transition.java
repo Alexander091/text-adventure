@@ -7,14 +7,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "transition", schema = "public", catalog = "netcracker")
 public class Transition extends Common{
-    private String name;
     private String condition;
+    private String name;
     private Node nodeByToNode;
     private Node nodeByFromNode;
 
     @Basic
-     @Column(name = "condition", nullable = false, insertable = true, updatable = true, length = 1000)
-     public String getCondition() {
+    @Column(name = "condition", nullable = false, insertable = true, updatable = true, length = 1000)
+    public String getCondition() {
         return condition;
     }
 
