@@ -16,9 +16,11 @@
         <f:viewParam name="questId" value="#{questController.questId}"/>
         <f:viewAction action="#{questController.init}"/>
     </f:metadata>
-    <h:form id="form">
+    <!--<h:form id="form">-->
+    <h:form id="editorForm">
         <h:inputText styleClass="questIdInput" style="display: none;" value="#{questController.questId}"></h:inputText>
         <p:growl id="msgs" showDetail="true" />
+    </h:form>
         <!--<p:toolbar style="margin-bottom: 3px">-->
             <!--<f:facet name="left">-->
                 <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
@@ -31,19 +33,19 @@
             <p:tab  title="Квест">
                 <ui:include src="quest.xhtml"/>
             </p:tab>
-            <p:tab title="Характеристики">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:outputText value="text2" />
-                </h:panelGrid>
-            </p:tab>
-            <p:tab title="Предметы">
-                <ui:include src="items.xhtml"/>
-            </p:tab>
-            <p:tab title="Умения">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:outputText value="text3..." />
-                </h:panelGrid>
-            </p:tab>
+            <!--<p:tab title="Характеристики">-->
+                <!--<h:panelGrid columns="2" cellpadding="10">-->
+                    <!--<h:outputText value="text2" />-->
+                <!--</h:panelGrid>-->
+            <!--</p:tab>-->
+            <!--<p:tab title="Предметы">-->
+                <!--<ui:include src="items.xhtml"/>-->
+            <!--</p:tab>-->
+            <!--<p:tab title="Умения">-->
+                <!--<h:panelGrid columns="2" cellpadding="10">-->
+                    <!--<h:outputText value="text3..." />-->
+                <!--</h:panelGrid>-->
+            <!--</p:tab>-->
 
             <p:tab title="Звуки">
                 <ui:include src="sounds.xhtml"/>
@@ -52,7 +54,7 @@
                 <ui:include src="images.xhtml"/>
             </p:tab>
         </p:tabView>
-    </h:form>
+    <!--</h:form>-->
     <h:outputScript library="js" name="cytoscape.js"></h:outputScript>
     <h:outputScript library="js" name="script.js"></h:outputScript>
 </h:body>
