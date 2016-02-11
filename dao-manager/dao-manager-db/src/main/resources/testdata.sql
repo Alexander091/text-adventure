@@ -41,4 +41,6 @@ INSERT INTO public.node(id, description, name, quest_id, position)
 
 UPDATE public.quest
 SET start_node = 1
-where id = 123;
+where id = 123
+
+-- text
