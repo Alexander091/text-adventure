@@ -5,31 +5,30 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
 <h:body>
-    <h:form>
-        <p:growl id="messages"/>
-    </h:form>
     <div align="center">
         <h:form id="form">
-            <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="2" layout="grid"
-                        rows="4" paginator="true" id="quests"
+            <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="3" layout="grid"
+                        rows="3" paginator="true" id="quests"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="2,4,6,12,16">
+                        rowsPerPageTemplate="3,6,9,12,18">
 
-                <f:facet name="header">
-                    Quests to play
+                <f:facet name="header" id="header">
+                    Quest to play
                 </f:facet>
 
-                <p:panel header="#{quest.name}" style="text-align: center">
-                    <p:graphicImage url="/resources/images/arrow.png" height="150px" width="150px"/>
+                <p:panel style="text-align: center">
+
+                    <f:facet name="header">
+                        <p style="color: seashell; float: right; position: relative">#{quest.ageLimit}+</p>
+                        <p style="position: relative; float: left;">#{quest.name}</p>
+                    </f:facet>
+
+                    <p:graphicImage url="#{quest.image.path}"
+                                    style="height: 300px; max-width: 100%"
+                                    onclick="PF('dlg#{quest.id}').show();"/>
+
                     <h:panelGrid columns="2" style="width: 100%">
-
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{quest.id}" style="font-weight: bold"/>
-
-                        <h:outputText value="Name:" />
-                        <h:outputText value="#{quest.name}" style="font-weight: bold"/>
-
                         <h:outputText value="genre:" />
                         <h:outputText value="#{quest.genre}" style="font-weight: bold"/>
 
@@ -41,16 +40,48 @@
 
                         <h:outputText value="Version:" />
                         <h:outputText value="#{quest.version}" style="font-weight: bold"/>
-
-                        <h:outputText value="Description:" />
-                        <h:outputText value="#{quest.description}" style="font-weight: bold"/>
                     </h:panelGrid>
 
-                    <p:button outcome="index" value="Play" icon="ui-icon-star">
-                        <f:param name="productId" value="10" />
-                    </p:button>
-                    <p:commandButton value="Delete" id="nonAjax"
-                                     actionListener="#{questStorageController.deleteQuest(quest.id)}" ajax="true" />
+                    <p:dialog header="#{quest.name}" widgetVar="dlg#{quest.id}"
+                              showEffect="clip" hideEffect="clip"
+                              width="60%" modal="true"
+                              draggable="false" resizable="false"
+                              dynamic="true" closeOnEscape="true">
+                        <p:graphicImage url="#{quest.image.path}" style="height: 300px"/>
+                        <p>#{quest.description}</p>
+                        <div>
+                            <p:button outcome="/index.xhtml" value="Play">
+                                <f:param name="questId" value="#{quest.id}" />
+                            </p:button>
+                            <p:button outcome="/quest-editor/editor.xhtml" value="Edit">
+                                <f:param name="questId" value="#{quest.id}" />
+                            </p:button>
+                            <p:commandButton value="Delete" actionListener="#{questStorageController.deleteQuest(quest.id)}" update="quests">
+                                <p:confirm header="Confirmation" message="Are you sure?"/>
+                            </p:commandButton>
+                        </div>
+                    </p:dialog>
+
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Info" onclick="PF('dlg#{quest.id}').show();"/>
+                            <p:button outcome="/index.xhtml" value="Play">
+                                <f:param name="questId" value="#{quest.id}" />
+                            </p:button>
+                            <p:button outcome="/quest-editor/editor.xhtml" value="Edit">
+                                <f:param name="questId" value="#{quest.id}" />
+                            </p:button>
+                            <p:commandButton value="Delete" actionListener="#{questStorageController.deleteQuest(quest.id)}" update="quests">
+                                <p:confirm header="Confirmation" message="Are you sure?"/>
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closeOnEscape="true" closable="true">
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            </p:confirmDialog>
+                        </div>
+                    </f:facet>
+
                 </p:panel>
             </p:dataGrid>
         </h:form>

@@ -10,17 +10,12 @@
 <h:body>
 
     <ui:composition template="/templates/layout.xhtml">
+        <ui:define name="menu">
+            <!--<ui:include src="/templates/menu.xhtml"/>-->
+            <ui:include src="StorageMenu.xhtml"/>
+        </ui:define>
         <ui:define name="content">
-            <!--<p:button outcome="/templates/layout.xhtml" value="submit" icon="ui-icon-star">-->
-                <!--<f:param name="productId" value="10" />-->
-            <!--</p:button>-->
-            <!--<h:form>-->
-                <!--<h:inputText value="#{questStorageController.layout}"/>-->
-                <!--<h:outputText value="#{questStorageController.layout}" id="lay"/>-->
-                <!--<p:commandButton value="lay" update="lay, lay2" />-->
-            <!--</h:form>-->
-            <div style="width: 90%">
-
+            <div style="width: 100%">
                 <h:form>
                     <c:choose>
                         <c:when test="#{questStorageController.layout.equals('scroller')}">
@@ -30,12 +25,9 @@
                             <ui:include src="StorageGrid.xhtml"/>
                         </c:when>
                         <c:otherwise>
-                            <!--<ui:include src="StorageGrid.xhtml"/>-->
+                            <ui:include src="/templates/error.xhtml"/>
                         </c:otherwise>
                     </c:choose>
-                    <!--<p:button outcome="storage.xhtml" value="submit" icon="ui-icon-star">-->
-                    <!--<f:param name="productId" value="10" />-->
-                    <!--</p:button>-->
                 </h:form>
             </div>
         </ui:define>

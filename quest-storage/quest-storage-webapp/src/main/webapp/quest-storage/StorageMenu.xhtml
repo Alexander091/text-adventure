@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+    <ui:composition template="/templates/menu.xhtml">
+        <ui:define name="menu_left">
+            <f:facet name="left">
+                <p:button outcome="/index.xhtml" value="Home" icon="ui-icon-star">
+                    <f:param name="questId" value="10" />
+                </p:button>
+                <p:button outcome="/quest-editor/editor.xhtml" value="Quest editor" icon="ui-icon-star">
+                    <f:param name="questId" value="10" />
+                </p:button>
+                <p:button outcome="/quest-storage/storage.xhtml" value="Quest storage" icon="ui-icon-star">
+                    <f:param name="questId" value="10" />
+                </p:button>
+            </f:facet>
+        </ui:define>
+        <ui:define name="menu_right">
+            <f:facet name="right">
+                <p:commandButton value="change layout"
+                                 actionListener="#{questStorageController.changeLayout()}" ajax="false"/>
+                <p:commandButton type="button" title="Save" icon="ui-icon-disk"/>
+                <p:commandButton type="button" title="Delete" icon="ui-icon-trash"/>
+                <p:commandButton type="button" title="Print" icon="ui-icon-print"/>
+            </f:facet>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

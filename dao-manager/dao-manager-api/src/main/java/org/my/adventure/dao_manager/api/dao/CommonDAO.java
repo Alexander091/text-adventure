@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface CommonDAO<T extends Common> {
     T getById(Long id);
-    void saveOrUpdate(Common object);
+    Long saveOrUpdate(Common object);
     List<T> getAll();
     void delete(Common object);
 }
