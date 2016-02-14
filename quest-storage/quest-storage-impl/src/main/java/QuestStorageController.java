@@ -36,11 +36,11 @@ public class QuestStorageController implements Serializable{
 
     public List<Quest> getQuests(){
         List<Quest> quests = questDAO.getAll();
-        quests.sort(new Comparator<Quest>() {
+        /*quests.sort(new Comparator<Quest>() {
             public int compare(Quest o1, Quest o2) {
                 return o1.getId() > o2.getId() ? 1 : (o1.getId() < o2.getId()) ? -1 : 0;
             }
-        });
+        });*/
         return quests;
     }
 
