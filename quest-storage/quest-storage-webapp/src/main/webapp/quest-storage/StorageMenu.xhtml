@@ -9,19 +9,6 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
     <ui:composition template="/templates/menu.xhtml">
-        <ui:define name="menu_left">
-            <f:facet name="left">
-                <p:button outcome="/index.xhtml" value="Home" icon="ui-icon-star">
-                    <f:param name="questId" value="10" />
-                </p:button>
-                <p:button outcome="/quest-editor/editor.xhtml" value="Quest editor" icon="ui-icon-star">
-                    <f:param name="questId" value="10" />
-                </p:button>
-                <p:button outcome="/quest-storage/storage.xhtml" value="Quest storage" icon="ui-icon-star">
-                    <f:param name="questId" value="10" />
-                </p:button>
-            </f:facet>
-        </ui:define>
         <ui:define name="menu_right">
             <f:facet name="right">
                 <p:commandButton value="change layout"

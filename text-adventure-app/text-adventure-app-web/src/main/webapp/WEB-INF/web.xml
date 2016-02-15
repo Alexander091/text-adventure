@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-    <display-name>HelloWorldJSF</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+    <display-name>QuestCracker</display-name>
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
@@ -34,7 +37,61 @@
 
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>swanky-purse</param-value>
+        <param-value>excite-bike</param-value>
     </context-param>
+
+    <!--Defining security constraint for type of roles available-->
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secured</web-resource-name>
+            <url-pattern>/faces/quest-editor/*</url-pattern>
+            <url-pattern>/quest-editor/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>user</web-resource-name>
+            <url-pattern>/quest-storage/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMIN</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--Defining security constraint for type of roles available-->
+
+    <!--Defining type of authenitcation mechanism-->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>text-adventure-domain</realm-name>
+        <form-login-config>
+            <form-login-page>/authorization/login.xhtml</form-login-page>
+            <form-error-page>/authorization/login_error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <!--Defining type of authenitcation mechanism-->
+
+    <!--Denining security role-->
+    <security-role>
+        <role-name>ADMIN</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+    <!--Denining security role-->
 
 </web-app>

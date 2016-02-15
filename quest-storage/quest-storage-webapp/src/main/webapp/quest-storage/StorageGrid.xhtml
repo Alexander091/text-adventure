@@ -8,7 +8,7 @@
     <div align="center">
         <h:form id="form">
             <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="3" layout="grid"
-                        rows="3" paginator="true" id="quests"
+                        rows="6" paginator="true" id="quests"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="3,6,9,12,18">
@@ -20,7 +20,7 @@
                 <p:panel style="text-align: center">
 
                     <f:facet name="header">
-                        <p style="color: seashell; float: right; position: relative">#{quest.ageLimit}+</p>
+                        <p style="float: right; position: relative">#{quest.ageLimit}+</p>
                         <p style="position: relative; float: left;">#{quest.name}</p>
                     </f:facet>
 

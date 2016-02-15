@@ -1,0 +1,3 @@
+<jboss-web>
+    <security-domain>text-adventure-domain</security-domain>
+</jboss-web>
