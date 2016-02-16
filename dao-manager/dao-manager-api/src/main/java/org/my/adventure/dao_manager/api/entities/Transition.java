@@ -32,7 +32,7 @@ public class Transition extends Common{
         this.name = name;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_node", referencedColumnName = "id", nullable = false)
     public Node getNodeByToNode() {
         return nodeByToNode;

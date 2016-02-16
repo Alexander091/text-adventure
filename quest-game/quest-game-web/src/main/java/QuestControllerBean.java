@@ -3,22 +3,21 @@ import org.my.adventure.questgame.impl.QuestBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Максим on 27.01.2016.
  */
 
 @ManagedBean(name="questController")
-@SessionScoped
+@RequestScoped
 public class QuestControllerBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Inject
+    @EJB
     QuestBean questBean = null;
     @PostConstruct
     public void init() {
@@ -41,22 +40,6 @@ public class QuestControllerBean implements Serializable {
     }
 
     public String getQuestDescription(){return questBean.getQuestDescription();}
-
-    public List<String> getNodesNames() {
-        List<String> list = new ArrayList<String>();
-        for(int i = 0; i<5; i++)
-            list.add("Step "+(i+1));
-        return list;
-    }
-
-
-
-
-
-
-
-
-
 
 
 

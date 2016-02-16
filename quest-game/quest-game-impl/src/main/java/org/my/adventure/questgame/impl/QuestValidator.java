@@ -13,7 +13,7 @@ public class QuestValidator {
         String message="";
         if(startNode==null)
             message+="Стартовый этап не найден\n";
-        List<String> endNodes = new ArrayList<>();
+        List<String> endNodes = new ArrayList<String>();
         for(Node node : nodes){
             if(node.getTransitions().isEmpty()){
                 endNodes.add(node.getName());

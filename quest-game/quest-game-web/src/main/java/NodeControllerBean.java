@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -25,7 +26,7 @@ public class NodeControllerBean implements Serializable {
 
     private List<TransitionWrapper> currentTransitions;
 
-    @Inject
+    @EJB
     NodeBean nodeBean=null;
 
     @PostConstruct
