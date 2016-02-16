@@ -74,6 +74,8 @@ public class QuestStorageController implements Serializable{
         return Math.round(quest.getRating() / 20);
     }
 
+
+    //TODO: include resources data into sql script, user->users, users data
     public List<Quest> getQuests(){
         List<Quest> quests = questDAO.getAll();
         for (Quest quest : quests) {
