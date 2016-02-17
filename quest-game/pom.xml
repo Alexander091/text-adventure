@@ -16,6 +16,7 @@
         <module>quest-game-impl</module>
         <module>quest-game-web</module>
         <module>quest-game-webapp</module>
+        <module>quest-game-ejb</module>
     </modules>
     <dependencies>
         <dependency>

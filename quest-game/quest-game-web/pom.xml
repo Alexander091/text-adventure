@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>quest-game-impl</artifactId>
+            <artifactId>quest-game-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
             <scope>compile</scope>

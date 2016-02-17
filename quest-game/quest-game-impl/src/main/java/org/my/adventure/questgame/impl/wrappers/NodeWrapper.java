@@ -1,4 +1,4 @@
-package org.my.adventure.questgame.impl;
+package org.my.adventure.questgame.impl.wrappers;
 
 
 import java.util.List;
@@ -8,9 +8,11 @@ import java.util.List;
  */
 public class NodeWrapper {
     private String name;
+    private String text;
     private List<TransitionWrapper> transitions;
-    public NodeWrapper(String name, List<TransitionWrapper> transitions){
+    public NodeWrapper(String name, String text, List<TransitionWrapper> transitions){
         this.name = name;
+        this.text = text;
         this.transitions = transitions;
     }
 
@@ -20,5 +22,9 @@ public class NodeWrapper {
 
     public List<TransitionWrapper> getTransitions() {
         return transitions;
+    }
+
+    public String getText() {
+        return text;
     }
 }

@@ -1,6 +1,6 @@
 package org.my.adventure.questgame.impl;
 
-import org.my.adventure.dao_manager.api.entities.Node;
+//import org.my.adventure.dao_manager.api.entities.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Максим on 14.02.2016.
  */
 public class QuestValidator {
-    public static String check(Node startNode, List<Node> nodes){
+    /*public static String check(Node startNode, List<Node> nodes){
         String message="";
         if(startNode==null)
             message+="Стартовый этап не найден\n";
@@ -30,5 +30,5 @@ public class QuestValidator {
                 message += endNodes.get(endNodes.size()-1)+".\n";
             }
         return message;
-    }
+    }*/
 }

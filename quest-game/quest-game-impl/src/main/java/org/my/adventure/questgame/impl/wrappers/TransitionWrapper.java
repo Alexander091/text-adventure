@@ -1,4 +1,4 @@
-package org.my.adventure.questgame.impl;
+package org.my.adventure.questgame.impl.wrappers;
 
 import javax.ejb.Stateful;
 

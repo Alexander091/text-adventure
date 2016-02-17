@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>org.text-adventure</groupId>
-            <artifactId>quest-game-impl</artifactId>
+            <artifactId>quest-game-ejb</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>ejb</type>
         </dependency>
@@ -61,7 +61,7 @@
                         </ejbModule>
                         <ejbModule>
                             <groupId>org.text-adventure</groupId>
-                            <artifactId>quest-game-impl</artifactId>
+                            <artifactId>quest-game-ejb</artifactId>
                         </ejbModule>
                     </modules>
                     <earSourceExcludes>
