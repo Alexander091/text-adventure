@@ -19,7 +19,8 @@
             <p:inputText value="#{questController.ageLimit}" validatorMessage="Только цифры!">
                 <!--<f:validateRegex pattern="^[0-9]+$"/>-->
             </p:inputText>
-            <p:commandButton id="acceptButton" value="Сохранить" styleClass="acceptButton" action="#{questController.saveQuest}"/>
+            <p:commandButton id="saveButton" value="Сохранить" styleClass="acceptButton" action="#{questController.saveQuest}" rendered="#{questController.questId==null}"/>
+            <p:commandButton id="acceptButton" value="Применить" styleClass="acceptButton" action="#{questController.updateQuest}" rendered="#{questController.questId!=null}"/>
         </h:panelGrid>
     </h:form>
 </ui:composition>

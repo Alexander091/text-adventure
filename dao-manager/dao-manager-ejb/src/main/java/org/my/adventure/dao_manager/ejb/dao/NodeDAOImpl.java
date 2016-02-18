@@ -7,6 +7,7 @@ import org.my.adventure.dao_manager.api.dao.NodeDAO;
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Transition;
 
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by Дмитрий on 11.12.2015.
  */
 @Stateless
-@Remote(NodeDAO.class)
+@Local(NodeDAO.class)
 public class NodeDAOImpl extends CommonDAOImpl<Node> implements NodeDAO{
     public List<Node> getNodesByQuestId(long questId) {
         Session session = sessionFactory.openSession();

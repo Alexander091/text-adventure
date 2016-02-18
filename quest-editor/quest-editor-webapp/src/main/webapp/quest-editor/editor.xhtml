@@ -9,16 +9,16 @@
 
 <h:head>
     <title>Hello World!</title>
-    <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 <h:body>
     <f:metadata>
         <f:viewParam name="questId" value="#{questController.questId}"/>
-        <f:viewAction action="#{questController.init}"/>
+        <f:viewAction action="#{questController.loadQuest}"/>
     </f:metadata>
     <!--<h:form id="form">-->
     <h:form id="editorForm">
-        <h:inputText styleClass="questIdInput" style="display: none;" value="#{questController.questId}"></h:inputText>
+        <h:inputText styleClass="questIdInput" style="display: none;" value="#{questController.questId}"/>
         <p:growl id="msgs" showDetail="true" />
     </h:form>
         <!--<p:toolbar style="margin-bottom: 3px">-->
@@ -26,13 +26,15 @@
                 <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
             <!--</f:facet>-->
         <!--</p:toolbar>-->
-        <p:tabView dynamic="true">
-            <p:tab title="Граф">
+        <p:tabView dynamic="true" activeIndex="#{questController.activeIndex}">
+            <p:tab title="Граф" disabled="#{questController.questId==null}">
                 <ui:include src="graph.xhtml"/>
             </p:tab>
-            <p:tab  title="Квест">
+            <p:tab  title="Квест" selected="#{questController.questId==null}">
                 <ui:include src="quest.xhtml"/>
             </p:tab>
+
+
             <!--<p:tab title="Характеристики">-->
                 <!--<h:panelGrid columns="2" cellpadding="10">-->
                     <!--<h:outputText value="text2" />-->
@@ -47,15 +49,15 @@
                 <!--</h:panelGrid>-->
             <!--</p:tab>-->
 
-            <p:tab title="Звуки">
-                <ui:include src="sounds.xhtml"/>
+            <p:tab title="Звуки" disabled="#{questController.questId==null}">
+                <ui:include src="sounds.xhtml"  />
             </p:tab>
-            <p:tab title="Картинки">
-                <ui:include src="images.xhtml"/>
+            <p:tab title="Картинки" disabled="#{questController.questId==null}">
+                <ui:include src="images.xhtml" />
             </p:tab>
         </p:tabView>
     <!--</h:form>-->
-    <h:outputScript library="js" name="cytoscape.js"></h:outputScript>
-    <h:outputScript library="js" name="script.js"></h:outputScript>
+    <h:outputScript library="js" name="cytoscape.js"/>
+    <h:outputScript library="js" name="script.js"/>
 </h:body>
 </html>

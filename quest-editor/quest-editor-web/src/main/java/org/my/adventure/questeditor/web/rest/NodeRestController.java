@@ -7,9 +7,12 @@ import org.my.adventure.dao_manager.api.dao.QuestDAO;
 import org.my.adventure.dao_manager.api.dao.TransitionDAO;
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Transition;
+import org.my.adventure.questeditor.impl.beans.GraphEditorBean;
 import org.primefaces.json.JSONObject;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.json.stream.JsonParser;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -26,6 +29,8 @@ public class NodeRestController {
     QuestDAO questDAO;
     @EJB
     TransitionDAO transitionDAO;
+    @Inject
+    GraphEditorBean graphEditorBean;
     @GET
     @Path("/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -42,28 +47,29 @@ public class NodeRestController {
     @Path("/post")
     @Produces(MediaType.APPLICATION_JSON)
     public String postNode(String data) {
-        JSONObject jsonData = new JSONObject(data);
-        Node node = new Node();
-        node.setName(jsonData.getString("name"));
-        node.setDescription(jsonData.getString("description"));
-        node.setQuestByQuestId(questDAO.getById(jsonData.getLong("questId")));
-        node.setPosition(jsonData.getString("position"));
-        Long id = nodeDAO.saveOrUpdate(node);
-        node.setId(id);
-        JSONObject outputJson = new JSONObject();
-        outputJson.put("group", "nodes");
-        JSONObject dataJson = new JSONObject();
-        dataJson.put("id", "n"+node.getId());
-        dataJson.put("name", node.getName());
-        outputJson.put("data", dataJson);
-        String position = node.getPosition();
-        Integer posx = Integer.parseInt(position.split(" ")[0]);
-        Integer posy = Integer.parseInt(position.split(" ")[1]);
-        JSONObject positionJson = new JSONObject();
-        positionJson.put("x", posx);
-        positionJson.put("y", posy);
-        outputJson.put("position", positionJson);
-        return outputJson.toString();
+//        JSONObject jsonData = new JSONObject(data);
+//        Node node = new Node();
+//        node.setName(jsonData.getString("name"));
+//        node.setDescription(jsonData.getString("description"));
+//        node.setQuestByQuestId(questDAO.getById(jsonData.getLong("questId")));
+//        node.setPosition(jsonData.getString("position"));
+//        Long id = nodeDAO.saveOrUpdate(node);
+//        node.setId(id);
+//        JSONObject outputJson = new JSONObject();
+//        outputJson.put("group", "nodes");
+//        JSONObject dataJson = new JSONObject();
+//        dataJson.put("id", "n"+node.getId());
+//        dataJson.put("name", node.getName());
+//        outputJson.put("data", dataJson);
+//        String position = node.getPosition();
+//        Integer posx = Integer.parseInt(position.split(" ")[0]);
+//        Integer posy = Integer.parseInt(position.split(" ")[1]);
+//        JSONObject positionJson = new JSONObject();
+//        positionJson.put("x", posx);
+//        positionJson.put("y", posy);
+//        outputJson.put("position", positionJson);
+//        return outputJson.toString();
+        return graphEditorBean.addNode(data);
     }
 
     @POST

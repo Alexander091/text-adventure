@@ -187,7 +187,7 @@ $(document).ready(function() { // on dom ready
             data: JSON.stringify(node),
             contentType: 'application/json',
             dataType: 'json',
-            url: "http://localhost:8080/TextAdventure/rest/node/post"
+            url: "http://localhost:8080/TextAdventure/rest/command/node/post"
         }).done(function(data) {
             console.log("new node successfully created");
             cy.add(data);
@@ -230,12 +230,6 @@ $(document).ready(function() { // on dom ready
         }
     });
 
-    //$.getJSON("http://localhost:8080/TextAdventure/rest/quest/get/" + $('.questIdInput').val())
-    //    .success(function(data) {
-    //        console.log("graph data fetched from service");
-    //        cy.add(data);
-    //    })
-    //    .error(function() {console.log("error on fetching graph data from service")});
     $.getJSON("http://localhost:8080/TextAdventure/rest/command/quest/get/" + $('.questIdInput').val())
         .success(function(data) {
             console.log("graph data fetched from service");

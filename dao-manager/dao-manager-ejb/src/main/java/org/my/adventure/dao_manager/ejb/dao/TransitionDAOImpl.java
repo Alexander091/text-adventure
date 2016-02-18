@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.my.adventure.dao_manager.api.dao.TransitionDAO;
 import org.my.adventure.dao_manager.api.entities.Transition;
 
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by Дмитрий on 11.12.2015.
  */
 @Stateless
-@Remote(TransitionDAO.class)
+@Local(TransitionDAO.class)
 public class TransitionDAOImpl extends CommonDAOImpl<Transition> implements TransitionDAO{
     public List<Transition> getTransitionsByNodeId(long nodeId) {
         Session session = sessionFactory.openSession();

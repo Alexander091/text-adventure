@@ -1,12 +1,10 @@
 package org.my.adventure.questeditor.web.rest;
 
-import org.my.adventure.questeditor.impl.beans.QuestBean;
+import org.my.adventure.questeditor.impl.beans.GraphEditorBean;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.inject.Inject;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -14,15 +12,21 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/command")
 public class CommandController {
-    @EJB
-    QuestBean questBean;
+    @Inject
+    GraphEditorBean graphEditorBean;
 
     @GET
     @Path("/quest/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getQuestGraphById(@PathParam("id") Long id) {
-        questBean.loadQuest(id);
-        return questBean.getQuestGraphInJson();
+        graphEditorBean.loadQuest(id);
+        return graphEditorBean.getQuestGraphInJson();
     }
 
+    @POST
+    @Path("/node/post")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String postNode(String data) {
+        return graphEditorBean.addNode(data);
+    }
 }

@@ -1,9 +1,13 @@
 package org.my.adventure.questeditor.web.jsf;
 
 import org.my.adventure.dao_manager.api.entities.Node;
+import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.questeditor.impl.beans.QuestBean;
+import org.primefaces.event.TabChangeEvent;
 
 import javax.faces.bean.*;
+import javax.faces.bean.ViewScoped;
+import javax.faces.view.*;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,37 +18,39 @@ import java.util.List;
  */
 @ManagedBean(name = "questController")
 //@Named(value = "questController")
-@SessionScoped
+@ViewScoped
 public class QuestController implements Serializable{
     private Long questId = null;
-//    private String name = null;
-//    private String description = null;
-//    private String genre = null;
-//    private int version = -1;
-//    private int ageLimit = -1;
-////    private boolean isInitialized = false;l
+    private Integer activeIndex = 1;
+    private Quest quest;
     @Inject
     QuestBean questBean;
-    public void init() {
-        loadQuest(questId);
+
+    public Integer getActiveIndex() {
+        return activeIndex;
     }
-    public void loadQuest(Long id) {
-        questBean.loadQuest(id);
+
+    public void setActiveIndex(Integer activeIndex) {
+        this.activeIndex = activeIndex;
+    }
+
+    public void loadQuest() {
+        quest=questBean.getById(questId);
     }
     public String getName() {
-        return questBean.getQuest().getName();
+        return quest.getName();
     }
     public String getDescription(){
-        return questBean.getQuest().getDescription();
+        return quest.getDescription();
     }
     public String getGenre() {
-        return questBean.getQuest().getGenre();
+        return quest.getGenre();
     }
     public int getVersion() {
-        return questBean.getQuest().getVersion();
+        return quest.getVersion();
     }
     public int getAgeLimit() {
-        return questBean.getQuest().getAgeLimit();
+        return quest.getAgeLimit();
     }
     public Long getQuestId() {
         return questId;
@@ -52,28 +58,43 @@ public class QuestController implements Serializable{
 
     public void setQuestId(Long questId) {
         this.questId = questId;
+        activeIndex = 0;
     }
     public void setName(String name) {
-        questBean.getQuest().setName(name);
+        quest.setName(name);
     }
     public void setDescription(String description) {
-        questBean.getQuest().setDescription(description);
+        quest.setDescription(description);
     }
     public void setGenre(String genre) {
-        questBean.getQuest().setGenre(genre);
+        quest.setGenre(genre);
     }
     public void setVersion(int version) {
-        questBean.getQuest().setVersion(version);
+        quest.setVersion(version);
     }
     public void setAgeLimit(int ageLimit) {
-        questBean.getQuest().setAgeLimit(ageLimit);
+        quest.setAgeLimit(ageLimit);
     }
-    public void saveQuest() {
-        questId = questBean.saveQuest();
+    public String saveQuest() {
+        Node node = new Node();
+        node.setName("Старт");
+        node.setDescription("Стартовая локация");
+        node.setPosition("100 100");
+        quest.setStartNode(node);
+        questId = questBean.saveOrUpdate(quest);
+        return "editor?faces-redirect=true&questId="+questId;
+    }
+    public void updateQuest() {
+        questId = questBean.saveOrUpdate(quest);
+    }
+    public void onTabChange(TabChangeEvent event) {
+        if(event.getTab().getTitle().equals("Квест")) {
+            loadQuest();
+        }
     }
     public List<Node> getAllNodes() {
         if(questId==null)
             return new ArrayList<Node>();
-        return questBean.getAllNodes();
+        return questBean.getAllNodes(questId);
     }
 }
