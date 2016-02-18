@@ -1,5 +1,8 @@
 package org.my.adventure.questgame.impl;
 
+import org.my.adventure.dao_manager.api.entities.Node;
+import org.my.adventure.dao_manager.api.entities.Quest;
+
 /**
  * Created by Максим on 17.02.2016.
  */
@@ -7,35 +10,25 @@ package org.my.adventure.questgame.impl;
 public class GameStage {
     
     private long questId;
-    private long currentNodeId;
+    private Node node;
     
-    public GameStage (long questId, long currentNodeId){
+    public GameStage (long questId, Node node){
         this.questId = questId;
-        this.currentNodeId =currentNodeId;
+        this.node = node;
     }
 
 
-    public void setQuestId(long questId) {
-        if(questId!=0L) {
-            this.questId = questId;
-        }
-        else throw new NullPointerException("QuestId is null");
-    }
 
     public long getQuestId() {
         return questId;
     }
     
-    public void setCurrentNodeId(long currentNodeId) {
-        if(currentNodeId!=0L) {
-            this.currentNodeId = currentNodeId;
-        }
-        else throw new NullPointerException("CurrentNodeId is null");
+    public void setNode(Node node) {
+       this.node = node;
     }
 
-    public long getCurrentNodeId() {
-        return currentNodeId;
-    }
 
-  
+    public Node getNode() {
+        return node;
+    }
 }

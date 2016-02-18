@@ -45,4 +45,8 @@ public class GameStagesBean {
         }
         return gameStage;
     }
+
+    public void setNewGameStage(int indexOfGameStage, GameStage gameStage){
+        gameStages.set(indexOfGameStage,gameStage);
+    }
 }

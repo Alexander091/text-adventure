@@ -18,7 +18,7 @@ import javax.ejb.Stateful;
 public class CurrentGameStageBean {
     private Quest quest;
     private Node node;
-    private GameStage gameStage;
+    long questId; //иначе, когда мы будем сохранять GameStage и брать id квеста через quest.getId(), то каждый раз hibernate будет дедать лишний запрос в базу.
     private int indexOfGameStage;
 
     @EJB
@@ -34,15 +34,16 @@ public class CurrentGameStageBean {
     }
 
     public void loadGameByQuestId(long questId){
-        gameStage = gameStagesBean.getGameStageByQuestId(questId);
+        GameStage gameStage = gameStagesBean.getGameStageByQuestId(questId);
+        this.questId = questId;
         if(gameStage!=null){
             quest = questDAO.getById(gameStage.getQuestId());
-            node = nodeDAO.getById(gameStage.getCurrentNodeId());
+            node = gameStage.getNode();
         }
         else {
             quest = questDAO.getById(questId);
             node = quest.getStartNode();
-            gameStage = new GameStage(questId, node.getId());
+            gameStage = new GameStage(questId, node);
             gameStagesBean.getGameStages().add(gameStage);
             indexOfGameStage = gameStagesBean.getGameStages().indexOf(gameStage);
         }
@@ -59,6 +60,6 @@ public class CurrentGameStageBean {
 
     public void setNode(Node node) {
         this.node = node;
-        gameStagesBean.getGameStages().get(indexOfGameStage).setCurrentNodeId(node.getId());
+        gameStagesBean.setNewGameStage(indexOfGameStage, new GameStage(questId, node));
     }
 }
