@@ -9,9 +9,10 @@
       xmlns:aj="http://www.animatejsf.org/animate">
 <h:head>
 </h:head>
+
 <f:metadata>
-    <!--<f:viewParam name="questId" value="#{gameController.questId}" />-->
-    <f:event type="preRenderView" listener="#{gameController.loadQuest(123)}" />
+    <f:viewParam name="questId" value="#{gameController.questId}" />
+    <f:event type="preRenderView" listener="#{gameController.loadQuest()}"/>
 </f:metadata>
 <h:body>
     <p:panel id="questPanel"  style="width:100%; height: 100%; margin-bottom:20px" >

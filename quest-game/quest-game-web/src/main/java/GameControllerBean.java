@@ -20,17 +20,21 @@ public class GameControllerBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private NodeWrapper node;
+    private long questId;
 
     @EJB
-    GameBean gameBean =null;
+    GameBean gameBean;
 
-    @PostConstruct
+    /*@PostConstruct
     void  init(){
         node = gameBean.getCurrentWrappedNode();
     }
+*/
 
-    public void loadQuest(long id) {
-        gameBean.loadGame(id);
+
+    public void loadQuest() {
+        gameBean.loadGame(questId);
+        node = gameBean.getCurrentWrappedNode();
     }
 
     public String getName() {
@@ -51,5 +55,14 @@ public class GameControllerBean implements Serializable {
 
     public void changeCurrentNode(long transId){
         node = gameBean.getNextWrappedNode(transId);
+    }
+
+
+    public void setQuestId(long questId) {
+        this.questId = questId;
+    }
+
+    public long getQuestId(){
+        return questId;
     }
 }

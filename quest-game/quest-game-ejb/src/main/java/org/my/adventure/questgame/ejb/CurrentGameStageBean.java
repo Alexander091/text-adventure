@@ -28,10 +28,10 @@ public class CurrentGameStageBean {
     @EJB
     NodeDAO nodeDAO;
 
-    @PostConstruct
+   /* @PostConstruct
     void init(){
         loadGameByQuestId(123L);
-    }
+    }*/
 
     public void loadGameByQuestId(long questId){
         GameStage gameStage = gameStagesBean.getGameStageByQuestId(questId);
