@@ -1,6 +1,6 @@
 package org.my.adventure.questeditor.web.jsf;
 
-import org.my.adventure.questeditor.impl.NodeBean;
+import org.my.adventure.questeditor.impl.beans.NodeBean;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

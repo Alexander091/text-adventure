@@ -1,4 +1,4 @@
-package org.my.adventure.questeditor.impl;
+package org.my.adventure.questeditor.impl.beans;
 
 import org.my.adventure.dao_manager.api.dao.NodeDAO;
 
