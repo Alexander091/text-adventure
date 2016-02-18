@@ -7,7 +7,7 @@
 <h:body>
     <div align="center">
         <h:form id="form">
-            <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="3" layout="grid"
+            <p:dataGrid var="quest" value="#{questController.quests}" columns="3" layout="grid"
                         rows="6" paginator="true" id="quests"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -29,13 +29,13 @@
                                     onclick="PF('dlg#{quest.id}').show();"/>
 
                     <h:panelGrid columns="2" style="width: 100%">
-                        <h:outputText value="genre:" />
+                        <h:outputText value="Жанр:" />
                         <h:outputText value="#{quest.genre}" style="font-weight: bold"/>
 
-                        <h:outputText value="Rating:" />
+                        <h:outputText value="Рейтинг:" />
                         <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
 
-                        <h:outputText value="Version:" />
+                        <h:outputText value="Версия:" />
                         <h:outputText value="#{quest.version}" style="font-weight: bold"/>
                     </h:panelGrid>
 
@@ -47,34 +47,34 @@
                         <p:graphicImage url="#{quest.image.path}" style="height: 300px"/>
                         <p>#{quest.description}</p>
                         <div>
-                            <p:button outcome="/index.xhtml" value="Play">
+                            <p:button outcome="/index.xhtml" value="Играть">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:button outcome="/quest-editor/editor.xhtml" value="Edit">
+                            <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:commandButton value="Delete" actionListener="#{questStorageController.deleteQuest(quest.id)}" update="quests">
-                                <p:confirm header="Confirmation" message="Are you sure?"/>
+                                <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}" update="quests">
+                                <p:confirm header="Подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
                         </div>
                     </p:dialog>
 
                     <f:facet name="footer">
                         <div align="center">
-                            <p:commandButton value="Info" onclick="PF('dlg#{quest.id}').show();"/>
-                            <p:button outcome="/index.xhtml" value="Play">
+                            <!--<p:commandButton value="Подробнее" onclick="PF('dlg#{quest.id}').show();"/>-->
+                            <p:button outcome="/index.xhtml" value="Играть">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:button outcome="/quest-editor/editor.xhtml" value="Edit">
+                            <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:commandButton value="Delete" actionListener="#{questStorageController.deleteQuest(quest.id)}" update="quests">
-                                <p:confirm header="Confirmation" message="Are you sure?"/>
+                            <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}" update="quests">
+                                <p:confirm header="Требуется подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
 
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closeOnEscape="true" closable="true">
-                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             </p:confirmDialog>
                         </div>
                     </f:facet>

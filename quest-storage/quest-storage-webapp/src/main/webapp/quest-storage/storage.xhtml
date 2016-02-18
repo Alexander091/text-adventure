@@ -18,10 +18,10 @@
             <div style="width: 100%">
                 <h:form>
                     <c:choose>
-                        <c:when test="#{questStorageController.layout.equals('scroller')}">
+                        <c:when test="#{questController.layout.equals('scroller')}">
                             <ui:include src="StorageScroller.xhtml"/>
                         </c:when>
-                        <c:when test="#{questStorageController.layout.equals('grid')}">
+                        <c:when test="#{questController.layout.equals('grid')}">
                             <ui:include src="StorageGrid.xhtml"/>
                         </c:when>
                         <c:otherwise>

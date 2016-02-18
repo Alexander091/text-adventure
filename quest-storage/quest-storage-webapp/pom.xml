@@ -17,8 +17,8 @@
     <dependencies>
         <dependency>
             <groupId>org.text-adventure</groupId>
-            <artifactId>quest-storage-impl</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>quest-storage-web</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>
