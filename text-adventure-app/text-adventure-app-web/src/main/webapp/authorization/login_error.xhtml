@@ -6,13 +6,26 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:body>
-    <h:form>
-        <h1 align="center">Неверное имя пользователя или пароль, попробуйте войти ещё раз.</h1>
-        <h1 align="center">Wrong username or password, try again</h1>
-        <div align="center">
-            <p:button outcome="/index.xhtml" value="Quest Cracker" icon="ui-icon-star"/>
+<!--<ui:composition template="/templates/error.xhtml">-->
+<!--<ui:define name="error_message">-->
+<!--<h3 align="center">Неверное имя пользователя или пароль, попробуйте войти ещё раз.</h3>-->
+<!--</ui:define>-->
+<!--<ui:define name="return_button">-->
+<!--<div align="center">-->
+<!--<h:form>-->
+<!--&lt;!&ndash;<ui:include src="/authorization/auth_form.xhtml"/>&ndash;&gt;-->
+<!--<p:button outcome="/index.xhtml" value="Вернуться на главную страницу" icon="ui-icon-star"/>-->
+<!--</h:form>-->
+<!--</div>-->
+<!--</ui:define>-->
+<!--</ui:composition>-->
+<ui:composition template="/templates/layout.xhtml">
+    <!--<ui:define name="menu"/>-->
+    <ui:define name="content">
+        <div align="center" style="margin-top: 10%">
+            <h3 align="center">Неверное имя пользователя или пароль, попробуйте войти ещё раз.</h3>
+            <ui:include src="/authorization/auth_form.xhtml"/>
         </div>
-    </h:form>
-</h:body>
+    </ui:define>
+</ui:composition>
 </html>

@@ -1,6 +1,5 @@
-package org.my.adventure.web;
+package org.my.adventure.queststorage.web;
 
-import org.hibernate.HibernateError;
 import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.queststorage.impl.QuestBean;
 
@@ -9,7 +8,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 

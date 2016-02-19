@@ -58,14 +58,14 @@
     </security-constraint>
 
     <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>user</web-resource-name>-->
+        <!--<queststorageweb-resource-collection>-->
+            <!--<queststorageweb-resource-name>user</queststorageweb-resource-name>-->
             <!--<url-pattern>/quest-storage/*</url-pattern>-->
             <!--<http-method>POST</http-method>-->
             <!--<http-method>GET</http-method>-->
             <!--<http-method>PUT</http-method>-->
             <!--<http-method>DELETE</http-method>-->
-        <!--</web-resource-collection>-->
+        <!--</queststorageweb-resource-collection>-->
         <!--<auth-constraint>-->
             <!--<role-name>ADMIN</role-name>-->
             <!--<role-name>user</role-name>-->
@@ -98,12 +98,12 @@
     <error-page>
         <!-- Missing login -->
         <error-code>401</error-code>
-        <location>/authorization/login_error.xhtml</location>
+        <location>/authorization/login.xhtml</location>
     </error-page>
     <error-page>
         <!-- Forbidden directory listing -->
         <error-code>403</error-code>
-        <location>/authorization/login_error.xhtml</location>
+        <location>/authorization/login.xhtml</location>
     </error-page>
     <!--<error-page>-->
         <!--&lt;!&ndash; Uncaught exception &ndash;&gt;-->
@@ -118,6 +118,6 @@
     <error-page>
         <!-- Not found -->
         <error-code>404</error-code>
-        <location>/templates/error.xhtml</location>
+        <location>/templates/404.xhtml</location>
     </error-page>
 </web-app>

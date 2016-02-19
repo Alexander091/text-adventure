@@ -34,7 +34,6 @@ public abstract class CommonDAOImpl<T extends Common> implements CommonDAO<T> {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(object);
-        session.flush();
         session.getTransaction().commit();
         session.close();
     }

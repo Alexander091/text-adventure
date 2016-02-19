@@ -7,8 +7,11 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
-
-    <h:outputLabel value="Упс, что-то пошло не так!" style="text-align: center" />
-    <p:button outcome="/index.xhtml" value="Quest Cracker" icon="ui-icon-star"/>
+    <ui:insert name="error_message">
+        <h:outputLabel value="Упс, что-то пошло не так!" style="text-align: center" />
+    </ui:insert>
+    <ui:insert name="return_button">
+        <p:button outcome="/index.xhtml" value="Quest Cracker" icon="ui-icon-star"/>
+    </ui:insert>
 </h:body>
 </html>
