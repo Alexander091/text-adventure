@@ -15,6 +15,7 @@ import java.io.Serializable;
  */
 @Stateless
 @Remote(QuestDAO.class)
+//@Local(QuestDAO.class)
 public class QuestDAOImpl extends CommonDAOImpl<Quest> implements QuestDAO{
 
     public Quest getTestObject() {
