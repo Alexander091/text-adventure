@@ -69,7 +69,7 @@ public class NodeRestController {
 //        positionJson.put("y", posy);
 //        outputJson.put("position", positionJson);
 //        return outputJson.toString();
-        return graphEditorBean.addNode(data);
+        return graphEditorBean.addNode(data).getJsonOfView().toString();
     }
 
     @POST

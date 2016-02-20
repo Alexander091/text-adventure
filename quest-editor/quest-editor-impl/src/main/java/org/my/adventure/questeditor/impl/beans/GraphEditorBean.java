@@ -8,10 +8,12 @@ import org.my.adventure.questeditor.impl.builders.GraphBuilder;
 import org.my.adventure.questeditor.impl.builders.QuestBuilder;
 import org.my.adventure.questeditor.impl.builders.ViewBuilder;
 import org.my.adventure.questeditor.impl.commands.AddNodeViewCommand;
+import org.my.adventure.questeditor.impl.commands.AddTransitionViewCommand;
 import org.my.adventure.questeditor.impl.commands.Command;
 import org.my.adventure.questeditor.impl.views.NodeView;
 import org.my.adventure.questeditor.impl.views.TransitionView;
 import org.primefaces.json.JSONArray;
+import org.primefaces.json.JSONObject;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -20,6 +22,7 @@ import javax.ejb.Stateful;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -32,9 +35,19 @@ public class GraphEditorBean implements Serializable {
     private QuestBean questBean;
     @EJB
     private NodeBean nodeBean;
+    @EJB
+    private TransitionBean transitionBean;
     private Quest quest = null;
     private Graph<NodeView, TransitionView> viewGraph;
     private List<Command> commandList;
+
+    public TransitionBean getTransitionBean() {
+        return transitionBean;
+    }
+
+    public void setTransitionBean(TransitionBean transitionBean) {
+        this.transitionBean = transitionBean;
+    }
 
     public Graph<NodeView, TransitionView> getViewGraph() {
         return viewGraph;
@@ -76,26 +89,38 @@ public class GraphEditorBean implements Serializable {
         viewGraph = GraphBuilder.buildQuestGraph(quest);
         commandList = new ArrayList<Command>();
     }
-    public String addNode(String nodeJson) {
+
+    public Set<NodeView> getAllNodes() {
+        return viewGraph.vertexSet();
+    }
+
+    public NodeView addNode(String nodeJson) {
         NodeView nodeView = ViewBuilder.buildNodeView(nodeJson, quest);
         commandList.add(new AddNodeViewCommand(nodeView));
         viewGraph.addVertex(nodeView);
-        return nodeView.getJsonOfView().toString();
+        return nodeView;
     }
-    public void saveNode(NodeView nodeView) {
-
+    public TransitionView addTransition(String transitionJson) {
+        TransitionView transitionView = ViewBuilder.buildTransitionView(transitionJson, viewGraph);
+        commandList.add(new AddTransitionViewCommand(transitionView));
+        viewGraph.addEdge(transitionView.getFrom(), transitionView.getTo(), transitionView);
+        return transitionView;
     }
-    public void undo() {
+    public String save() {
+        for(Command command : commandList)
+            command.saveToDB(this);
+        commandList.clear();
+        return successResponse();
+    }
+    public String undo() {
         Command command = commandList.get(commandList.size() - 1);
-        command.undo();
+        command.undo(this);
         commandList.remove(command);
+        return successResponse();
     }
-    public String getQuestGraphInJson() {
-        JSONArray graphJson = new JSONArray();
-        for(NodeView nodeView : viewGraph.vertexSet())
-            graphJson.put(nodeView.getJsonOfView());
-        for (TransitionView transitionView : viewGraph.edgeSet())
-            graphJson.put(transitionView.getJsonOfView());
-        return graphJson.toString();
+    public String successResponse() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("response", "success");
+        return jsonObject.toString();
     }
 }

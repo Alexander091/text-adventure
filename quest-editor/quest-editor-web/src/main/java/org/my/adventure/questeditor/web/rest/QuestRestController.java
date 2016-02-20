@@ -29,11 +29,11 @@ public class QuestRestController {
     @Inject
     GraphEditorBean graphEditorBean;
 
-    @GET
-    @Path("/get/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getQuestGraphById(@PathParam("id") Long id) {
-        graphEditorBean.loadQuest(id);
-        return graphEditorBean.getQuestGraphInJson();
-    }
+//    @GET
+//    @Path("/get/{id}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String getQuestGraphById(@PathParam("id") Long id) {
+//        graphEditorBean.loadQuest(id);
+//        return graphEditorBean.getQuestGraphInJson();
+//    }
 }

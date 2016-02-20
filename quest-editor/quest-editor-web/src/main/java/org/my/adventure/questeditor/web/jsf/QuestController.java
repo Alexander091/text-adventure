@@ -76,11 +76,11 @@ public class QuestController implements Serializable{
         quest.setAgeLimit(ageLimit);
     }
     public String saveQuest() {
-        Node node = new Node();
-        node.setName("Старт");
-        node.setDescription("Стартовая локация");
-        node.setPosition("100 100");
-        quest.setStartNode(node);
+//        Node node = new Node();
+//        node.setName("Старт");
+//        node.setDescription("Стартовая локация");
+//        node.setPosition("100 100");
+//        quest.setStartNode(node);
         questId = questBean.saveOrUpdate(quest);
         return "editor?faces-redirect=true&questId="+questId;
     }

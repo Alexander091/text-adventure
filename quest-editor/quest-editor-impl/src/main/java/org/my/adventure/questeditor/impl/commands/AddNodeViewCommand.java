@@ -11,16 +11,14 @@ import javax.ejb.EJB;
  * Created by dimko_000 on 18.02.2016.
  */
 public class AddNodeViewCommand extends AddCommand<NodeView> {
-    @EJB
-    GraphEditorBean graphEditorBean;
     public AddNodeViewCommand(NodeView nodeView) {
         this.object = nodeView;
     }
-    public void saveToDB() {
+    public void saveToDB(GraphEditorBean graphEditorBean) {
         graphEditorBean.getNodeBean().saveOrUpdate(object.getEntity());
     }
 
-    public void undo() {
+    public void undo(GraphEditorBean graphEditorBean) {
         graphEditorBean.getViewGraph().removeVertex(object);
     }
 }

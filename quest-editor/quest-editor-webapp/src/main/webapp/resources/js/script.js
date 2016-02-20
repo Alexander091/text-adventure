@@ -52,8 +52,21 @@ $(document).ready(function() { // on dom ready
             $("#addDialogEdgeDiv").show();
         }
     });
-    $('.addButton').click(function () {
-        PF('addDialog').show();
+    $('.addNodeButton').click(function () {
+        PF('addNodeDialog').show();
+    });
+    $('.addEdgeButton').click(function () {
+        PF('addEdgeDialog').show();
+        $.getJSON("http://localhost:8080/TextAdventure/rest/command/node/get")
+            .success(function (data) {
+                for(var i in data) {
+                    $("#addDialogNodeToMenu").append($("<option />").val(data[i].data.id).text(data[i].data.name));
+                    $("#addDialogNodeFromMenu").append($("<option />").val(data[i].data.id).text(data[i].data.name));
+                }
+            })
+            .error(function () {
+                console.log("error on fetching edge data from service");
+            });
     });
     $('.editButton').click(function() {
        if($('.selectedItemInput').val().substring(0,1) == 'n') {
@@ -87,6 +100,28 @@ $(document).ready(function() { // on dom ready
         } else if ($('.selectedItemInput').val().substring(0,1) == 'e') {
             PF('deleteEdgeDialog').show();
         }
+    });
+    $('.undoButton').click(function() {
+        $.ajax({
+            type: 'post',
+            url: "http://localhost:8080/TextAdventure/rest/command/undo"
+        }).done(function(data) {
+            if(data["response"]=="success")
+            console.log("undo success");
+        }).fail(function() {
+            console.log("error on undo");
+        })
+    });
+    $('.saveButton').click(function() {
+        $.ajax({
+            type: 'post',
+            url: "http://localhost:8080/TextAdventure/rest/command/save"
+        }).done(function(data) {
+            if(data["response"]=="success")
+                console.log("save success");
+        }).fail(function() {
+            console.log("error on undo");
+        })
     });
     $('.deleteDialogEdgeOKButton').click(function() {
         var edgeId = $('.selectedItemInput').val().substring(1);
@@ -191,36 +226,39 @@ $(document).ready(function() { // on dom ready
         }).done(function(data) {
             console.log("new node successfully created");
             cy.add(data);
-            $('.addDialogCloseButton').click();
+            $('.addDialogNodeCloseButton').click();
         }).fail(function(data) {
             console.log("error on create new node");
         })
     });
-    $('.addDialogCloseButton').click(function () {
+    $('.addDialogNodeCloseButton').click(function () {
         $('.addDialogNodeName').val('');
         $('.addDialogNodeDescription').val('');
-        $('.addDialogEdgeName').val('');
-        PF('addDialog').hide();
+        PF('addNodeDialog').hide();
     });
     $('.addDialogEdgeOKButton').click(function () {
         var edge = {
             'name' : $('.addDialogEdgeName').val(),
-            'source' : PF('addDialogNodeFromSelect').getSelectedValue(),
-            'target' : PF('addDialogNodeToSelect').getSelectedValue()
+            'source' : $("#addDialogNodeFromMenu").val(),
+            'target' : $("#addDialogNodeToMenu").val()
         }
         $.ajax({
             type: 'post',
             data: JSON.stringify(edge),
             contentType: 'application/json',
             dataType: 'json',
-            url: "http://localhost:8080/TextAdventure/rest/transition/post"
+            url: "http://localhost:8080/TextAdventure/rest/command/transition/post"
         }).done(function(data) {
             console.log("new edge successfully created");
             cy.add(data);
-            $('.addDialogCloseButton').click();
+            $('.addDialogEdgeCloseButton').click();
         }).fail(function(data) {
             console.log("error on create new edge");
         })
+    });
+    $('.addDialogEdgeCloseButton').click(function () {
+        $('.addDialogEdgeName').val('');
+        PF('addEdgeDialog').hide();
     });
     cy.on('tap', function(e) {
         if (e.cyTarget === cy) {

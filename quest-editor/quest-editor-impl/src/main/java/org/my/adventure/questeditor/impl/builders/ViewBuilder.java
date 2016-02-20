@@ -1,8 +1,10 @@
 package org.my.adventure.questeditor.impl.builders;
 
+import org.jgrapht.Graph;
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.dao_manager.api.entities.Transition;
+import org.my.adventure.questeditor.impl.GraphUtils;
 import org.my.adventure.questeditor.impl.views.NodeView;
 import org.my.adventure.questeditor.impl.views.TransitionView;
 import org.primefaces.json.JSONObject;
@@ -29,6 +31,15 @@ public class ViewBuilder {
     }
     public static TransitionView buildTransitionView(Transition transition, NodeView from, NodeView to) {
         TransitionView transitionView = new TransitionView("e" + idGenerator.incrementAndGet(),  from, to, transition);
+        return transitionView;
+    }
+    public static TransitionView buildTransitionView(String data, Graph<NodeView, TransitionView> viewGraph) {
+        JSONObject jsonData = new JSONObject(data);
+        Transition transition = new Transition();
+        transition.setName(jsonData.getString("name"));
+        NodeView from = GraphUtils.getNodeViewByViewId(viewGraph,jsonData.getString("source"));
+        NodeView to = GraphUtils.getNodeViewByViewId(viewGraph, jsonData.getString("target"));
+        TransitionView transitionView = buildTransitionView(transition, from, to);
         return transitionView;
     }
 }
