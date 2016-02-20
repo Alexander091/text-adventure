@@ -37,6 +37,7 @@ public class ViewBuilder {
         JSONObject jsonData = new JSONObject(data);
         Transition transition = new Transition();
         transition.setName(jsonData.getString("name"));
+        transition.setCondition("test condition");
         NodeView from = GraphUtils.getNodeViewByViewId(viewGraph,jsonData.getString("source"));
         NodeView to = GraphUtils.getNodeViewByViewId(viewGraph, jsonData.getString("target"));
         TransitionView transitionView = buildTransitionView(transition, from, to);

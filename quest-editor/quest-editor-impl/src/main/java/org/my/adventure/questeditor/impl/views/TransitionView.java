@@ -47,10 +47,10 @@ public class TransitionView extends EntityView<Transition> {
     @Override
     public JSONObject getJsonOfEntity() {
         JSONObject transitionJson = new JSONObject();
-        transitionJson.put("id", entity.getId());
+        transitionJson.put("id", viewId);
         transitionJson.put("name", entity.getName());
-        transitionJson.put("sourceId", entity.getNodeByFromNode().getId());
-        transitionJson.put("targetId", entity.getNodeByToNode().getId());
+        transitionJson.put("sourceId", from.getViewId());
+        transitionJson.put("targetId", to.getViewId());
         return transitionJson;
     }
 }

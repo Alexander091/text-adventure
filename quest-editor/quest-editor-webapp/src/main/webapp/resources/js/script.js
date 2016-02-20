@@ -41,17 +41,17 @@ $(document).ready(function() { // on dom ready
         $('.deleteButton').prop('disabled', false);
         console.log($('.selectedItemInput').val());
     });
-    $('.addDialogSelectMenu').change(function() {
-        if(PF('addDialogSelect').getSelectedValue() == 0) {
-            $("#addDialogEdgeDiv").hide();
-            $("#addDialogNodeDiv").show();
-        }
-        else
-        {
-            $("#addDialogNodeDiv").hide();
-            $("#addDialogEdgeDiv").show();
-        }
-    });
+    //$('.addDialogSelectMenu').change(function() {
+    //    if(PF('addDialogSelect').getSelectedValue() == 0) {
+    //        $("#addDialogEdgeDiv").hide();
+    //        $("#addDialogNodeDiv").show();
+    //    }
+    //    else
+    //    {
+    //        $("#addDialogNodeDiv").hide();
+    //        $("#addDialogEdgeDiv").show();
+    //    }
+    //});
     $('.addNodeButton').click(function () {
         PF('addNodeDialog').show();
     });
@@ -59,6 +59,8 @@ $(document).ready(function() { // on dom ready
         PF('addEdgeDialog').show();
         $.getJSON("http://localhost:8080/TextAdventure/rest/command/node/get")
             .success(function (data) {
+                $("#addDialogNodeToMenu").empty();
+                $("#addDialogNodeFromMenu").empty();
                 for(var i in data) {
                     $("#addDialogNodeToMenu").append($("<option />").val(data[i].data.id).text(data[i].data.name));
                     $("#addDialogNodeFromMenu").append($("<option />").val(data[i].data.id).text(data[i].data.name));
@@ -71,7 +73,7 @@ $(document).ready(function() { // on dom ready
     $('.editButton').click(function() {
        if($('.selectedItemInput').val().substring(0,1) == 'n') {
            PF('editNodeDialog').show();
-           $.getJSON("http://localhost:8080/TextAdventure/rest/node/get/" + $('.selectedItemInput').val().substring(1))
+           $.getJSON("http://localhost:8080/TextAdventure/rest/command/node/get/" + $('.selectedItemInput').val())
                .success(function (data) {
                    console.log("node data fetched from service");
                    $(".editDialogNodeId").val(data['id']);
@@ -83,13 +85,21 @@ $(document).ready(function() { // on dom ready
                });
        } else if($('.selectedItemInput').val().substring(0,1) == 'e') {
            PF('editEdgeDialog').show();
-           $.getJSON("http://localhost:8080/TextAdventure/rest/transition/get/"+$('.selectedItemInput').val().substring(1))
+           $.getJSON("http://localhost:8080/TextAdventure/rest/command/transition/get/"+$('.selectedItemInput').val())
                .success(function(data) {
-                   console.log("node data fetched from service");
-                   $(".editDialogEdgeId").val(data['id']);
-                   $(".editDialogEdgeName").val(data['name']);
-                   PF('editDialogNodeFromSelect').selectValue(data['sourceId']);
-                   PF('editDialogNodeToSelect').selectValue(data['targetId']);
+                   console.log("transition data fetched from service");
+                   $(".editDialogEdgeId").val(data.transition.id);
+                   $(".editDialogEdgeName").val(data.transition.name);
+                   $("#editDialogNodeToMenu").empty();
+                   $("#editDialogNodeFromMenu").empty();
+                   for(var i in data.nodes) {
+                       $("#editDialogNodeFromMenu").append($("<option />").val(data.nodes[i].id).text(data.nodes[i].name));
+                       $("#editDialogNodeToMenu").append($("<option />").val(data.nodes[i].id).text(data.nodes[i].name));
+                   }
+                   $("#editDialogNodeFromMenu").val(data.transition.sourceId);
+                   $("#editDialogNodeToMenu").val(data.transition.targetId);
+                   //PF('editDialogNodeFromSelect').selectValue(data['sourceId']);
+                   //PF('editDialogNodeToSelect').selectValue(data['targetId']);
                })
                .error(function() {console.log("error on fetching edge data from service")});
        }
@@ -161,17 +171,17 @@ $(document).ready(function() { // on dom ready
             'name' : $('.editDialogNodeName').val(),
             'description' : $('.editDialogNodeDescription').val(),
             'questId' : $('.questIdInput').val(),
-            'position' : cy.$('#n'+nodeId).position('x') + ' ' + cy.$('#n'+nodeId).position('y')
+            'position' : cy.$('#'+nodeId).position('x') + ' ' + cy.$('#'+nodeId).position('y')
         }
         $.ajax({
             type: 'post',
             data: JSON.stringify(node),
             contentType: 'application/json',
             dataType: 'json',
-            url: "http://localhost:8080/TextAdventure/rest/node/update/" + nodeId
+            url: "http://localhost:8080/TextAdventure/rest/command/node/update/" + nodeId
         }).done(function(data) {
             console.log("node successfully edited");
-            cy.$('#n'+nodeId).data("name", data['name']);
+            cy.$('#'+nodeId).data("name", data['name']);
             $('.editDialogNodeCloseButton').click();
         }).fail(function(data) {
             console.log("error on edit node");
@@ -187,18 +197,18 @@ $(document).ready(function() { // on dom ready
         var edgeId = $('.editDialogEdgeId').val();
         var edge = {
             'name' : $('.editDialogEdgeName').val(),
-            'source' : PF('editDialogNodeFromSelect').getSelectedValue(),
-            'target' : PF('editDialogNodeToSelect').getSelectedValue()
+            'source' : $("#editDialogNodeFromMenu").val(),
+            'target' : $("#editDialogNodeToMenu").val()
         }
         $.ajax({
             type: 'post',
             data: JSON.stringify(edge),
             contentType: 'application/json',
             dataType: 'json',
-            url: "http://localhost:8080/TextAdventure/rest/transition/update/" + edgeId
+            url: "http://localhost:8080/TextAdventure/rest/command/transition/update/" + edgeId
         }).done(function(data) {
             console.log("edge successfully edited");
-            cy.$('#e'+edgeId).remove();
+            cy.$('#'+edgeId).remove();
             cy.add(data);
             $('.editDialogEdgeCloseButton').click();
         }).fail(function(data) {

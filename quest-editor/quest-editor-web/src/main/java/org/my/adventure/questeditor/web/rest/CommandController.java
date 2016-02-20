@@ -2,6 +2,8 @@ package org.my.adventure.questeditor.web.rest;
 
 import org.jgrapht.Graph;
 import org.my.adventure.dao_manager.api.entities.Node;
+import org.my.adventure.dao_manager.api.entities.Transition;
+import org.my.adventure.questeditor.impl.GraphUtils;
 import org.my.adventure.questeditor.impl.beans.GraphEditorBean;
 import org.my.adventure.questeditor.impl.views.NodeView;
 import org.my.adventure.questeditor.impl.views.TransitionView;
@@ -56,11 +58,50 @@ public class CommandController implements Serializable{
             jsonArray.put(nodeView.getJsonOfView());
         return jsonArray.toString();
     }
+    @GET
+    @Path("/node/get/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getNodeById(@PathParam("id") String id) {
+        NodeView nodeView = GraphUtils.getNodeViewByViewId(graphEditorBean.getViewGraph(),id);
+        return nodeView.getJsonOfEntity().toString();
+    }
+    @POST
+    @Path("/node/update/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateNode(@PathParam("id") String viewId, String data) {
+        JSONObject outputJson = new JSONObject();
+        NodeView nodeView = graphEditorBean.editNode(data, viewId);
+        outputJson.put("name", nodeView.getEntity().getName());
+        return outputJson.toString();
+    }
     @POST
     @Path("/transition/post")
     @Produces(MediaType.APPLICATION_JSON)
     public String postTransition(String data) {
         return graphEditorBean.addTransition(data).getJsonOfView().toString();
+    }
+    @GET
+    @Path("/transition/get/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTransitionById(@PathParam("id") String id) {
+        JSONObject resultJson = new JSONObject();
+        TransitionView transitionView = GraphUtils.getTransitionViewByViewId(graphEditorBean.getViewGraph(), id);
+        resultJson.put("transition", transitionView.getJsonOfEntity());
+        JSONArray nodesJson = new JSONArray();
+        Set<NodeView> nodeViews = graphEditorBean.getAllNodes();
+        for(NodeView nodeView : nodeViews) {
+            JSONObject nodeViewJson = nodeView.getJsonOfEntity();
+            nodesJson.put(nodeViewJson);
+        }
+        resultJson.put("nodes", nodesJson);
+        return resultJson.toString();
+    }
+    @POST
+    @Path("/transition/update/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateTransition(@PathParam("id") String viewId, String data) {
+        TransitionView transitionView = graphEditorBean.editTransition(data,viewId);
+        return transitionView.getJsonOfView().toString();
     }
     @POST
     @Path("/save")

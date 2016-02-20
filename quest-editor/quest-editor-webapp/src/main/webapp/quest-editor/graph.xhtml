@@ -8,22 +8,13 @@
     <h:inputText styleClass="selectedItemInput" style="display: none;"/>
     <p:toolbar style="margin-bottom: 3px">
         <f:facet name="left">
-            <p:commandButton type="button" value="Добавить узел" styleClass="addNodeButton">
-                <!--<p:ajax event="click" update="addForm:nodeFromMenu" />-->
-                <!--<p:ajax event="click" update="addForm:nodeToMenu" />-->
-            </p:commandButton>
+            <p:commandButton type="button" value="Добавить узел" styleClass="addNodeButton"/>
         </f:facet>
         <f:facet name="left">
-            <p:commandButton type="button" value="Добавить ребро" styleClass="addEdgeButton">
-                <!--<p:ajax event="click" update="addForm:nodeFromMenu" />-->
-                <!--<p:ajax event="click" update="addForm:nodeToMenu" />-->
-            </p:commandButton>
+            <p:commandButton type="button" value="Добавить ребро" styleClass="addEdgeButton"/>
         </f:facet>
         <f:facet name="left">
-            <p:commandButton type="button" value="Изменить" styleClass="editButton" >
-                <p:ajax event="click" update="editEdgeForm:editNodeFromMenu" />
-                <p:ajax event="click" update="editEdgeForm:editNodeToMenu" />
-            </p:commandButton>
+            <p:commandButton type="button" value="Изменить" styleClass="editButton" />
         </f:facet>
         <f:facet name="left">
             <p:commandButton type="button" value="Удалить" styleClass="deleteButton"/>
@@ -64,17 +55,7 @@
                 <h:outputLabel for="edgeName" value="Название:" />
                 <p:inputText id="edgeName"  required="true" label="Название" styleClass="addDialogEdgeName"/>
                 <h:outputLabel for="addDialogNodeFromMenu" value="Откуда:" />
-                <select id="addDialogNodeFromMenu" class="addDialogNodeFromMenu"/><br/>
-                <!--<h:outputLabel for="nodeFromMenu" value="Откуда:" />-->
-                <!--<h:selectOneMenu styleClass="addDialogNodeFromMenu" id="nodeFromMenu"/>-->
-                <!--<p:selectOneMenu id="nodeFromMenu" styleClass="addDialogNodeFromMenu" widgetVar="addDialogNodeFromSelect">-->
-                    <!--<f:selectItems value="#{questController.allNodes}" var="node" itemLabel="#{node.name}" itemValue="#{node.id}"/>-->
-                <!--</p:selectOneMenu>-->
-
-                <!--<h:outputLabel for="nodeToMenu" value="Куда:" />-->
-                <!--<p:selectOneMenu id="nodeToMenu" styleClass="addDialogNodeToMenu" widgetVar="addDialogNodeToSelect">-->
-                    <!--<f:selectItems value="#{questController.allNodes}" var="node" itemLabel="#{node.name}" itemValue="#{node.id}"/>-->
-                <!--</p:selectOneMenu>-->
+                <select id="addDialogNodeFromMenu" class="addDialogNodeFromMenu"/>
                 <h:outputLabel for="addDialogNodeToMenu" value="Куда:" />
                 <select id="addDialogNodeToMenu" class="addDialogNodeToMenu"/>
                 <f:facet name="footer">
@@ -103,18 +84,14 @@
     <h:form id="editEdgeForm" >
         <p:dialog header="Изменить" widgetVar="editEdgeDialog" resizable="false">
             <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="nodeName" value="Название:" />
+                <h:outputLabel for="editEdgeName" value="Название:" />
                 <p:inputText id="editEdgeName"  required="true" label="Название" styleClass="editDialogEdgeName"/>
-                <h:outputLabel for="editNodeFromMenu" value="Откуда:" />
-                <p:selectOneMenu id="editNodeFromMenu" styleClass="editDialogNodeFromMenu" widgetVar="editDialogNodeFromSelect">
-                    <!--<f:selectItems value="#{questController.allNodes}" var="node" itemLabel="#{node.name}" itemValue="#{node.id}"/>-->
-                </p:selectOneMenu>
-
-                <h:outputLabel for="editNodeToMenu" value="Куда:" />
-                <p:selectOneMenu id="editNodeToMenu" styleClass="editDialogNodeToMenu" widgetVar="editDialogNodeToSelect">
-                    <!--<f:selectItems value="#{questController.allNodes}" var="node" itemLabel="#{node.name}" itemValue="#{node.id}"/>-->
-                </p:selectOneMenu>
-                <p:inputText id="editEdgeId"  styleClass="editDialogEdgeId" style="display: none"/>
+                <h:outputLabel for="editDialogNodeFromMenu" value="Откуда:" />
+                <select id="editDialogNodeFromMenu" class="editDialogNodeFromMenu"/>
+                <h:outputLabel for="editDialogNodeToMenu" value="Куда:" />
+                <select id="editDialogNodeToMenu" class="editDialogNodeToMenu"/>
+                <h:outputLabel for="editEdgeId" value="Куда:" style="display:none;"/>
+                <p:inputText id="editEdgeId"  styleClass="editDialogEdgeId" style="display: none;"/>
                 <f:facet name="footer">
                     <p:commandButton value="Изменить" styleClass="editDialogEdgeOKButton"/>
                     <p:commandButton value="Отмена" styleClass="editDialogEdgeCloseButton"/>

@@ -15,4 +15,11 @@ public class GraphUtils {
         }
         return null;
     }
+    public static TransitionView getTransitionViewByViewId(Graph<NodeView, TransitionView> graph, String viewId) {
+        for(TransitionView transitionView : graph.edgeSet()) {
+            if(transitionView.getViewId().equals(viewId))
+                return transitionView;
+        }
+        return null;
+    }
 }

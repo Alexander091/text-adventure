@@ -1,10 +1,13 @@
 package org.my.adventure.questeditor.impl.commands;
 
+import org.my.adventure.questeditor.impl.beans.GraphEditorBean;
+
 /**
- * Created by dimko_000 on 18.02.2016.
+ * Created by dimko_000 on 20.02.2016.
  */
-public abstract class AddCommand<T> implements Command {
+public abstract class EditCommand<T> implements Command {
     protected T object;
+
     public T getObject() {
         return object;
     }

@@ -32,9 +32,18 @@ public class NodeView extends EntityView<Node> {
     @Override
     public JSONObject getJsonOfEntity() {
         JSONObject nodeJson = new JSONObject();
-        nodeJson.put("id", entity.getId());
+        nodeJson.put("id", viewId);
         nodeJson.put("name", entity.getName());
         nodeJson.put("description", entity.getDescription());
+        return nodeJson;
+    }
+
+    public JSONObject getJsonForDropDownMenu(boolean selected) {
+        JSONObject nodeJson = new JSONObject();
+        nodeJson.put("id", viewId);
+        nodeJson.put("name", entity.getName());
+        nodeJson.put("description", entity.getDescription());
+        nodeJson.put("selected", selected);
         return nodeJson;
     }
 }

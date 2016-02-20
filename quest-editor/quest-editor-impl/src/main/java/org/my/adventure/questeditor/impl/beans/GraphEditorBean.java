@@ -3,13 +3,14 @@ package org.my.adventure.questeditor.impl.beans;
 import org.jgrapht.Graph;
 import org.my.adventure.dao_manager.api.dao.NodeDAO;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
+import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Transition;
+import org.my.adventure.questeditor.impl.GraphUtils;
 import org.my.adventure.questeditor.impl.builders.GraphBuilder;
 import org.my.adventure.questeditor.impl.builders.QuestBuilder;
 import org.my.adventure.questeditor.impl.builders.ViewBuilder;
-import org.my.adventure.questeditor.impl.commands.AddNodeViewCommand;
-import org.my.adventure.questeditor.impl.commands.AddTransitionViewCommand;
-import org.my.adventure.questeditor.impl.commands.Command;
+import org.my.adventure.questeditor.impl.commands.*;
 import org.my.adventure.questeditor.impl.views.NodeView;
 import org.my.adventure.questeditor.impl.views.TransitionView;
 import org.primefaces.json.JSONArray;
@@ -105,6 +106,26 @@ public class GraphEditorBean implements Serializable {
         commandList.add(new AddTransitionViewCommand(transitionView));
         viewGraph.addEdge(transitionView.getFrom(), transitionView.getTo(), transitionView);
         return transitionView;
+    }
+    public NodeView editNode(String nodeData, String viewId) {
+        NodeView nodeView = GraphUtils.getNodeViewByViewId(viewGraph,viewId);
+        String oldName = nodeView.getEntity().getName();
+        String oldDescription = nodeView.getEntity().getDescription();
+        String oldPosition = nodeView.getEntity().getPosition();
+        JSONObject nodeJson = new JSONObject(nodeData);
+        nodeView.getEntity().setName(nodeJson.getString("name"));
+        nodeView.getEntity().setDescription(nodeJson.getString("description"));
+        nodeView.getEntity().setPosition(nodeJson.getString("position"));
+        commandList.add(new EditNodeViewCommand(nodeView, oldName, oldDescription, oldPosition));
+        return nodeView;
+    }
+    public TransitionView editTransition(String transitionData, String viewId) {
+        TransitionView oldTransitionView = GraphUtils.getTransitionViewByViewId(viewGraph,viewId);
+        TransitionView newTransitionView = ViewBuilder.buildTransitionView(transitionData, viewGraph);
+        commandList.add(new EditTransitionViewCommand(oldTransitionView, newTransitionView));
+        viewGraph.removeEdge(oldTransitionView);
+        viewGraph.addEdge(newTransitionView.getFrom(), newTransitionView.getTo(), newTransitionView);
+        return newTransitionView;
     }
     public String save() {
         for(Command command : commandList)
