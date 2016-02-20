@@ -1,8 +1,10 @@
 package org.my.adventure.questgame.ejb;
 
 import org.my.adventure.dao_manager.api.entities.Node;
+import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.dao_manager.api.entities.Transition;
 import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
+import org.my.adventure.questgame.impl.wrappers.QuestWrapper;
 import org.my.adventure.questgame.impl.wrappers.TransitionWrapper;
 
 import javax.annotation.PostConstruct;
@@ -19,52 +21,46 @@ import java.util.List;
 
 @Stateful
 public class GameBean {
-    //private Node currentNode;
-    //private List<Transition> transitions;
 
     @EJB
-    CurrentGameStageBean currentGameStageBean;
+    GameStagesBean gameStagesBean;
 
-    /*@PostConstruct
-    void init(){
-        currentNode = currentGameStageBean.getNode();
-        transitions = currentGameStageBean.getNode().getTransitions();
-    }*/
-
-    public NodeWrapper getNextWrappedNode(long transId) {
-        //currentNode = findTransById(transId).getNodeByToNode();
-        Node node = findTransById(transId).getNodeByToNode();
-        currentGameStageBean.setNode(node);
-        //transitions = currentGameStageBean.getNode().getTransitions();
-        return getCurrentWrappedNode();
+    public NodeWrapper getNextWrappedNode(long questId,long transId) {
+        Node node = findTransById(questId,transId).getNodeByToNode();
+        gameStagesBean.setNewGameStage(questId, node);
+        return getCurrentWrappedNode(questId);
     }
 
-    private Transition findTransById(long id){
+    private Transition findTransById(long questId,long transId){
         Transition tr = null;
-        for(Transition t : currentGameStageBean.getNode().getTransitions())
-            if (t.getId() == id) {
+        for(Transition t : gameStagesBean.getCurrentTransitionsByQuestId(questId))
+            if (t.getId() == transId) {
                 tr = t;
                 break;
             }
         return tr;
     }
 
-    public List<TransitionWrapper> getWrappedTransitions() {
+    public List<TransitionWrapper> getWrappedTransitions(List<Transition> transitions) {
         List<TransitionWrapper> trans = new ArrayList<TransitionWrapper>();
-        for(Transition tr : currentGameStageBean.getNode().getTransitions())
+        for(Transition tr : transitions)
             trans.add(new TransitionWrapper(tr.getName(),tr.getId()));
         return trans;
     }
 
-    public NodeWrapper getCurrentWrappedNode(){
-        return new NodeWrapper(currentGameStageBean.getNode().getName(),currentGameStageBean.getNode().getDescription(),getWrappedTransitions());
+    public NodeWrapper getCurrentWrappedNode(long questId){
+        Node node = gameStagesBean.getNodeByQuestId(questId);
+        return new NodeWrapper(node.getName(),
+                node.getDescription(),
+                getWrappedTransitions(node.getTransitions()));
     }
 
     public void loadGame(long questId){
-        currentGameStageBean.loadGameByQuestId(questId);
+        gameStagesBean.loadGameByQuestId(questId);
     }
 
-    public String getQuestName(){
-        return currentGameStageBean.getWrappedQuest().getQuestName();
+    public QuestWrapper getWrappedQuest(long questId){
+        Quest quest = gameStagesBean.getQuest(questId);
+        return new QuestWrapper(questId, quest.getName());
     }
 }
