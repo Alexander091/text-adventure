@@ -58,6 +58,26 @@
                     </earSourceExcludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <configuration>
+                    <imageName>example</imageName>
+                    <baseImage>jboss/wildfly</baseImage>
+                    <resources>
+                        <resource>
+                            <targetPath>/opt/jboss/wildfly/standalone/deployments/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.ear</include>
+                        </resource>
+                    </resources>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
