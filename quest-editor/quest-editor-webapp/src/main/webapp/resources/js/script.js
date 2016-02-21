@@ -134,14 +134,18 @@ $(document).ready(function() { // on dom ready
         })
     });
     $('.deleteDialogEdgeOKButton').click(function() {
-        var edgeId = $('.selectedItemInput').val().substring(1);
+        var edgeId = $('.selectedItemInput').val();
         $.ajax({
             type: 'post',
-            url: "http://localhost:8080/TextAdventure/rest/transition/delete/" + edgeId
-        }).done(function() {
-            console.log("edge successfully deleted");
-            cy.$('#e'+edgeId).remove();
-            $('.deleteDialogEdgeCloseButton').click();
+            url: "http://localhost:8080/TextAdventure/rest/command/transition/delete/" + edgeId
+        }).done(function(data) {
+            if(data.response=='success'){
+                console.log("edge successfully deleted");
+                cy.$('#'+edgeId).remove();
+                $('.deleteDialogEdgeCloseButton').click();
+            }
+            else
+                console.log("error on delete edge");
         }).fail(function() {
             console.log("error on delete edge");
         })
@@ -150,14 +154,18 @@ $(document).ready(function() { // on dom ready
         PF('deleteEdgeDialog').hide();
     });
     $('.deleteDialogNodeOKButton').click(function() {
-        var nodeId = $('.selectedItemInput').val().substring(1);
+        var nodeId = $('.selectedItemInput').val();
         $.ajax({
             type: 'post',
-            url: "http://localhost:8080/TextAdventure/rest/node/delete/" + nodeId
-        }).done(function() {
-            console.log("node successfully deleted");
-            cy.$('#n'+nodeId).remove();
-            $('.deleteDialogNodeCloseButton').click();
+            url: "http://localhost:8080/TextAdventure/rest/command/node/delete/" + nodeId
+        }).done(function(data) {
+            if(data.response=='success'){
+                console.log("node successfully deleted");
+                cy.$('#'+nodeId).remove();
+                $('.deleteDialogNodeCloseButton').click();
+            }
+            else
+                console.log("error on delete node");
         }).fail(function() {
             console.log("error on delete node");
         })

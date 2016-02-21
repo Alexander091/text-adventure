@@ -127,6 +127,20 @@ public class GraphEditorBean implements Serializable {
         viewGraph.addEdge(newTransitionView.getFrom(), newTransitionView.getTo(), newTransitionView);
         return newTransitionView;
     }
+    public NodeView deleteNode(String viewId) {
+        NodeView nodeView = GraphUtils.getNodeViewByViewId(viewGraph, viewId);
+        Set<TransitionView> edgesOfNode = viewGraph.edgesOf(nodeView);
+        commandList.add(new DeleteNodeViewCommand(nodeView, edgesOfNode));
+        viewGraph.removeAllEdges(edgesOfNode);
+        viewGraph.removeVertex(nodeView);
+        return nodeView;
+    }
+    public TransitionView deleteTransition(String viewId) {
+        TransitionView transitionView = GraphUtils.getTransitionViewByViewId(viewGraph, viewId);
+        commandList.add(new DeleteTransitionViewCommand(transitionView));
+        viewGraph.removeEdge(transitionView);
+        return transitionView;
+    }
     public String save() {
         for(Command command : commandList)
             command.saveToDB(this);

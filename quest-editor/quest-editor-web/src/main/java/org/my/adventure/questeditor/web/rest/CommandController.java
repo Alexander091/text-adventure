@@ -75,6 +75,13 @@ public class CommandController implements Serializable{
         return outputJson.toString();
     }
     @POST
+    @Path("/node/delete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteNode(@PathParam("id") String id) {
+        graphEditorBean.deleteNode(id);
+        return graphEditorBean.successResponse();
+    }
+    @POST
     @Path("/transition/post")
     @Produces(MediaType.APPLICATION_JSON)
     public String postTransition(String data) {
@@ -102,6 +109,13 @@ public class CommandController implements Serializable{
     public String updateTransition(@PathParam("id") String viewId, String data) {
         TransitionView transitionView = graphEditorBean.editTransition(data,viewId);
         return transitionView.getJsonOfView().toString();
+    }
+    @POST
+    @Path("/transition/delete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteTransition(@PathParam("id") String id) {
+        graphEditorBean.deleteTransition(id);
+        return graphEditorBean.successResponse();
     }
     @POST
     @Path("/save")
