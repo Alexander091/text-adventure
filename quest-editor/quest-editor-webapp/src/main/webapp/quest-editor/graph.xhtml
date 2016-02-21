@@ -23,18 +23,16 @@
             <p:commandButton type="button" value="Сохранить" styleClass="saveButton"/>
         </f:facet>
         <f:facet name="left">
-            <p:commandButton type="button" value="Отмена" styleClass="undoButton"/>
+            <p:commandButton type="button" value="Отмена" styleClass="undoButton" disabled="true"/>
+        </f:facet>
+        <f:facet name="left">
+            <p:commandButton type="button" value="Выйти" styleClass="exitButton"/>
         </f:facet>
     </p:toolbar>
    <div id="cy">
    </div>
     <h:form id="addNodeForm">
-        <p:dialog header="Добавить" widgetVar="addNodeDialog" resizable="false">
-            <!--<p:outputLabel for="selectmenu" value="Что:  "/>-->
-            <!--<p:selectOneMenu id="selectmenu" styleClass="addDialogSelectMenu" widgetVar="addDialogSelect">-->
-                <!--<f:selectItem itemLabel="Узел" itemValue="0" />-->
-                <!--<f:selectItem itemLabel="Ребро" itemValue="1"/>-->
-            <!--</p:selectOneMenu>-->
+        <p:dialog header="Добавить" widgetVar="addNodeDialog" resizable="false" modal="true">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="nodeName" value="Название:" />
                 <p:inputText id="nodeName"  required="true" label="Название" styleClass="addDialogNodeName"/>
@@ -50,7 +48,7 @@
         </p:dialog>
     </h:form>
     <h:form id="addEdgeForm">
-        <p:dialog header="Добавить" widgetVar="addEdgeDialog" resizable="false">
+        <p:dialog header="Добавить" widgetVar="addEdgeDialog" resizable="false" modal="true">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="edgeName" value="Название:" />
                 <p:inputText id="edgeName"  required="true" label="Название" styleClass="addDialogEdgeName"/>
@@ -66,7 +64,7 @@
         </p:dialog>
     </h:form>
     <h:form id="editNodeForm">
-        <p:dialog header="Изменить" widgetVar="editNodeDialog" resizable="false">
+        <p:dialog header="Изменить" widgetVar="editNodeDialog" resizable="false" modal="true">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="nodeName" value="Название:" />
                 <p:inputText id="editNodeName"  required="true" label="Название" styleClass="editDialogNodeName"/>
@@ -82,7 +80,7 @@
         </p:dialog>
     </h:form>
     <h:form id="editEdgeForm" >
-        <p:dialog header="Изменить" widgetVar="editEdgeDialog" resizable="false">
+        <p:dialog header="Изменить" widgetVar="editEdgeDialog" resizable="false" modal="true">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="editEdgeName" value="Название:" />
                 <p:inputText id="editEdgeName"  required="true" label="Название" styleClass="editDialogEdgeName"/>
@@ -100,7 +98,7 @@
         </p:dialog>
     </h:form>
     <h:form id="deleteNodeForm">
-        <p:dialog header="Удалить" widgetVar="deleteNodeDialog" resizable="false">
+        <p:dialog header="Удалить" widgetVar="deleteNodeDialog" resizable="false" modal="true">
             <p:outputLabel value="Вы действительно хотите удалить этот узел вместе со всеми связанными ребрами?"></p:outputLabel>
             <f:facet name="footer">
                 <p:commandButton value="Удалить" styleClass="deleteDialogNodeOKButton"/>
@@ -110,13 +108,26 @@
 
     </h:form>
     <h:form id="deleteEdgeForm">
-        <p:dialog header="Удалить" widgetVar="deleteEdgeDialog" resizable="false">
+        <p:dialog header="Удалить" widgetVar="deleteEdgeDialog" resizable="false" modal="true">
             <p:outputLabel value="Вы действительно хотите удалить это ребро?"/>
             <f:facet name="footer">
                 <p:commandButton value="Удалить" styleClass="deleteDialogEdgeOKButton"/>
                 <p:commandButton value="Отмена" styleClass="deleteDialogEdgeCloseButton"/>
             </f:facet>
         </p:dialog>
-
+    </h:form>
+    <h:form>
+        <p:dialog header="Сохранение" widgetVar="waitForSavingDialog" resizable="false" modal="true" closable="false">
+            <p:outputLabel value="Идет сохранение. Подождите пожалуйста."/>
+        </p:dialog>
+    </h:form>
+    <h:form>
+        <p:dialog header="Выйти" widgetVar="exitDialog" resizable="false" modal="true" closable="false">
+            <p:outputLabel value="Вы действительно хотите выйти? Все несохраненные изменения будут потеряны."/>
+            <f:facet name="footer">
+                <p:commandButton value="Выйти" styleClass="exitDialogOKButton" action="/quest-storage/storage?faces-redirect=true"/>
+                <p:commandButton value="Отмена" styleClass="exitDialogCloseButton"/>
+            </f:facet>
+        </p:dialog>
     </h:form>
 </ui:composition>

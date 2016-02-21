@@ -2,6 +2,7 @@ package org.my.adventure.questeditor.web.jsf;
 
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.questeditor.impl.beans.NodeBean;
 import org.my.adventure.questeditor.impl.beans.QuestBean;
 import org.primefaces.event.TabChangeEvent;
 
@@ -25,7 +26,8 @@ public class QuestController implements Serializable{
     private Quest quest;
     @Inject
     QuestBean questBean;
-
+    @Inject
+    NodeBean nodeBean;
     public Integer getActiveIndex() {
         return activeIndex;
     }
@@ -76,25 +78,18 @@ public class QuestController implements Serializable{
         quest.setAgeLimit(ageLimit);
     }
     public String saveQuest() {
-//        Node node = new Node();
-//        node.setName("Старт");
-//        node.setDescription("Стартовая локация");
-//        node.setPosition("100 100");
-//        quest.setStartNode(node);
         questId = questBean.saveOrUpdate(quest);
+        Node node = new Node();
+        node.setName("Старт");
+        node.setDescription("Стартовая локация");
+        node.setPosition("250 100");
+        node.setQuestByQuestId(quest);
+        nodeBean.saveOrUpdate(node);
+        quest.setStartNode(node);
+        questBean.saveOrUpdate(quest);
         return "editor?faces-redirect=true&questId="+questId;
     }
     public void updateQuest() {
         questId = questBean.saveOrUpdate(quest);
-    }
-    public void onTabChange(TabChangeEvent event) {
-        if(event.getTab().getTitle().equals("Квест")) {
-            loadQuest();
-        }
-    }
-    public List<Node> getAllNodes() {
-        if(questId==null)
-            return new ArrayList<Node>();
-        return questBean.getAllNodes(questId);
     }
 }

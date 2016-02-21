@@ -129,6 +129,8 @@ public class GraphEditorBean implements Serializable {
     }
     public NodeView deleteNode(String viewId) {
         NodeView nodeView = GraphUtils.getNodeViewByViewId(viewGraph, viewId);
+        if(nodeView.getEntity().getId()!=null && nodeView.getEntity().getId().longValue() == quest.getStartNode().getId().longValue())
+            return null;
         Set<TransitionView> edgesOfNode = viewGraph.edgesOf(nodeView);
         commandList.add(new DeleteNodeViewCommand(nodeView, edgesOfNode));
         viewGraph.removeAllEdges(edgesOfNode);
@@ -141,10 +143,12 @@ public class GraphEditorBean implements Serializable {
         viewGraph.removeEdge(transitionView);
         return transitionView;
     }
-    public String save() {
+    public String save(JSONArray data) {
+        updatePositions(data);
         for(Command command : commandList)
             command.saveToDB(this);
         commandList.clear();
+        updatePositions(data);
         return successResponse();
     }
     public String undo() {
@@ -153,9 +157,22 @@ public class GraphEditorBean implements Serializable {
         commandList.remove(command);
         return successResponse();
     }
+    public void updatePositions(JSONArray data) {
+        for(int i = 0; i<data.length(); i++) {
+            JSONObject nodeJson = data.getJSONObject(i);
+            NodeView nodeView = GraphUtils.getNodeViewByViewId(getViewGraph(), nodeJson.getString("id"));
+            nodeView.getEntity().setPosition(nodeJson.getString("position"));
+            nodeBean.saveOrUpdate(nodeView.getEntity());
+        }
+    }
     public String successResponse() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("response", "success");
+        return jsonObject.toString();
+    }
+    public String errorResponse() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("response", "error");
         return jsonObject.toString();
     }
 }

@@ -123,15 +123,27 @@ $(document).ready(function() { // on dom ready
         })
     });
     $('.saveButton').click(function() {
+        PF('waitForSavingDialog').show();
+        var outputArray = [];
+        var nodesArray = cy.nodes();
+        for(var i=0; i<nodesArray.length; i++)
+            outputArray.push({"id": nodesArray[i].data().id, "position": nodesArray[i].position('x') + " " + nodesArray[i].position('y')});
         $.ajax({
             type: 'post',
+            data: JSON.stringify(outputArray),
             url: "http://localhost:8080/TextAdventure/rest/command/save"
         }).done(function(data) {
-            if(data["response"]=="success")
+            if(data["response"]=="success") {
                 console.log("save success");
+                PF('waitForSavingDialog').hide();
+            }
+            console.log("error on save");
         }).fail(function() {
-            console.log("error on undo");
+            console.log("error on save");
         })
+    });
+    $('.exitButton').click(function() {
+       PF('exitDialog').show();
     });
     $('.deleteDialogEdgeOKButton').click(function() {
         var edgeId = $('.selectedItemInput').val();
@@ -163,6 +175,11 @@ $(document).ready(function() { // on dom ready
                 console.log("node successfully deleted");
                 cy.$('#'+nodeId).remove();
                 $('.deleteDialogNodeCloseButton').click();
+            }
+            if(data.response=='error'){
+                console.log("error on deleting node");
+                $('.deleteDialogNodeCloseButton').click();
+                alert("you can't delete start node");
             }
             else
                 console.log("error on delete node");
@@ -277,6 +294,9 @@ $(document).ready(function() { // on dom ready
     $('.addDialogEdgeCloseButton').click(function () {
         $('.addDialogEdgeName').val('');
         PF('addEdgeDialog').hide();
+    });
+    $('.exitDialogCloseButton').click(function () {
+        PF('exitDialog').hide();
     });
     cy.on('tap', function(e) {
         if (e.cyTarget === cy) {

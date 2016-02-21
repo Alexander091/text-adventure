@@ -78,7 +78,9 @@ public class CommandController implements Serializable{
     @Path("/node/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteNode(@PathParam("id") String id) {
-        graphEditorBean.deleteNode(id);
+        NodeView nodeView = graphEditorBean.deleteNode(id);
+        if(nodeView==null)
+            return graphEditorBean.errorResponse();
         return graphEditorBean.successResponse();
     }
     @POST
@@ -120,8 +122,8 @@ public class CommandController implements Serializable{
     @POST
     @Path("/save")
     @Produces(MediaType.APPLICATION_JSON)
-    public String save() {
-        return graphEditorBean.save();
+    public String save(String data) {
+        return graphEditorBean.save(new JSONArray(data));
     }
 
     @POST
