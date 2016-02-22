@@ -30,15 +30,19 @@ $(document).ready(function() { // on dom ready
     cy.on('tap', 'node', function(e) {
         var node = e.cyTarget;
         $('.selectedItemInput').val(node.data("id"));
-        $('.editButton').prop('disabled', false);
-        $('.deleteButton').prop('disabled', false);
+        //$('.editButton').prop('disabled', false);
+        //$('.deleteButton').prop('disabled', false);
+        PF('editButton').enable();
+        PF('deleteButton').enable();
         console.log($('.selectedItemInput').val());
     });
     cy.on('tap', 'edge', function(e) {
         var edge = e.cyTarget;
         $('.selectedItemInput').val(edge.data("id"));
-        $('.editButton').prop('disabled', false);
-        $('.deleteButton').prop('disabled', false);
+        //$('.editButton').prop('disabled', false);
+        //$('.deleteButton').prop('disabled', false);
+        PF('editButton').enable();
+        PF('deleteButton').enable();
         console.log($('.selectedItemInput').val());
     });
     //$('.addDialogSelectMenu').change(function() {
@@ -301,8 +305,10 @@ $(document).ready(function() { // on dom ready
     cy.on('tap', function(e) {
         if (e.cyTarget === cy) {
             cy.elements().removeClass('faded');
-            $('.editButton').prop('disabled', true);
-            $('.deleteButton').prop('disabled', true);
+            //$('.editButton').prop('disabled', true);
+            //$('.deleteButton').prop('disabled', true);
+            PF('editButton').disable();
+            PF('deleteButton').disable();
         }
     });
 
