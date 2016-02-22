@@ -61,7 +61,8 @@
                                     <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать" icon="ui-icon-star">
                                         <f:param name="questId" value="#{quest.id}" />
                                     </p:button>
-                                    <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}" update="dataScroller">
+                                    <p:commandButton value="Удалить" rendered="#{sessionBean.admin}"
+                                                     actionListener="#{questController.deleteQuest(quest.id)}" update="dataScroller">
                                         <p:confirm header="Требуется подтверждение" message="Вы уверены?" icon="ui-icon-alert" />
                                     </p:commandButton>
 

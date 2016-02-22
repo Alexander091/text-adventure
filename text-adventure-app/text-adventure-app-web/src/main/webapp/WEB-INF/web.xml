@@ -47,6 +47,8 @@
             <web-resource-name>secured</web-resource-name>
             <url-pattern>/faces/quest-editor/*</url-pattern>
             <url-pattern>/quest-editor/*</url-pattern>
+            <url-pattern>/quest-storage/*</url-pattern>
+            <url-pattern>/faces/quest-storage/*</url-pattern>
             <http-method>POST</http-method>
             <http-method>GET</http-method>
             <http-method>PUT</http-method>

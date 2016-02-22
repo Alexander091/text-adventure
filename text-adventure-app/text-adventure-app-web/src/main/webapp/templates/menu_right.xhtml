@@ -5,13 +5,20 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
-    <!--<p:button outcome="index.xhtml" value="User data" icon="ui-icon-star">-->
-    <!--<f:param name="questId" value="10" />-->
-    <!--</p:button>-->
-    <p:commandButton type="button" title="Save" icon="ui-icon-disk"/>
-    <p:commandButton type="button" title="Delete" icon="ui-icon-trash"/>
-    <p:commandButton type="button" title="Print" icon="ui-icon-print"/>
+    <c:choose>
+        <c:when test="#{sessionBean.jaasUser() == null}">
+            <!--<p:button outcome="/authorization/login.xhtml" value="Login" icon="ui-icon-star"/>-->
+            <p:button outcome="/quest-storage/storage.xhtml" value="Login" icon="ui-icon-star"/>
+        </c:when>
+        <c:otherwise>
+            <p:commandButton action="#{sessionBean.jaasLogout()}"
+                             value="#{sessionBean.jaasUser()}"
+                             icon="ui-icon-star" ajax="false">
+            </p:commandButton>
+        </c:otherwise>
+    </c:choose>
 </h:body>
 </html>

@@ -21,7 +21,7 @@ public class QuestController {
     @Inject
     QuestBean questBean = null;
 
-    ExternalContext externalContext = null;//TODO: fix layout bug
+    ExternalContext externalContext = null;
     Map<String, Object> sessionMap = null;
 
     public QuestController() {
