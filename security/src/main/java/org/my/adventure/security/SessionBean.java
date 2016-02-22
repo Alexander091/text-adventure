@@ -1,4 +1,4 @@
-package org.my.adventure.queststorage.web;
+package org.my.adventure.security;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -50,8 +50,7 @@ public class SessionBean implements Serializable{
 
     public String jaasUser(){
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String username = request.getRemoteUser();
-        return username;
+        return request.getRemoteUser();
     }
 
     public String jaasLogout(){
