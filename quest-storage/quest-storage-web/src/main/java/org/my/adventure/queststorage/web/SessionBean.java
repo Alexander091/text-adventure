@@ -1,9 +1,5 @@
 package org.my.adventure.queststorage.web;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.my.adventure.dao_manager.api.dao.UserDAO;
-
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;

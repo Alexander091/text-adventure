@@ -55,14 +55,15 @@
                         <f:facet name="footer">
                             <p:row>
                                 <p:column colspan="3">
-                                    <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-star">
+                                    <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-play">
                                         <f:param name="questId" value="#{quest.id}" />
                                     </p:button>
-                                    <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать" icon="ui-icon-star">
+                                    <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать" icon="ui-icon-wrench">
                                         <f:param name="questId" value="#{quest.id}" />
                                     </p:button>
                                     <p:commandButton value="Удалить" rendered="#{sessionBean.admin}"
-                                                     actionListener="#{questController.deleteQuest(quest.id)}" update="dataScroller">
+                                                     actionListener="#{questController.deleteQuest(quest.id)}"
+                                                     icon="ui-icon-trash" update="dataScroller">
                                         <p:confirm header="Требуется подтверждение" message="Вы уверены?" icon="ui-icon-alert" />
                                     </p:commandButton>
 

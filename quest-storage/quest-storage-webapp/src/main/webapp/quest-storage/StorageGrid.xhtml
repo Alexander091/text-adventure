@@ -14,10 +14,6 @@
                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="3,6,9,12,18">
 
-                <f:facet name="header" id="header">
-                    Quest to play
-                </f:facet>
-
                 <p:panel style="text-align: center">
 
                     <f:facet name="header">
@@ -48,14 +44,15 @@
                         <p:graphicImage url="#{quest.image.path}" style="height: 300px"/>
                         <p>#{quest.description}</p>
                         <div>
-                            <p:button outcome="/index.xhtml" value="Играть">
+                            <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-play">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать">
+                            <p:button outcome="/quest-editor/editor.xhtml" icon="ui-icon-wrench"
+                                      value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                                 <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}"
-                                                 rendered="#{sessionBean.admin}" update="quests">
+                                                 rendered="#{sessionBean.admin}" icon="ui-icon-trash" update="quests">
                                 <p:confirm header="Подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
                         </div>
@@ -64,14 +61,14 @@
                     <f:facet name="footer">
                         <div align="center">
                             <!--<p:commandButton value="Подробнее" onclick="PF('dlg#{quest.id}').show();"/>-->
-                            <p:button outcome="/index.xhtml" value="Играть">
+                            <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-play">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                             <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                             <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}"
-                                             rendered="#{sessionBean.admin}"
+                                             rendered="#{sessionBean.admin}" icon="ui-icon-trash"
                                              update="quests">
                                 <p:confirm header="Требуется подтверждение" message="Вы уверены?"/>
                             </p:commandButton>

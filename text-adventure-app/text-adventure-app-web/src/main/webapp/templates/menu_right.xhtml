@@ -10,13 +10,13 @@
 <h:body>
     <c:choose>
         <c:when test="#{sessionBean.jaasUser() == null}">
-            <!--<p:button outcome="/authorization/login.xhtml" value="Login" icon="ui-icon-star"/>-->
-            <p:button outcome="/quest-storage/storage.xhtml" value="Login" icon="ui-icon-star"/>
+            <p:button outcome="/quest-storage/storage.xhtml" value="Login" icon="ui-icon-key"/>
         </c:when>
         <c:otherwise>
+            <p:commandButton value="#{sessionBean.jaasUser()}"/>
             <p:commandButton action="#{sessionBean.jaasLogout()}"
-                             value="#{sessionBean.jaasUser()}"
-                             icon="ui-icon-star" ajax="false">
+                             value="Выход"
+                             icon="ui-icon-power" ajax="false">
             </p:commandButton>
         </c:otherwise>
     </c:choose>
