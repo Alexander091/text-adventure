@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="fileDebug" fileName="debug.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %M %m %ex%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="fileInfo" fileName="info.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %M %m %ex%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="fileErrors" fileName="Error.log">
+            <PatternLayout>
+                <Pattern>[%file:%line] %d %p %c{1.} [%t] %M %m %ex%n</Pattern>
+            </PatternLayout>
+        </File>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>[%file:%line] %c{1.} %M ~~~ %m %ex%n</Pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="fileDebug" level="DEBUG"/>
+            <AppenderRef ref="fileErrors" level="ERROR"/>
+            <AppenderRef ref="fileInfo" level="INFO"/>
+            <AppenderRef ref="STDOUT" level="INFO"/>
+        </Root>
+    </Loggers>
+</Configuration>

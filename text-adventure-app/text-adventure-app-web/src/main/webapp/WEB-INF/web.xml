@@ -41,7 +41,6 @@
     </context-param>
 
     <!--Defining security constraint for type of roles available-->
-
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>secured</web-resource-name>
@@ -59,22 +58,6 @@
         </auth-constraint>
     </security-constraint>
 
-    <!--<security-constraint>-->
-        <!--<queststorageweb-resource-collection>-->
-            <!--<queststorageweb-resource-name>user</queststorageweb-resource-name>-->
-            <!--<url-pattern>/quest-storage/*</url-pattern>-->
-            <!--<http-method>POST</http-method>-->
-            <!--<http-method>GET</http-method>-->
-            <!--<http-method>PUT</http-method>-->
-            <!--<http-method>DELETE</http-method>-->
-        <!--</queststorageweb-resource-collection>-->
-        <!--<auth-constraint>-->
-            <!--<role-name>ADMIN</role-name>-->
-            <!--<role-name>user</role-name>-->
-        <!--</auth-constraint>-->
-    <!--</security-constraint>-->
-    <!--Defining security constraint for type of roles available-->
-
     <!--Defining type of authenitcation mechanism-->
     <login-config>
         <auth-method>FORM</auth-method>
@@ -84,7 +67,6 @@
             <form-error-page>/authorization/login_error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-    <!--Defining type of authenitcation mechanism-->
 
     <!--Denining security role-->
     <security-role>
@@ -94,8 +76,6 @@
     <security-role>
         <role-name>user</role-name>
     </security-role>
-    <!--Denining security role-->
-
 
     <error-page>
         <!-- Missing login -->
@@ -106,6 +86,7 @@
         <!-- Forbidden directory listing -->
         <error-code>403</error-code>
         <location>/authorization/login.xhtml</location>
+        <!--TODO: create proper forbidden page-->
     </error-page>
     <!--<error-page>-->
         <!--&lt;!&ndash; Uncaught exception &ndash;&gt;-->
