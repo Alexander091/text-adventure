@@ -61,7 +61,6 @@ public class QuestController {
         return layout;
     }
 
-    //TODO: include resources data into sql script, user->users, users data
     public List<Quest> getQuests(){
         return questBean.getQuests();
     }
