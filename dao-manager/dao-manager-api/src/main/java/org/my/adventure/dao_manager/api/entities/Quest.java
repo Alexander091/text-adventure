@@ -41,7 +41,7 @@ public class Quest extends Common{
         this.startNode = startNode;
     }
 
-    @OneToMany(mappedBy = "quest")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "quest")
     public List<Item> getItems() {
 
         return items;
@@ -51,7 +51,7 @@ public class Quest extends Common{
         this.items = items;
     }
 
-    @OneToMany(mappedBy = "questByQuestId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questByQuestId")
     public List<Resource> getResources() {
         return resources;
     }
@@ -60,7 +60,7 @@ public class Quest extends Common{
         this.resources = resources;
     }
 
-    @OneToMany(mappedBy = "questByQuestId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questByQuestId")
     public List<Stat> getStats() {
         return stats;
     }

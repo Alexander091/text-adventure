@@ -15,6 +15,7 @@
         <module>text-adventure-common</module>
         <module>dao-manager</module>
         <module>quest-storage</module>
+        <module>quest-game</module>
     </modules>
 
     <repositories>
@@ -26,6 +27,7 @@
     </repositories>
 
     <dependencies>
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
