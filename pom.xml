@@ -27,17 +27,6 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>2.2.12</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>swanky-purse</artifactId>
-            <version>1.0.9</version>
-        </dependency>
 
         <dependency>
             <groupId>javax</groupId>
@@ -50,14 +39,11 @@
             <artifactId>primefaces</artifactId>
             <version>5.3</version>
         </dependency>
-
-
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
             <version>1.0.10</version>
         </dependency>
-
     </dependencies>
 
     <build>

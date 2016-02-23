@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<!--<ui:composition template="/templates/error.xhtml">-->
+<!--<ui:define name="error_message">-->
+<!--<h3 align="center">Неверное имя пользователя или пароль, попробуйте войти ещё раз.</h3>-->
+<!--</ui:define>-->
+<!--<ui:define name="return_button">-->
+<!--<div align="center">-->
+<!--<h:form>-->
+<!--&lt;!&ndash;<ui:include src="/authorization/auth_form.xhtml"/>&ndash;&gt;-->
+<!--<p:button outcome="/index.xhtml" value="Вернуться на главную страницу" icon="ui-icon-star"/>-->
+<!--</h:form>-->
+<!--</div>-->
+<!--</ui:define>-->
+<!--</ui:composition>-->
+<ui:composition template="/templates/layout.xhtml">
+    <!--<ui:define name="menu"/>-->
+    <ui:define name="content">
+        <div align="center" style="margin-top: 10%">
+            <h3 align="center">Неверное имя пользователя или пароль, попробуйте войти ещё раз.</h3>
+            <ui:include src="/authorization/auth_form.xhtml"/>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
