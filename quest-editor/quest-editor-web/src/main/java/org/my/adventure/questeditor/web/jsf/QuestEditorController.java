@@ -3,16 +3,12 @@ package org.my.adventure.questeditor.web.jsf;
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.questeditor.impl.beans.NodeBean;
-import org.my.adventure.questeditor.impl.beans.QuestBean;
-import org.primefaces.event.TabChangeEvent;
+import org.my.adventure.questeditor.impl.beans.QuestEditorBean;
 
 import javax.faces.bean.*;
 import javax.faces.bean.ViewScoped;
-import javax.faces.view.*;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by dimko_000 on 10.12.2015.
@@ -25,7 +21,7 @@ public class QuestController implements Serializable{
     private Integer activeIndex = 1;
     private Quest quest;
     @Inject
-    QuestBean questBean;
+    QuestEditorBean questEditorBean;
     @Inject
     NodeBean nodeBean;
     public Integer getActiveIndex() {
@@ -37,7 +33,7 @@ public class QuestController implements Serializable{
     }
 
     public void loadQuest() {
-        quest=questBean.getById(questId);
+        quest= questEditorBean.getById(questId);
     }
     public String getName() {
         return quest.getName();
@@ -78,7 +74,7 @@ public class QuestController implements Serializable{
         quest.setAgeLimit(ageLimit);
     }
     public String saveQuest() {
-        questId = questBean.saveOrUpdate(quest);
+        questEditorBean.saveOrUpdate(quest);
         Node node = new Node();
         node.setName("Старт");
         node.setDescription("Стартовая локация");
@@ -86,10 +82,10 @@ public class QuestController implements Serializable{
         node.setQuestByQuestId(quest);
         nodeBean.saveOrUpdate(node);
         quest.setStartNode(node);
-        questBean.saveOrUpdate(quest);
+        questEditorBean.saveOrUpdate(quest);
         return "editor?faces-redirect=true&questId="+questId;
     }
     public void updateQuest() {
-        questId = questBean.saveOrUpdate(quest);
+        questEditorBean.saveOrUpdate(quest);
     }
 }

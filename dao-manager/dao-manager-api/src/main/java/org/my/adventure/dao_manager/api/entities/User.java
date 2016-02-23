@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Created by Дмитрий on 02.12.2015.
  */
 @Entity
-@Table(name = "user", schema = "public", catalog = "netcracker")
+@Table(name = "users", schema = "public", catalog = "netcracker")
 public class User extends Common {
     private String name;
     private String surname;

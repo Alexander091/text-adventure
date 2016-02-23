@@ -20,7 +20,7 @@ import java.util.List;
  * Created by dimko_000 on 03.02.2016.
  */
 @Stateless
-public class QuestBean{
+public class QuestEditorBean {
     @EJB
     QuestDAO questDAO;
     @EJB
@@ -38,8 +38,8 @@ public class QuestBean{
             return questDAO.getById(questId);
     }
 
-    public Long saveOrUpdate(Quest quest) {
-        return questDAO.saveOrUpdate(quest);
+    public void saveOrUpdate(Quest quest) {
+        questDAO.saveOrUpdate(quest);
     }
 
     public void delete(Quest quest) {
