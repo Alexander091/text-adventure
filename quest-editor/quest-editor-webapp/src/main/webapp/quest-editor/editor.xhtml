@@ -13,12 +13,12 @@
 </h:head>
 <h:body>
     <f:metadata>
-        <f:viewParam name="questId" value="#{questController.questId}"/>
-        <f:viewAction action="#{questController.loadQuest}"/>
+        <f:viewParam name="questId" value="#{questEditorController.questId}"/>
+        <f:viewAction action="#{questEditorController.loadQuest}"/>
     </f:metadata>
     <!--<h:form id="form">-->
     <h:form id="editorForm">
-        <h:inputText styleClass="questIdInput" style="display: none;" value="#{questController.questId}"/>
+        <h:inputText styleClass="questIdInput" style="display: none;" value="#{questEditorController.questId}"/>
         <p:growl id="msgs" showDetail="true" />
     </h:form>
         <!--<p:toolbar style="margin-bottom: 3px">-->
@@ -26,11 +26,11 @@
                 <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
             <!--</f:facet>-->
         <!--</p:toolbar>-->
-        <p:tabView dynamic="true" activeIndex="#{questController.activeIndex}">
-            <p:tab title="Граф" disabled="#{questController.questId==null}">
+        <p:tabView dynamic="true" activeIndex="#{questEditorController.activeIndex}">
+            <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
                 <ui:include src="graph.xhtml"/>
             </p:tab>
-            <p:tab  title="Квест" selected="#{questController.questId==null}">
+            <p:tab  title="Квест" selected="#{questEditorController.questId==null}">
                 <ui:include src="quest.xhtml"/>
             </p:tab>
 
@@ -49,10 +49,10 @@
                 <!--</h:panelGrid>-->
             <!--</p:tab>-->
 
-            <p:tab title="Звуки" disabled="#{questController.questId==null}">
+            <p:tab title="Звуки" disabled="#{questEditorController.questId==null}">
                 <ui:include src="sounds.xhtml"  />
             </p:tab>
-            <p:tab title="Картинки" disabled="#{questController.questId==null}">
+            <p:tab title="Картинки" disabled="#{questEditorController.questId==null}">
                 <ui:include src="images.xhtml" />
             </p:tab>
         </p:tabView>

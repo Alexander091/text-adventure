@@ -20,8 +20,8 @@ public class NodeView extends EntityView<Node> {
         dataJson.put("name", entity.getName());
         nodeJson.put("data", dataJson);
         String position = entity.getPosition();
-        Integer posx = Integer.parseInt(position.split(" ")[0]);
-        Integer posy = Integer.parseInt(position.split(" ")[1]);
+        Double posx = Double.parseDouble(position.split(" ")[0]);
+        Double posy = Double.parseDouble(position.split(" ")[1]);
         JSONObject positionJson = new JSONObject();
         positionJson.put("x", posx);
         positionJson.put("y", posy);

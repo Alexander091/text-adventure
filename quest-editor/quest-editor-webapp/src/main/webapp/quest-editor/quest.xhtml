@@ -6,21 +6,21 @@
     <h:form>
         <h:panelGrid columns="2" cellpadding="10">
             <h:outputText value="Имя квеста:" />
-            <p:inputText value="#{questController.name}"/>
+            <p:inputText value="#{questEditorController.name}"/>
             <h:outputText value="Краткое описание:" />
-            <p:inputTextarea value="#{questController.description}" rows="10" cols="50"/>
+            <p:inputTextarea value="#{questEditorController.description}" rows="10" cols="50"/>
             <h:outputText value="Жанр:" />
-            <p:inputText value="#{questController.genre}" />
+            <p:inputText value="#{questEditorController.genre}" />
             <h:outputText value="Версия:" />
-            <p:inputText value="#{questController.version}" validatorMessage="Только цифры!">
+            <p:inputText value="#{questEditorController.version}" validatorMessage="Только цифры!">
                 <!--<f:validateRegex pattern="^[0-9]+$"/>-->
             </p:inputText>
             <h:outputText value="Минимальный возраст:" />
-            <p:inputText value="#{questController.ageLimit}" validatorMessage="Только цифры!">
+            <p:inputText value="#{questEditorController.ageLimit}" validatorMessage="Только цифры!">
                 <!--<f:validateRegex pattern="^[0-9]+$"/>-->
             </p:inputText>
-            <p:commandButton id="saveButton" value="Сохранить" styleClass="acceptButton" action="#{questController.saveQuest}" rendered="#{questController.questId==null}"/>
-            <p:commandButton id="acceptButton" value="Применить" styleClass="acceptButton" action="#{questController.updateQuest}" rendered="#{questController.questId!=null}"/>
+            <p:commandButton id="saveButton" value="Сохранить" styleClass="acceptButton" action="#{questEditorController.saveQuest}" rendered="#{questEditorController.questId==null}"/>
+            <p:commandButton id="acceptButton" value="Применить" styleClass="acceptButton" action="#{questEditorController.updateQuest}" rendered="#{questEditorController.questId!=null}"/>
         </h:panelGrid>
     </h:form>
 </ui:composition>

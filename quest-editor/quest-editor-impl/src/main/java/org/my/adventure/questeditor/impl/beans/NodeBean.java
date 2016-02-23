@@ -19,8 +19,8 @@ public class NodeBean {
         return nodeDAO.getById(id);
     }
 
-    public Long saveOrUpdate(Node node) {
-        return nodeDAO.saveOrUpdate(node);
+    public void saveOrUpdate(Node node) {
+         nodeDAO.saveOrUpdate(node);
     }
 
     public void delete(Node node) {

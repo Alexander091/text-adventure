@@ -13,10 +13,10 @@ import java.io.Serializable;
 /**
  * Created by dimko_000 on 10.12.2015.
  */
-@ManagedBean(name = "questController")
+@ManagedBean(name = "questEditorController")
 //@Named(value = "questController")
 @ViewScoped
-public class QuestController implements Serializable{
+public class QuestEditorController implements Serializable{
     private Long questId = null;
     private Integer activeIndex = 1;
     private Quest quest;
@@ -83,6 +83,7 @@ public class QuestController implements Serializable{
         nodeBean.saveOrUpdate(node);
         quest.setStartNode(node);
         questEditorBean.saveOrUpdate(quest);
+        questId=quest.getId();
         return "editor?faces-redirect=true&questId="+questId;
     }
     public void updateQuest() {

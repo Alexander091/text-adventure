@@ -17,8 +17,8 @@ public class TransitionBean {
         return transitionDAO.getById(id);
     }
 
-    public Long saveOrUpdate(Transition transition) {
-        return transitionDAO.saveOrUpdate(transition);
+    public void saveOrUpdate(Transition transition) {
+        transitionDAO.saveOrUpdate(transition);
     }
 
     public void delete(Transition transition) {

@@ -1,11 +1,7 @@
 package org.my.adventure.questeditor.impl.beans;
 
 import org.jgrapht.Graph;
-import org.my.adventure.dao_manager.api.dao.NodeDAO;
-import org.my.adventure.dao_manager.api.dao.QuestDAO;
-import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
-import org.my.adventure.dao_manager.api.entities.Transition;
 import org.my.adventure.questeditor.impl.GraphUtils;
 import org.my.adventure.questeditor.impl.builders.GraphBuilder;
 import org.my.adventure.questeditor.impl.builders.QuestBuilder;
@@ -18,13 +14,11 @@ import org.primefaces.json.JSONObject;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
 import javax.ejb.Stateful;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by dimko_000 on 18.02.2016.
@@ -33,7 +27,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @LocalBean
 public class GraphEditorBean implements Serializable {
     @EJB
-    private QuestBean questBean;
+    private QuestEditorBean questEditorBean;
     @EJB
     private NodeBean nodeBean;
     @EJB
@@ -74,19 +68,19 @@ public class GraphEditorBean implements Serializable {
         this.commandList = commandList;
     }
 
-    public QuestBean getQuestBean() {
-        return questBean;
+    public QuestEditorBean getQuestEditorBean() {
+        return questEditorBean;
     }
 
-    public void setQuestBean(QuestBean questBean) {
-        this.questBean = questBean;
+    public void setQuestEditorBean(QuestEditorBean questEditorBean) {
+        this.questEditorBean = questEditorBean;
     }
 
     public void loadQuest(Long id) {
         if(id==null)
             quest= QuestBuilder.buildDefaultQuest();
         else
-            quest = questBean.getById(id);
+            quest = questEditorBean.getById(id);
         viewGraph = GraphBuilder.buildQuestGraph(quest);
         commandList = new ArrayList<Command>();
     }
