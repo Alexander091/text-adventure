@@ -1,6 +1,5 @@
 package org.my.adventure.dao_manager.ejb.dao;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.my.adventure.dao_manager.api.dao.CommonDAO;
@@ -31,9 +30,11 @@ public abstract class CommonDAOImpl<T extends Common> implements CommonDAO<T> {
     }
 
     public void saveOrUpdate(Common object){
+
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.saveOrUpdate(object);
-        session.flush();
+        session.getTransaction().commit();
         session.close();
     }
 

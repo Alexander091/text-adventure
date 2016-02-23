@@ -10,55 +10,67 @@
 </h:head>
 <h:body>
     <div align="center">
-        <h:form id="scroller">
-
-            <p:dataScroller value="#{questStorageController.quests}" var="quest" chunkSize="3" id="dataScroller">
+        <h:form>
+            <p:dataScroller value="#{questController.quests}" var="quest" chunkSize="3" id="dataScroller">
                 <f:facet name="header">
-                    Scroll Down to Load More Quests
+                    Прокрутите вниз, что бы увидеть больше квестов
                 </f:facet>
                 <div align="left">
-                    <p:panelGrid columns="3" style="width: 100%">
-                        <p:graphicImage url="#{quest.image.path}" width="250px" />
-                        <p:outputPanel>
-                            <p:panelGrid columns="2">
-                                <h:outputText value="Id:" />
-                                <h:outputText value="#{quest.id}" style="font-weight: bold"/>
+                    <p:panelGrid style="width: 100%">
+                        <p:row>
+                            <p:column style="width: 25%; min-width: 25%;">
+                                <p:graphicImage url="#{quest.image.path}" style="width: 100%"/>
 
-                                <h:outputText value="Name:" />
-                                <h:outputText value="#{quest.name}" style="font-weight: bold"/>
+                            </p:column>
+                            <p:column style="width: 25%">
+                                <!--<p:outputPanel>-->
+                                    <p:panelGrid columns="2">
+                                        <h:outputText value="Id:" />
+                                        <h:outputText value="#{quest.id}" style="font-weight: bold"/>
 
-                                <h:outputText value="genre:" />
-                                <h:outputText value="#{quest.genre}" style="font-weight: bold"/>
+                                        <h:outputText value="Name:" />
+                                        <h:outputText value="#{quest.name}" style="font-weight: bold"/>
 
-                                <h:outputText value="Rating:" />
-                                <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
+                                        <h:outputText value="genre:" />
+                                        <h:outputText value="#{quest.genre}" style="font-weight: bold"/>
 
-                                <h:outputText value="Age limit:" />
-                                <h:outputText value="#{quest.ageLimit}" style="font-weight: bold"/>
+                                        <h:outputText value="Rating:" />
+                                        <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
 
-                                <h:outputText value="Version:" />
-                                <h:outputText value="#{quest.version}" style="font-weight: bold"/>
-                            </p:panelGrid>
-                        </p:outputPanel>
-                        <p:outputPanel>
-                            <h:outputText value="Description: " />
-                            <h:outputText value="#{quest.description}" style="font-weight: bold"/>
-                        </p:outputPanel>
+                                        <h:outputText value="Age limit:" />
+                                        <h:outputText value="#{quest.ageLimit}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Version:" />
+                                        <h:outputText value="#{quest.version}" style="font-weight: bold"/>
+                                    </p:panelGrid>
+                                <!--</p:outputPanel>-->
+                            </p:column>
+
+                            <p:column >
+                                <p:scrollPanel style="width: 100%; text-align: justify; max-height: 100%">
+                                    <h:outputText value="#{quest.description}" style="font-weight: bold"/>
+                                </p:scrollPanel>
+                            </p:column>
+                        </p:row>
                         <f:facet name="footer">
-                            <p:button outcome="/index.xhtml" value="Play" icon="ui-icon-star">
-                                <f:param name="questId" value="#{quest.id}" />
-                            </p:button>
-                            <p:button outcome="/quest-editor/editor.xhtml" value="Edit" icon="ui-icon-star">
-                                <f:param name="questId" value="#{quest.id}" />
-                            </p:button>
-                            <p:commandButton value="Delete" actionListener="#{questStorageController.deleteQuest(quest.id)}" update="dataScroller">
-                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                            </p:commandButton>
+                            <p:row>
+                                <p:column colspan="3">
+                                    <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-star">
+                                        <f:param name="questId" value="#{quest.id}" />
+                                    </p:button>
+                                    <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать" icon="ui-icon-star">
+                                        <f:param name="questId" value="#{quest.id}" />
+                                    </p:button>
+                                    <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}" update="dataScroller">
+                                        <p:confirm header="Требуется подтверждение" message="Вы уверены?" icon="ui-icon-alert" />
+                                    </p:commandButton>
 
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                            </p:confirmDialog>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closeOnEscape="true" closable="true">
+                                        <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </p:confirmDialog>
+                                </p:column>
+                            </p:row>
                         </f:facet>
                     </p:panelGrid>
                 </div>
