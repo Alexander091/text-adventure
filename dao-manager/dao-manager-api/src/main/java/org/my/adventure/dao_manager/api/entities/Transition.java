@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "transition", schema = "public", catalog = "netcracker")
 public class Transition extends Common{
-    private String condition;
     private String name;
+    private String condition;
     private Node nodeByToNode;
     private Node nodeByFromNode;
 
@@ -32,7 +32,7 @@ public class Transition extends Common{
         this.name = name;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_node", referencedColumnName = "id", nullable = false)
     public Node getNodeByToNode() {
         return nodeByToNode;
@@ -42,7 +42,7 @@ public class Transition extends Common{
         this.nodeByToNode = nodeByToNode;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_node", referencedColumnName = "id", nullable = false)
     public Node getNodeByFromNode() {
         return nodeByFromNode;

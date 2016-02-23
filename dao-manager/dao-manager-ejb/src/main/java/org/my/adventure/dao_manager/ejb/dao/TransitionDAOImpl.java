@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Created by Дмитрий on 11.12.2015.
  */
+
 @Stateless
 @Local(TransitionDAO.class)
 public class TransitionDAOImpl extends CommonDAOImpl<Transition> implements TransitionDAO{
