@@ -19,7 +19,7 @@
                     <p:panelGrid style="width: 100%">
                         <p:row>
                             <p:column style="width: 25%; min-width: 25%;">
-                                <p:graphicImage url="#{quest.image.path}" style="width: 100%"/>
+                                <p:graphicImage url="#{quest.imagePath}" style="width: 100%"/>
 
                             </p:column>
                             <p:column style="width: 25%">
@@ -55,7 +55,7 @@
                         <f:facet name="footer">
                             <p:row>
                                 <p:column colspan="3">
-                                    <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-play">
+                                    <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
                                         <f:param name="questId" value="#{quest.id}" />
                                     </p:button>
                                     <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать" icon="ui-icon-wrench">

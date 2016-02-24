@@ -1,5 +1,6 @@
 package org.my.adventure.dao_manager.api.dao;
 
+import org.my.adventure.dao_manager.api.dao.CommonDAO;
 import org.my.adventure.dao_manager.api.entities.UserRole;
 
 /**

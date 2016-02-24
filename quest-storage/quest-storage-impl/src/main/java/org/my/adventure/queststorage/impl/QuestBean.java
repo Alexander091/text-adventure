@@ -1,5 +1,7 @@
 package org.my.adventure.queststorage.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateError;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
 import org.my.adventure.dao_manager.api.entities.Quest;
@@ -16,11 +18,21 @@ import java.util.List;
  * Created by al on 18.02.2016.
  */
 
-@Stateful
+@Stateless
 public class QuestBean {
+
+    private final Logger log = LogManager.getLogger(QuestBean.class);
 
     @EJB
     QuestDAO questDAO;
+
+    public QuestDAO getQuestDAO() {
+        return questDAO;
+    }
+
+    public void setQuestDAO(QuestDAO questDAO) {
+        this.questDAO = questDAO;
+    }
 
     public List<QuestWrapper> getQuests(){
         List<Quest> quests = questDAO.getAll();
@@ -42,7 +54,7 @@ public class QuestBean {
         try {
             questDAO.delete(questDAO.getById(id));
         }catch (HibernateError h){
-            System.out.println(h.getMessage());
+            log.error(h.getMessage());
         }
     }
 }

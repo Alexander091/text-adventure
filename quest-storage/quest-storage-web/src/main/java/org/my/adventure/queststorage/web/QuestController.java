@@ -1,15 +1,16 @@
 package org.my.adventure.queststorage.web;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.queststorage.impl.QuestBean;
+import org.my.adventure.queststorage.impl.QuestWrapper;
 
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +18,11 @@ import java.util.Map;
  * Created by al on 18.02.2016.
  */
 @ManagedBean(name = "questController")
-@RequestScoped
-public class QuestController {
+@ViewScoped
+public class QuestController implements Serializable{
 
     @Inject
-    QuestBean questBean = null;
+    QuestBean questBean;
 
     ExternalContext externalContext = null;
     Map<String, Object> sessionMap = null;
@@ -30,6 +31,30 @@ public class QuestController {
         externalContext = FacesContext.getCurrentInstance().getExternalContext();
         sessionMap = externalContext.getSessionMap();
         initLayout();
+    }
+
+    public QuestBean getQuestBean() {
+        return questBean;
+    }
+
+    public void setQuestBean(QuestBean questBean) {
+        this.questBean = questBean;
+    }
+
+    public ExternalContext getExternalContext() {
+        return externalContext;
+    }
+
+    public void setExternalContext(ExternalContext externalContext) {
+        this.externalContext = externalContext;
+    }
+
+    public Map<String, Object> getSessionMap() {
+        return sessionMap;
+    }
+
+    public void setSessionMap(Map<String, Object> sessionMap) {
+        this.sessionMap = sessionMap;
     }
 
     public void setLayout(String layout) {
@@ -63,7 +88,7 @@ public class QuestController {
         return layout;
     }
 
-    public List<Quest> getQuests(){
+    public List<QuestWrapper> getQuests(){
         return questBean.getQuests();
     }
 

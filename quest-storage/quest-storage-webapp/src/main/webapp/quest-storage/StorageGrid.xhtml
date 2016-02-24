@@ -21,7 +21,7 @@
                         <p style="position: relative; float: left;">#{quest.name}</p>
                     </f:facet>
 
-                    <p:graphicImage url="#{quest.image.path}"
+                    <p:graphicImage url="#{quest.imagePath}"
                                     style="height: 300px; max-width: 100%"
                                     onclick="PF('dlg#{quest.id}').show();"/>
 
@@ -41,10 +41,10 @@
                               width="60%" modal="true"
                               draggable="false" resizable="false"
                               dynamic="true" closeOnEscape="true">
-                        <p:graphicImage url="#{quest.image.path}" style="height: 300px"/>
+                        <p:graphicImage url="#{quest.imagePath}" style="height: 300px"/>
                         <p>#{quest.description}</p>
                         <div>
-                            <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-play">
+                            <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                             <p:button outcome="/quest-editor/editor.xhtml" icon="ui-icon-wrench"
@@ -61,7 +61,7 @@
                     <f:facet name="footer">
                         <div align="center">
                             <!--<p:commandButton value="Подробнее" onclick="PF('dlg#{quest.id}').show();"/>-->
-                            <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-play">
+                            <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                             <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать">
