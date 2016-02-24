@@ -33,30 +33,6 @@ public class QuestController implements Serializable{
         initLayout();
     }
 
-    public QuestBean getQuestBean() {
-        return questBean;
-    }
-
-    public void setQuestBean(QuestBean questBean) {
-        this.questBean = questBean;
-    }
-
-    public ExternalContext getExternalContext() {
-        return externalContext;
-    }
-
-    public void setExternalContext(ExternalContext externalContext) {
-        this.externalContext = externalContext;
-    }
-
-    public Map<String, Object> getSessionMap() {
-        return sessionMap;
-    }
-
-    public void setSessionMap(Map<String, Object> sessionMap) {
-        this.sessionMap = sessionMap;
-    }
-
     public void setLayout(String layout) {
         sessionMap.put("storageLayout", layout);
     }
