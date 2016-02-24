@@ -61,7 +61,7 @@ $(document).ready(function() { // on dom ready
     });
     $('.addEdgeButton').click(function () {
         PF('addEdgeDialog').show();
-        $.getJSON("http://localhost:8080/TextAdventure/rest/command/node/get")
+        $.getJSON("/TextAdventure/rest/command/node/get")
             .success(function (data) {
                 $("#addDialogNodeToMenu").empty();
                 $("#addDialogNodeFromMenu").empty();
@@ -77,7 +77,7 @@ $(document).ready(function() { // on dom ready
     $('.editButton').click(function() {
        if($('.selectedItemInput').val().substring(0,1) == 'n') {
            PF('editNodeDialog').show();
-           $.getJSON("http://localhost:8080/TextAdventure/rest/command/node/get/" + $('.selectedItemInput').val())
+           $.getJSON("/TextAdventure/rest/command/node/get/" + $('.selectedItemInput').val())
                .success(function (data) {
                    console.log("node data fetched from service");
                    $(".editDialogNodeId").val(data['id']);
@@ -89,7 +89,7 @@ $(document).ready(function() { // on dom ready
                });
        } else if($('.selectedItemInput').val().substring(0,1) == 'e') {
            PF('editEdgeDialog').show();
-           $.getJSON("http://localhost:8080/TextAdventure/rest/command/transition/get/"+$('.selectedItemInput').val())
+           $.getJSON("/TextAdventure/rest/command/transition/get/"+$('.selectedItemInput').val())
                .success(function(data) {
                    console.log("transition data fetched from service");
                    $(".editDialogEdgeId").val(data.transition.id);
@@ -118,7 +118,7 @@ $(document).ready(function() { // on dom ready
     $('.undoButton').click(function() {
         $.ajax({
             type: 'post',
-            url: "http://localhost:8080/TextAdventure/rest/command/undo"
+            url: "/TextAdventure/rest/command/undo"
         }).done(function(data) {
             if(data["response"]=="success")
             console.log("undo success");
@@ -135,7 +135,7 @@ $(document).ready(function() { // on dom ready
         $.ajax({
             type: 'post',
             data: JSON.stringify(outputArray),
-            url: "http://localhost:8080/TextAdventure/rest/command/save"
+            url: "/TextAdventure/rest/command/save"
         }).done(function(data) {
             if(data["response"]=="success") {
                 console.log("save success");
@@ -153,7 +153,7 @@ $(document).ready(function() { // on dom ready
         var edgeId = $('.selectedItemInput').val();
         $.ajax({
             type: 'post',
-            url: "http://localhost:8080/TextAdventure/rest/command/transition/delete/" + edgeId
+            url: "/TextAdventure/rest/command/transition/delete/" + edgeId
         }).done(function(data) {
             if(data.response=='success'){
                 console.log("edge successfully deleted");
@@ -173,7 +173,7 @@ $(document).ready(function() { // on dom ready
         var nodeId = $('.selectedItemInput').val();
         $.ajax({
             type: 'post',
-            url: "http://localhost:8080/TextAdventure/rest/command/node/delete/" + nodeId
+            url: "/TextAdventure/rest/command/node/delete/" + nodeId
         }).done(function(data) {
             if(data.response=='success'){
                 console.log("node successfully deleted");
@@ -207,7 +207,7 @@ $(document).ready(function() { // on dom ready
             data: JSON.stringify(node),
             contentType: 'application/json',
             dataType: 'json',
-            url: "http://localhost:8080/TextAdventure/rest/command/node/update/" + nodeId
+            url: "/TextAdventure/rest/command/node/update/" + nodeId
         }).done(function(data) {
             console.log("node successfully edited");
             cy.$('#'+nodeId).data("name", data['name']);
@@ -234,7 +234,7 @@ $(document).ready(function() { // on dom ready
             data: JSON.stringify(edge),
             contentType: 'application/json',
             dataType: 'json',
-            url: "http://localhost:8080/TextAdventure/rest/command/transition/update/" + edgeId
+            url: "/TextAdventure/rest/command/transition/update/" + edgeId
         }).done(function(data) {
             console.log("edge successfully edited");
             cy.$('#'+edgeId).remove();
@@ -261,7 +261,7 @@ $(document).ready(function() { // on dom ready
             data: JSON.stringify(node),
             contentType: 'application/json',
             dataType: 'json',
-            url: "http://localhost:8080/TextAdventure/rest/command/node/post"
+            url: "/TextAdventure/rest/command/node/post"
         }).done(function(data) {
             console.log("new node successfully created");
             cy.add(data);
@@ -286,7 +286,7 @@ $(document).ready(function() { // on dom ready
             data: JSON.stringify(edge),
             contentType: 'application/json',
             dataType: 'json',
-            url: "http://localhost:8080/TextAdventure/rest/command/transition/post"
+            url: "/TextAdventure/rest/command/transition/post"
         }).done(function(data) {
             console.log("new edge successfully created");
             cy.add(data);
@@ -312,7 +312,7 @@ $(document).ready(function() { // on dom ready
         }
     });
 
-    $.getJSON("http://localhost:8080/TextAdventure/rest/command/quest/get/" + $('.questIdInput').val())
+    $.getJSON("/TextAdventure/rest/command/quest/get/" + $('.questIdInput').val())
         .success(function(data) {
             console.log("graph data fetched from service");
             cy.add(data);

@@ -1,18 +1,14 @@
 package org.my.adventure.questeditor.web.rest;
 
 import org.jgrapht.Graph;
-import org.my.adventure.dao_manager.api.entities.Node;
-import org.my.adventure.dao_manager.api.entities.Transition;
-import org.my.adventure.questeditor.impl.GraphUtils;
-import org.my.adventure.questeditor.impl.beans.GraphEditorBean;
-import org.my.adventure.questeditor.impl.views.NodeView;
-import org.my.adventure.questeditor.impl.views.TransitionView;
+import org.my.adventure.questeditor.ejb.GraphUtils;
+import org.my.adventure.questeditor.ejb.beans.GraphEditorBean;
+import org.my.adventure.questeditor.ejb.views.NodeView;
+import org.my.adventure.questeditor.ejb.views.TransitionView;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

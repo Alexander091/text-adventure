@@ -2,8 +2,8 @@ package org.my.adventure.questeditor.web.jsf;
 
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
-import org.my.adventure.questeditor.impl.beans.NodeBean;
-import org.my.adventure.questeditor.impl.beans.QuestEditorBean;
+import org.my.adventure.questeditor.ejb.beans.NodeBean;
+import org.my.adventure.questeditor.ejb.beans.QuestEditorBean;
 
 import javax.faces.bean.*;
 import javax.faces.bean.ViewScoped;
