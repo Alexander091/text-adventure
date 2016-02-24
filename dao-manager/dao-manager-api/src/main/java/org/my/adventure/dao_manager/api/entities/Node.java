@@ -15,7 +15,7 @@ public class Node extends Common{
     private List<Action> Actions;
     private List<Transition> transitions;
 
-    @OneToMany(mappedBy = "nodeByFromNode")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "nodeByFromNode")
     public List<Transition> getTransitions() {
         return transitions;
     }
@@ -44,7 +44,7 @@ public class Node extends Common{
         this.description = description;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quest_id", referencedColumnName = "id", nullable = false)
     public Quest getQuestByQuestId() {
         return questByQuestId;
@@ -54,7 +54,7 @@ public class Node extends Common{
         this.questByQuestId = questByQuestId;
     }
 
-    @OneToMany(mappedBy = "node")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "node")
     public List<Action> getActions() {
         return Actions;
     }

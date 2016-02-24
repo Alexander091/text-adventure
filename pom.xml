@@ -16,6 +16,7 @@
         <module>dao-manager</module>
         <module>quest-storage</module>
         <module>security</module>
+        <module>quest-game</module>
     </modules>
 
     <repositories>

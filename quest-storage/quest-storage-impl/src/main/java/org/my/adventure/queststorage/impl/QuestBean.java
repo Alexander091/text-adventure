@@ -2,11 +2,13 @@ package org.my.adventure.queststorage.impl;
 
 import org.hibernate.HibernateError;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
-import org.my.adventure.dao_manager.api.dao.ResourceDAO;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.queststorage.impl.QuestWrapper;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -14,20 +16,25 @@ import java.util.List;
  * Created by al on 18.02.2016.
  */
 
-@Stateless
+@Stateful
 public class QuestBean {
 
     @EJB
     QuestDAO questDAO;
 
-    public List<Quest> getQuests(){
+    public List<QuestWrapper> getQuests(){
         List<Quest> quests = questDAO.getAll();
-        quests.sort(new Comparator<Quest>() {
-            public int compare(Quest o1, Quest o2) {
+        List<QuestWrapper> questWrappers = new ArrayList<>();
+        for (Quest quest : quests) {
+            questWrappers.add(new QuestWrapper(quest.getId(), quest.getDescription(), quest.getGenre(), quest.getVersion(),
+                    quest.getAgeLimit(), quest.getRating(), quest.getName(), quest.getImage().getPath()));
+        }
+        questWrappers.sort(new Comparator<QuestWrapper>() {
+            public int compare(QuestWrapper o1, QuestWrapper o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
-        return quests;
+        return questWrappers;
     }
 
     public void deleteQuest(Long id){
