@@ -40,6 +40,15 @@
         <param-value>excite-bike</param-value>
     </context-param>
 
+    <filter>
+        <filter-name>Primefaces Upload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Primefaces Upload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+
     <!--Defining security constraint for type of roles available-->
 
     <security-constraint>
