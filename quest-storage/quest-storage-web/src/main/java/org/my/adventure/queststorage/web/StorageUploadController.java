@@ -20,7 +20,7 @@ import java.io.InputStream;
  * Created by dimko_000 on 11.02.2016.
  */
 @ManagedBean(name="uploadController")
-public class UploadController {
+public class StorageUploadController {
 
     private UploadedFile file;
 

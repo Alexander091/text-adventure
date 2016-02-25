@@ -1,10 +1,8 @@
 package org.my.adventure.queststorage.web;
 
-import org.my.adventure.queststorage.impl.QuestBean;
+import org.my.adventure.queststorage.impl.QuestStorageBean;
 import org.my.adventure.queststorage.impl.QuestWrapper;
 
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -17,17 +15,17 @@ import java.util.Map;
 /**
  * Created by al on 18.02.2016.
  */
-@ManagedBean(name = "questController")
+@ManagedBean(name = "questStorageController")
 @ViewScoped
-public class QuestController implements Serializable{
+public class QuestStorageController implements Serializable{
 
     @Inject
-    QuestBean questBean;
+    QuestStorageBean questStorageBean;
 
     ExternalContext externalContext = null;
     Map<String, Object> sessionMap = null;
 
-    public QuestController() {
+    public QuestStorageController() {
         externalContext = FacesContext.getCurrentInstance().getExternalContext();
         sessionMap = externalContext.getSessionMap();
         initLayout();
@@ -65,10 +63,10 @@ public class QuestController implements Serializable{
     }
 
     public List<QuestWrapper> getQuests(){
-        return questBean.getQuests();
+        return questStorageBean.getQuests();
     }
 
     public void deleteQuest(Long id){
-        questBean.deleteQuest(id);
+        questStorageBean.deleteQuest(id);
     }
 }

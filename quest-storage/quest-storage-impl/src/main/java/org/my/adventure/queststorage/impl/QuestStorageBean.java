@@ -17,9 +17,9 @@ import java.util.List;
  */
 
 @Stateless
-public class QuestBean {
+public class QuestStorageBean {
 
-    private final Logger log = LogManager.getLogger(QuestBean.class);
+    private final Logger log = LogManager.getLogger(QuestStorageBean.class);
 
     @EJB
     QuestDAO questDAO;
