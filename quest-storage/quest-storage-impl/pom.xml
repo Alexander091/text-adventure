@@ -20,7 +20,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>dao-manager-api</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
     </dependencies>
 

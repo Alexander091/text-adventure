@@ -5,10 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateError;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
 import org.my.adventure.dao_manager.api.entities.Quest;
-import org.my.adventure.queststorage.impl.QuestWrapper;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,14 +24,6 @@ public class QuestBean {
     @EJB
     QuestDAO questDAO;
 
-    public QuestDAO getQuestDAO() {
-        return questDAO;
-    }
-
-    public void setQuestDAO(QuestDAO questDAO) {
-        this.questDAO = questDAO;
-    }
-
     public List<QuestWrapper> getQuests(){
         List<Quest> quests = questDAO.getAll();
         List<QuestWrapper> questWrappers = new ArrayList<>();
@@ -50,9 +40,9 @@ public class QuestBean {
     }
 
     public void deleteQuest(Long id){
-        System.out.println("deleting " + id+ " " + questDAO.getById(id));
+        log.debug("deleting " + id+ " " + questDAO.getById(id));
         try {
-            questDAO.delete(questDAO.getById(id));
+            questDAO.deleteById(id);
         }catch (HibernateError h){
             log.error(h.getMessage());
         }
