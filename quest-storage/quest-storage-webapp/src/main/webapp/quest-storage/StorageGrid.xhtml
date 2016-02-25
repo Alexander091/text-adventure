@@ -52,7 +52,7 @@
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                                 <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
-                                                 rendered="#{sessionBean.admin}" icon="ui-icon-trash" update="quests">
+                                                 rendered="#{loginController.admin}" icon="ui-icon-trash" update="quests">
                                 <p:confirm header="Подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
                         </div>
@@ -68,7 +68,7 @@
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                             <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
-                                             rendered="#{sessionBean.admin}" icon="ui-icon-trash"
+                                             rendered="#{loginController.admin}" icon="ui-icon-trash"
                                              update="quests">
                                 <p:confirm header="Требуется подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
