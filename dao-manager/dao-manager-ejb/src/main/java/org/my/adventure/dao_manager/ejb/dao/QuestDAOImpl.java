@@ -16,7 +16,7 @@ import javax.ejb.Stateless;
  * Created by Дмитрий on 11.12.2015.
  */
 @Stateless
-@Remote(QuestDAO.class)
+@Local(QuestDAO.class)
 public class QuestDAOImpl extends CommonDAOImpl<Quest> implements QuestDAO{
 
     private final Logger log = LogManager.getLogger(QuestDAOImpl.class);

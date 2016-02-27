@@ -21,7 +21,6 @@
             <artifactId>quest-storage-impl</artifactId>
             <version>${project.version}</version>
             <type>jar</type>
-            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -30,4 +29,20 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>false</addClasspath>
+                        </manifest>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
