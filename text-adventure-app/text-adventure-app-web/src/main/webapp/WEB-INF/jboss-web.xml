@@ -1,0 +1,4 @@
+<jboss-web>
+    <security-domain>text-adventure-domain</security-domain>
+    <!--<security-domain>java:/jaas/other</security-domain>-->
+</jboss-web>
