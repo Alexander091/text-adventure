@@ -1,4 +1,4 @@
-package org.my.adventure.queststorage.impl;
+package org.my.adventure.queststorage.ejb;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +23,7 @@ public class QuestStorageBean {
     private final Logger log = LogManager.getLogger(QuestStorageBean.class);
 
     @EJB
-    QuestDAO questDAO;
+    private QuestDAO questDAO;
 
     @EJB
     ResourceDAO resourceDAO;

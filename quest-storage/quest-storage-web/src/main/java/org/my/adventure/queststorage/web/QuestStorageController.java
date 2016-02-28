@@ -1,13 +1,13 @@
 package org.my.adventure.queststorage.web;
 
-import org.my.adventure.queststorage.impl.QuestStorageBean;
-import org.my.adventure.queststorage.impl.QuestWrapper;
+import org.my.adventure.queststorage.ejb.QuestStorageBean;
+import org.my.adventure.queststorage.ejb.QuestWrapper;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
 @ViewScoped
 public class QuestStorageController implements Serializable{
 
-    @Inject
+    @EJB
     QuestStorageBean questStorageBean;
 
     ExternalContext externalContext = null;
@@ -46,12 +46,12 @@ public class QuestStorageController implements Serializable{
         String layout = (String) sessionMap.get("storageLayout");
         if (null == layout)
             layout = "scroller";
-
-        if (layout.equals("scroller"))
-            layout = "grid";
-        else
-            layout = "scroller";
-
+        else {
+            if (layout.equals("scroller"))
+                layout = "grid";
+            else
+                layout = "scroller";
+        }
         sessionMap.put("storageLayout", layout);
     }
 

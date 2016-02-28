@@ -14,15 +14,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>dao-manager-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>

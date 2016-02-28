@@ -8,7 +8,7 @@ import org.my.adventure.questeditor.ejb.beans.QuestEditorBean;
 import javax.ejb.EJB;
 import javax.faces.bean.*;
 import javax.faces.bean.ViewScoped;
-
+import javax.inject.Inject;
 import java.io.Serializable;
 
 /**

@@ -9,5 +9,4 @@ public interface QuestDAO extends CommonDAO<Quest> {
     Quest getTestObject();
 
     void deleteById(Long id);
-
 }

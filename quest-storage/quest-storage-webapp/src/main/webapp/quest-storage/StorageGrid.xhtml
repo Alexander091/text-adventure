@@ -51,7 +51,7 @@
                                       value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                                <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
+                                <p:commandButton value="Удалить" actionListener="#{QuestStorageController.deleteQuest(quest.id)}"
                                                  rendered="#{loginController.admin}" icon="ui-icon-trash" update="quests">
                                 <p:confirm header="Подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
@@ -67,7 +67,7 @@
                             <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
+                            <p:commandButton value="Удалить" actionListener="#{QuestStorageController.deleteQuest(quest.id)}"
                                              rendered="#{loginController.admin}" icon="ui-icon-trash"
                                              update="quests">
                                 <p:confirm header="Требуется подтверждение" message="Вы уверены?"/>

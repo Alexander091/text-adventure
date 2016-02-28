@@ -1,4 +1,6 @@
-package org.my.adventure.queststorage.impl;
+package org.my.adventure.queststorage.ejb;
+
+import org.my.adventure.dao_manager.api.entities.Quest;
 
 /**
  * Created by al on 23.02.2016.
@@ -86,5 +88,16 @@ public class QuestWrapper {
         this.rating = rating;
         this.name = name;
         this.imagePath = imagePath;
+    }
+
+    public QuestWrapper(Quest quest){
+        this.id = quest.getId();
+        this.description = quest.getDescription();
+        this.genre = quest.getGenre();
+        this.version = quest.getVersion();
+        this.ageLimit = quest.getAgeLimit();
+        this.rating = quest.getRating();
+        this.name = quest.getName();
+        this.imagePath = quest.getImage().getPath();
     }
 }
