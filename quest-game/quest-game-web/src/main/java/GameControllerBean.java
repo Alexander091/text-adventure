@@ -5,16 +5,10 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
-import java.awt.*;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -36,9 +30,7 @@ public class GameControllerBean implements Serializable {
     GameBean gameBean;
 
     public void loadQuest() {
-        gameBean.loadGame(questId);
-        node = gameBean.getCurrentWrappedNode(questId);
-        //gameBean.input(questId);
+        node = gameBean.loadGame(questId);
     }
 
     public String getName() {
@@ -70,7 +62,7 @@ public class GameControllerBean implements Serializable {
     }
 
     public StreamedContent getImage() {
-        byte[] image = gameBean.getImage(questId);
+        byte[] image = node.getImage();
 
         if (image != null) {
             streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(image), "image/jpg");

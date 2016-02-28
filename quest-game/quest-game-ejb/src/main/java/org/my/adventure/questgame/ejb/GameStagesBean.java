@@ -6,14 +6,10 @@ import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.dao_manager.api.entities.Transition;
 import org.my.adventure.questgame.impl.GameStage;
-import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
-import org.my.adventure.questgame.impl.wrappers.QuestWrapper;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.Stateless;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +35,17 @@ public class GameStagesBean {
         return gameStages;
     }
 
-    public void loadGameByQuestId(long questId){
+    public Node loadGameByQuestId(long questId){
         Quest quest = questDAO.getById(questId);
+        Node startNode = null;
         if(!gameStages.containsKey(questId)){
-            gameStages.put(questId, new GameStage(questId,quest.getStartNode()));
+            startNode = quest.getStartNode();
+            gameStages.put(questId, new GameStage(questId,startNode));
         }
+        else {
+            startNode = gameStages.get(questId).getNode();
+        }
+        return startNode;
     }
 
     public List<Transition> getCurrentTransitionsByQuestId(long questId){
