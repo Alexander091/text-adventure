@@ -15,7 +15,7 @@ public class Node extends Common{
     private List<Action> Actions;
     private List<Transition> transitions;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "nodeByFromNode")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nodeByFromNode")
     public List<Transition> getTransitions() {
         return transitions;
     }

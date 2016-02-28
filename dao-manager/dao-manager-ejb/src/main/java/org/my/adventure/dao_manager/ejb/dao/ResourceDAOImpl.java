@@ -3,6 +3,7 @@ package org.my.adventure.dao_manager.ejb.dao;
 import org.my.adventure.dao_manager.api.dao.ResourceDAO;
 import org.my.adventure.dao_manager.api.entities.Resource;
 
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
@@ -11,6 +12,6 @@ import javax.ejb.Stateless;
  */
 
 @Stateless
-@Remote(ResourceDAO.class)
+@Local(ResourceDAO.class)
 public class ResourceDAOImpl extends CommonDAOImpl<Resource>{
 }

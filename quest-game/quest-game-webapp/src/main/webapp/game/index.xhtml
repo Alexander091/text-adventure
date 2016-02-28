@@ -14,6 +14,7 @@
     <f:viewParam name="questId" value="#{gameController.questId}" />
     <f:event type="preRenderView" listener="#{gameController.loadQuest()}"/>
 </f:metadata>
+
 <h:body>
     <ui:composition template="/templates/layout.xhtml">
     <ui:define name="content">
@@ -29,6 +30,7 @@
                 <h:panelGrid id="pgrid"  columns="4" cellpadding="5">
                     <h:outputText id="text" value="#{gameController.nodeText}" />
                 </h:panelGrid>
+                <p:graphicImage value="#{gameController.image}" rendered="#{gameController.image!=null}"/>
             </p:panel>
         </h:form>
 

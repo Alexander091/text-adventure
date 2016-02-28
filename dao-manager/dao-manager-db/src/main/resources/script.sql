@@ -55,7 +55,7 @@ CREATE TABLE public.resource
 (
   id bigint NOT NULL,
   name character varying(200) NOT NULL,
-  path character varying(1000) NOT NULL,
+  data character varying(1000) NOT NULL,
   quest_id bigint NOT NULL,
   type_id bigint NOT NULL,
   CONSTRAINT resource_pkey PRIMARY KEY (id)

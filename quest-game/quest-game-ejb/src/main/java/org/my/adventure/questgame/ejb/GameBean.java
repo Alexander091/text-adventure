@@ -1,16 +1,16 @@
 package org.my.adventure.questgame.ejb;
 
-import org.my.adventure.dao_manager.api.entities.Node;
-import org.my.adventure.dao_manager.api.entities.Quest;
-import org.my.adventure.dao_manager.api.entities.Transition;
+import org.my.adventure.dao_manager.api.dao.ResourceDAO;
+import org.my.adventure.dao_manager.api.dao.TypeOfResourceDAO;
+import org.my.adventure.dao_manager.api.entities.*;
 import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
 import org.my.adventure.questgame.impl.wrappers.QuestWrapper;
 import org.my.adventure.questgame.impl.wrappers.TransitionWrapper;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.Stateless;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,4 +63,59 @@ public class GameBean {
         Quest quest = gameStagesBean.getQuest(questId);
         return new QuestWrapper(questId, quest.getName());
     }
+
+    //Actions:
+    private Action getActionByType(long questId, String type){
+        Action action = null;
+        List<Action> actions = gameStagesBean.getNodeByQuestId(questId).getActions();
+        if (!actions.isEmpty()) {
+            for (Action a : actions) {
+                if (a.getType().getName().equals(type)) {
+                    action = a;
+                }
+            }
+        }
+        return action;
+    }
+
+    public byte[] getImage(long questId){
+        byte[] image = null;
+        Action imageAction = getActionByType(questId,"image");
+        if (imageAction!=null){
+            image = imageAction.getResource().getData();
+        }
+
+
+        return image;
+    }
+
+/*
+
+    @EJB
+    ResourceDAO resourceDAO;
+
+    @EJB
+    TypeOfResourceDAO typeOfResourceDAO;
+
+    public void input(long questId){
+
+        File file = new File("C:\\forest.jpg");
+        byte[] imageData = new byte[(int) file.length()];
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            fileInputStream.read(imageData);
+            fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Resource res = new Resource();
+        res.setName("forest");
+        res.setType(typeOfResourceDAO.getById(1L));
+        res.setData(imageData);
+        res.setQuestByQuestId(gameStagesBean.getQuest(questId));
+        resourceDAO.saveOrUpdate(res);
+    }
+*/
+
 }
