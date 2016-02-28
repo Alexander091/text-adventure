@@ -3,6 +3,12 @@
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
+
+    <session-config>
+        <!-- Session idle timeout in min. -->
+        <session-timeout>300</session-timeout>
+    </session-config>
+
     <display-name>QuestCracker</display-name>
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>

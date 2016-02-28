@@ -5,9 +5,10 @@ import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.questeditor.ejb.beans.NodeBean;
 import org.my.adventure.questeditor.ejb.beans.QuestEditorBean;
 
+import javax.ejb.EJB;
 import javax.faces.bean.*;
 import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
+
 import java.io.Serializable;
 
 /**
@@ -20,9 +21,9 @@ public class QuestEditorController implements Serializable{
     private Long questId = null;
     private Integer activeIndex = 1;
     private Quest quest;
-    @Inject
+    @EJB
     QuestEditorBean questEditorBean;
-    @Inject
+    @EJB
     NodeBean nodeBean;
     public Integer getActiveIndex() {
         return activeIndex;

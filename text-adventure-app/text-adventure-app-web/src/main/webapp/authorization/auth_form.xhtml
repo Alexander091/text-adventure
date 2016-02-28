@@ -19,12 +19,13 @@
                 <p:inputText id="j_username" required="true"
                              tabindex="1"
                              label="J_username"
-                             value="#{sessionBean.username}"
+                             placeholder="Логин"
                              requiredMessage="Необходимо ввести имя пользователя">
                 </p:inputText>
                 <p:message for="j_username" display="icon"/>
                 <p:outputLabel for="j_password" value="Пароль" />
                 <p:password id="j_password" required="true" tabindex="2"
+                            placeholder="Пароль"
                             validatorMessage="Длина пароля от 6 до 50 символов"
                             requiredMessage="Длина пароля от 6 до 50 символов">
                     <f:validateLength minimum="6" maximum="50" />
