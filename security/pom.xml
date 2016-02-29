@@ -6,6 +6,7 @@
     <modules>
         <module>security-web</module>
         <module>security-api</module>
+        <module>security-ejb</module>
     </modules>
     <parent>
         <artifactId>text-adventure-base</artifactId>

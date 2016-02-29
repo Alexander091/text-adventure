@@ -6,11 +6,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
+import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
 
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Дмитрий on 11.12.2015.
@@ -25,6 +28,16 @@ public class QuestDAOImpl extends CommonDAOImpl<Quest> implements QuestDAO{
         Quest quest = new Quest();
         quest.setDescription("112313");
         return quest;
+    }
+
+    public List<Quest> getAllByGenre(String genre){
+        Session session = sessionFactory.openSession();
+        String hql = "FROM org.my.adventure.dao_manager.api.entities.Quest as N WHERE genre = :genre";
+        Query query = session.createQuery(hql);
+        query.setString("genre", genre);
+        List<Quest> result = query.list();
+        session.close();
+        return result;
     }
 
     public void deleteById(Long questId) {

@@ -17,6 +17,9 @@
     <ejb>quest-storage-ejb-1.0-SNAPSHOT.jar</ejb>
   </module>
   <module>
+    <ejb>security-ejb-1.0-SNAPSHOT.jar</ejb>
+  </module>
+  <module>
     <ejb>quest-editor-ejb-1.0-SNAPSHOT.jar</ejb>
   </module>
   <library-directory>APP-INF/lib</library-directory>

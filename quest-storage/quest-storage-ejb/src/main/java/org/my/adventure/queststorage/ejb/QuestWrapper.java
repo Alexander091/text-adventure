@@ -99,5 +99,6 @@ public class QuestWrapper {
         this.rating = quest.getRating();
         this.name = quest.getName();
         this.imagePath = quest.getImage().getPath();
+//        this.imagePath = "http://greentreesarborcareinc.com/wp-content/uploads/2014/01/image-placeholder.jpg";
     }
 }

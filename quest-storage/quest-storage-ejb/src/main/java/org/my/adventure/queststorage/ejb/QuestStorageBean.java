@@ -20,6 +20,8 @@ import java.util.List;
 @Stateless
 public class QuestStorageBean {
 
+    public static final String ALL_GENRES = "Все";
+
     private final Logger log = LogManager.getLogger(QuestStorageBean.class);
 
     @EJB
@@ -29,15 +31,22 @@ public class QuestStorageBean {
     ResourceDAO resourceDAO;
 
     public List<QuestWrapper> getQuests(){
-        List<Quest> quests = questDAO.getAll();
+        return getQuests(ALL_GENRES);
+    }
+
+    public List<QuestWrapper> getQuests(String genre){
+        List<Quest> quests = null;
+        if (genre.equals(ALL_GENRES))
+            quests = questDAO.getAll();
+        else
+            quests = questDAO.getAllByGenre(genre);
         List<QuestWrapper> questWrappers = new ArrayList<>();
         for (Quest quest : quests) {
             if (quest.getImage() == null)
                 quest.setImage(resourceDAO.getById(0L));
             if (quest.getRating() == null)
                 quest.setRating(0f);
-            questWrappers.add(new QuestWrapper(quest.getId(), quest.getDescription(), quest.getGenre(), quest.getVersion(),
-                    quest.getAgeLimit(), quest.getRating(), quest.getName(), quest.getImage().getPath()));
+            questWrappers.add(new QuestWrapper(quest));
         }
         questWrappers.sort(new Comparator<QuestWrapper>() {
             public int compare(QuestWrapper o1, QuestWrapper o2) {

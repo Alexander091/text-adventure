@@ -89,12 +89,12 @@
 
     <profile>
         <subsystem xmlns="urn:jboss:domain:logging:3.0">
-            <console-handler name="CONSOLE">
+            <genreFilter-handler name="CONSOLE">
                 <level name="INFO"/>
                 <formatter>
                     <named-formatter name="COLOR-PATTERN"/>
                 </formatter>
-            </console-handler>
+            </genreFilter-handler>
             <periodic-rotating-file-handler name="FILE" autoflush="true">
                 <formatter>
                     <named-formatter name="PATTERN"/>
