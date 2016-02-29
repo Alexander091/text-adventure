@@ -57,6 +57,7 @@ $(document).ready(function() { // on dom ready
     //    }
     //});
     $('.addNodeButton').click(function () {
+        $('#addDialogActionsTable tr').remove();
         PF('addNodeDialog').show();
     });
     $('.addEdgeButton').click(function () {
@@ -74,6 +75,35 @@ $(document).ready(function() { // on dom ready
                 console.log("error on fetching edge data from service");
             });
     });
+    $('.addActionButton').click(function () {
+        PF('addActionDialog').show();
+        var actionTypeSelect = $("#addDialogActionTypeMenu");
+        $.getJSON("/TextAdventure/rest/command/actionTypes/get")
+            .success(function (data) {
+                actionTypeSelect.empty();
+                $("#addDialogResourceMenu").empty();
+                for(var i in data)
+                    actionTypeSelect.append($("<option />").val(data[i].id).text(data[i].name));
+                loadIntoAddDialogResourceSelect();
+            })
+            .error(function () {
+                console.log("error on fetching types of action from service");
+            });
+    });
+    $('#addDialogActionTypeMenu').change(function()  {
+        loadIntoAddDialogResourceSelect();
+    })
+    var loadIntoAddDialogResourceSelect=function() {
+        $.getJSON("/TextAdventure/rest/command/resource/get/"+$('.questIdInput').val()+','+$('#addDialogActionTypeMenu').val())
+            .success(function (data) {
+                $("#addDialogResourceMenu").empty();
+                for(var i in data)
+                    $("#addDialogResourceMenu").append($("<option />").val(data[i].id).text(data[i].name));
+            })
+            .error(function () {
+                console.log("error on fetching resources from service");
+            });
+    }
     $('.editButton').click(function() {
        if($('.selectedItemInput').val().substring(0,1) == 'n') {
            PF('editNodeDialog').show();
@@ -250,11 +280,21 @@ $(document).ready(function() { // on dom ready
         PF('editEdgeDialog').hide();
     })
     $('.addDialogNodeOKButton').click(function () {
+        var actions = [];
+        var table = $('#addDialogActionsTable');
+        var rows = $('tr', table);
+        for(var i = 0; i<rows.length; i++) {
+            actions.push( {
+                'resource_id': rows.eq(i).attr('resource_id'),
+                'action_type_id': rows.eq(i).attr('action_type_id')
+            });
+        }
         var node = {
             'name' : $('.addDialogNodeName').val(),
             'description' : $('.addDialogNodeDescription').val(),
             'questId' : $('.questIdInput').val(),
-            'position' : '100 100'
+            'position' : '100 100',
+            'actions' : actions
         }
         $.ajax({
             type: 'post',
@@ -298,7 +338,21 @@ $(document).ready(function() { // on dom ready
     $('.addDialogEdgeCloseButton').click(function () {
         $('.addDialogEdgeName').val('');
         PF('addEdgeDialog').hide();
-    });
+    })
+    $('.addDialogActionOKButton').click(function() {
+        var table = $("#addDialogActionsTable");
+        var resourceSelect = $('#addDialogResourceMenu');
+        var actionTypeSelect = $('#addDialogActionTypeMenu');
+        var actionTypeSelected = $('#addDialogActionTypeMenu option:selected');
+        table.append( '<tr ' +  'resource_id=\"' +  resourceSelect.val() + '\" '
+            +  'action_type_id=\"' + actionTypeSelect.val() + '\"><td>'
+            + $('#addDialogActionTypeMenu option:selected').text() + ': ' + $('#addDialogResourceMenu option:selected').text()
+            + '</td><td><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only deleteActionButton" type="button" onclick="deleteClosestRow(this)"><span class="ui-button-text ui-c">-</span></button></td></tr>' );
+        $('.addDialogActionCloseButton').click();
+    })
+    $('.addDialogActionCloseButton').click(function() {
+        PF('addActionDialog').hide();
+    })
     $('.exitDialogCloseButton').click(function () {
         PF('exitDialog').hide();
     });

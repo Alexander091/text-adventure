@@ -13,7 +13,7 @@ import java.util.List;
  * Created by dimko_000 on 03.02.2016.
  */
 @Stateless
-public class QuestEditorBean {
+public class QuestEditorBean extends CommonBean<Quest>{
     @EJB
     QuestDAO questDAO;
     @EJB

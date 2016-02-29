@@ -1,9 +1,7 @@
 package org.my.adventure.questeditor.ejb.builders;
 
 import org.jgrapht.Graph;
-import org.my.adventure.dao_manager.api.entities.Node;
-import org.my.adventure.dao_manager.api.entities.Quest;
-import org.my.adventure.dao_manager.api.entities.Transition;
+import org.my.adventure.dao_manager.api.entities.*;
 import org.my.adventure.questeditor.ejb.GraphUtils;
 import org.my.adventure.questeditor.ejb.views.NodeView;
 import org.my.adventure.questeditor.ejb.views.TransitionView;

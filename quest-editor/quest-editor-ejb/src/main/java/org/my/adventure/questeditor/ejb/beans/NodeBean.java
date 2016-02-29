@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
  * Created by dimko_000 on 07.02.2016.
  */
 @Stateless
-public class NodeBean {
+public class NodeBean extends CommonBean<Node> {
     @EJB
     NodeDAO nodeDAO;
     public Node getById(Long id) {

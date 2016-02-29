@@ -39,12 +39,16 @@
 
                 <h:outputLabel for="nodeDescription" value="Описание:" />
                 <p:inputTextarea id="nodeDescription" rows="5" cols="35" required="true" label="Описание" styleClass="addDialogNodeDescription" />
-
-                <f:facet name="footer">
-                    <p:commandButton value="Добавить" styleClass="addDialogNodeOKButton"/>
-                    <p:commandButton value="Отмена" styleClass="addDialogNodeCloseButton"/>
-                </f:facet>
+                <h:outputLabel for="nodeDescription" value="Действия:" />
+                <p:commandButton type="button" value="+" styleClass="addActionButton"/>
             </h:panelGrid>
+            <div class="container">
+                <table id="addDialogActionsTable" class="actionsTable"/>
+            </div>
+            <f:facet name="footer">
+                <p:commandButton value="Добавить" styleClass="addDialogNodeOKButton"/>
+                <p:commandButton value="Отмена" styleClass="addDialogNodeCloseButton"/>
+            </f:facet>
         </p:dialog>
     </h:form>
     <h:form id="addEdgeForm">
@@ -59,6 +63,20 @@
                 <f:facet name="footer">
                     <p:commandButton value="Добавить" styleClass="addDialogEdgeOKButton"/>
                     <p:commandButton value="Отмена" styleClass="addDialogEdgeCloseButton"/>
+                </f:facet>
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
+    <h:form id="addActionForm">
+        <p:dialog header="Добавить действие" widgetVar="addActionDialog" resizable="false" modal="true">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="addDialogNodeFromMenu" value="Тип:" />
+                <select id="addDialogActionTypeMenu" class="addDialogActionTypeMenu"/>
+                <h:outputLabel for="addDialogNodeToMenu" value="Файл:" />
+                <select id="addDialogResourceMenu" class="addDialogResourceMenu"/>
+                <f:facet name="footer">
+                    <p:commandButton value="Добавить" styleClass="addDialogActionOKButton"/>
+                    <p:commandButton value="Отмена" styleClass="addDialogActionCloseButton"/>
                 </f:facet>
             </h:panelGrid>
         </p:dialog>

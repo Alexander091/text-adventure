@@ -1,8 +1,13 @@
 package org.my.adventure.questeditor.ejb.beans;
 
 import org.jgrapht.Graph;
+import org.my.adventure.dao_manager.api.dao.TypeOfActionDAO;
+import org.my.adventure.dao_manager.api.entities.Action;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Resource;
+import org.my.adventure.dao_manager.api.entities.TypeOfAction;
 import org.my.adventure.questeditor.ejb.GraphUtils;
+import org.my.adventure.questeditor.ejb.builders.ActionBuilder;
 import org.my.adventure.questeditor.ejb.builders.GraphBuilder;
 import org.my.adventure.questeditor.ejb.builders.QuestBuilder;
 import org.my.adventure.questeditor.ejb.builders.ViewBuilder;
@@ -32,6 +37,11 @@ public class GraphEditorBean implements Serializable {
     private NodeBean nodeBean;
     @EJB
     private TransitionBean transitionBean;
+    @EJB
+    private TypeOfActionBean typeOfActionBean;
+    @EJB
+    private ResourceEditorBean resourceEditorBean;
+    private ActionBuilder actionBuilder;
     private Quest quest = null;
     private Graph<NodeView, TransitionView> viewGraph;
     private List<Command> commandList;
@@ -83,6 +93,7 @@ public class GraphEditorBean implements Serializable {
             quest = questEditorBean.getById(id);
         viewGraph = GraphBuilder.buildQuestGraph(quest);
         commandList = new ArrayList<Command>();
+        actionBuilder = new ActionBuilder();
     }
 
     public Set<NodeView> getAllNodes() {
@@ -91,6 +102,8 @@ public class GraphEditorBean implements Serializable {
 
     public NodeView addNode(String nodeJson) {
         NodeView nodeView = ViewBuilder.buildNodeView(nodeJson, quest);
+        List<Action> actions = actionBuilder.buildActions(nodeJson);
+        nodeView.getEntity().setActions(actions);
         commandList.add(new AddNodeViewCommand(nodeView));
         viewGraph.addVertex(nodeView);
         return nodeView;
@@ -136,6 +149,13 @@ public class GraphEditorBean implements Serializable {
         commandList.add(new DeleteTransitionViewCommand(transitionView));
         viewGraph.removeEdge(transitionView);
         return transitionView;
+    }
+    public List<TypeOfAction> getAllTypesOfAction() {
+        return typeOfActionBean.getAllTypes();
+    }
+    public List<Resource> getResourcesList(Long questId, Long typeOfActionId) {
+        TypeOfAction typeOfAction = typeOfActionBean.getById(typeOfActionId);
+        return resourceEditorBean.getResourcesList(questId, typeOfAction.getTypeOfResource().getId());
     }
     public String save(JSONArray data) {
         updatePositions(data);
