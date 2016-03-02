@@ -18,34 +18,49 @@
 <h:body>
     <ui:composition template="/templates/layout.xhtml">
     <ui:define name="content">
-    <p:panel id="questPanel"  style="width:100%; height: 100%; margin-bottom:20px" >
+    <p:panelGrid id="questPanel"  style="width:100%; height: 100%; margin-bottom:20px" >
         <f:facet name="header">
             #{gameController.name}
         </f:facet>
+        <p:row>
 
-        <h:form id="nodeForm">
-            <aj:animate target="nodeForm" type="fadeInDown" />
-            <p:panel id="nodePanel"
-                header="#{gameController.nodeName}" style="width:100%;  margin-bottom:30px; margin-bottom: 30px;" >
-                <h:panelGrid id="pgrid"  columns="4" cellpadding="5">
-                    <h:outputText id="text" value="#{gameController.nodeText}" />
-                </h:panelGrid>
-                <p:graphicImage value="#{gameController.image}" rendered="#{gameController.image!=null}"/>
-            </p:panel>
-        </h:form>
+            <p:column>
+                <h:form id="nodeForm">
+                    <aj:animate target="nodeForm" type="fadeInDown" />
+                    <p:panel id="nodePanel"
+                        header="#{gameController.nodeName}" style="width:100%;   margin-bottom: 30px" >
+                        <h:panelGrid id="pgrid"  columns="4" cellpadding="5">
+                            <h:outputText id="text" value="#{gameController.nodeText}" />
+                        </h:panelGrid>
+                        <p:graphicImage value="#{gameController.image}" rendered="#{gameController.image!=null}"/>
+                    </p:panel>
+                </h:form>
 
-        <h:form id="transitionsForm" style="width:100%">
-            <aj:animate target="transitionsForm" type="fadeInUp" />
-            <p:dataList id="transitionsDataList" value="#{gameController.currentTransitions}" var="transitionWrapper" type="definition" rendered="#{not empty gameController.currentTransitions}" style="width:100%; border: none">
-                <f:facet name="header" >
-                    Выберете, куда отправиться дальше:
-                </f:facet>
-                <p:commandButton id="button" value="#{transitionWrapper.text}" icon="ui-icon-check" action="#{gameController.changeCurrentNode(transitionWrapper.id)}" update="nodeForm transitionsForm" style="width:100%;height: 120px">
+                <h:form id="transitionsForm" style="width:100% ">
+                    <aj:animate target="transitionsForm" type="fadeInUp" />
+                    <p:dataList id="transitionsDataList" value="#{gameController.currentTransitions}" var="transitionWrapper" type="definition" rendered="#{not empty gameController.currentTransitions}" style="width:100%; border: none">
+                        <f:facet name="header" >
+                            Выберете, куда отправиться дальше:
+                        </f:facet>
+                        <p:commandButton id="button" value="#{transitionWrapper.text}" icon="ui-icon-check" action="#{gameController.changeCurrentNode(transitionWrapper.id)}" update="nodeForm transitionsForm" style="width:100%;height: 120px">
 
-                </p:commandButton>
-            </p:dataList>
-        </h:form>
-    </p:panel>
+                        </p:commandButton>
+                    </p:dataList>
+                    <p:commandButton value="Начать заново" id="refresh" actionListener="#{gameController.refresh}" update="nodeForm transitionsForm" icon="fa fa-refresh" style="float: left; margin-top: 5px" />
+                    <p:commandButton value="Выход" id="other" update="nodeForm transitionsForm" icon="fa fa-reply" style="float: right; margin-top: 5px"/>
+
+                </h:form>
+            </p:column>
+            <p:column style="width: 20%">
+                <p:panel style="height: 100%">
+                    <h:outputText value="Звук: " />
+                    <p:inputSwitch value="#{gameController.soundEnabled}">
+                        <p:ajax listener="#{gameController.addMessage}" update="nodeForm transitionsForm"/>
+                    </p:inputSwitch>
+                </p:panel>
+            </p:column>
+        </p:row>
+    </p:panelGrid>
     </ui:define>
     </ui:composition>
 </h:body>

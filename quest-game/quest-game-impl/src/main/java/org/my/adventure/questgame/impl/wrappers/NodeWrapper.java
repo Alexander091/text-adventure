@@ -11,6 +11,7 @@ public class NodeWrapper {
     private String text = "";
     private List<TransitionWrapper> transitions = null;
     private byte[] image = null;
+    private byte[] sound = null;
 
     public String getName() {
         return name;
@@ -42,6 +43,10 @@ public class NodeWrapper {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public void setSound(byte[] sound) {
+        this.sound = sound;
     }
     /*public NodeWrapper(String name, String text, List<TransitionWrapper> transitions){
         this.name = name;

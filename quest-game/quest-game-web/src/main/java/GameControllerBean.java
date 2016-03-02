@@ -6,8 +6,10 @@ import org.primefaces.model.StreamedContent;
 
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.List;
@@ -24,6 +26,7 @@ public class GameControllerBean implements Serializable {
 
     private long questId;
     private NodeWrapper node;
+    private boolean soundEnabled;
     StreamedContent streamedContent;
 
     @EJB
@@ -31,6 +34,20 @@ public class GameControllerBean implements Serializable {
 
     public void loadQuest() {
         node = gameBean.loadGame(questId);
+    }
+
+    public void changeCurrentNode(long transId){
+        node = gameBean.getNextWrappedNode(questId,transId);
+    }
+
+    public void refresh(){
+        gameBean.refresh(questId);
+        node = gameBean.loadGame(questId);
+    }
+
+    public void addMessage() {
+        String summary = soundEnabled ? "Звук включен" : "Звук отключен";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
     }
 
     public String getName() {
@@ -47,10 +64,6 @@ public class GameControllerBean implements Serializable {
 
     public List<TransitionWrapper> getCurrentTransitions() {
         return  node.getTransitions();
-    }
-
-    public void changeCurrentNode(long transId){
-        node = gameBean.getNextWrappedNode(questId,transId);
     }
 
     public void setQuestId(long questId) {
@@ -74,7 +87,11 @@ public class GameControllerBean implements Serializable {
     }
 
 
+    public boolean isSoundEnabled() {
+        return soundEnabled;
+    }
 
-
-
+    public void setSoundEnabled(boolean soundEnabled) {
+        this.soundEnabled = soundEnabled;
+    }
 }

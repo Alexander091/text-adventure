@@ -35,22 +35,39 @@ public class NodeWrapperBuilder {
         nodeWrapper.setTransitions(trans);
     }
 
-    public void buildImage(List<Action> actions) {
-        String typeOfAction = "image";
-        Action action = null;
+    public void buildActions(List<Action> actions) {
         byte[] image = null;
+        byte[] sound = null;
+
+        /*final long typeOfActionId = 1;
+        Action action = null;
+
         if (!actions.isEmpty()) {
             for (Action a : actions) {
-                if (a.getType().getName().equals(typeOfAction)) {
+                if (a.getType().getId().equals(typeOfActionId)) {
                     action = a;
                 }
             }
             if (action!=null){
                 image = action.getResource().getData();
             }
+        }*/
+
+
+        if (!actions.isEmpty()) {
+            for (Action act : actions) {
+                switch (act.getType().getId().intValue()) {
+                    case 1: //image
+                        image = act.getResource().getData();
+                        break;
+                    case 2: //sound
+                        sound = act.getResource().getData();
+                        break;
+                }
+            }
         }
         nodeWrapper.setImage(image);
+        nodeWrapper.setSound(sound);
     }
-
 
 }

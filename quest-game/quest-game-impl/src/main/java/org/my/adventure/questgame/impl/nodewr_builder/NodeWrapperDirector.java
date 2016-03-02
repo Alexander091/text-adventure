@@ -15,7 +15,7 @@ public class NodeWrapperDirector {
         nodeWrapperBuilder.buildNodeName(node.getName());
         nodeWrapperBuilder.buildNodeText(node.getDescription());
         nodeWrapperBuilder.buildTransitions(node.getTransitions());
-        nodeWrapperBuilder.buildImage(node.getActions());
+        nodeWrapperBuilder.buildActions(node.getActions());
         NodeWrapper nodeWrapper = nodeWrapperBuilder.getNodeWrapper();
         return nodeWrapper;
     }

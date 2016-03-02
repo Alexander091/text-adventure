@@ -63,4 +63,8 @@ public class GameStagesBean {
     public void setNewGameStage(long questId, Node node){
         gameStages.put(questId, new GameStage(questId, node));
     }
+
+    public void refresh(long questId) {
+        setNewGameStage(questId, questDAO.getById(questId).getStartNode());
+    }
 }
