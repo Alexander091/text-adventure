@@ -46,9 +46,8 @@
 
                         </p:commandButton>
                     </p:dataList>
-                    <p:commandButton value="Начать заново" id="refresh" actionListener="#{gameController.refresh}" update="nodeForm transitionsForm" icon="fa fa-refresh" style="float: left; margin-top: 5px" />
-                    <p:commandButton value="Выход" id="other" update="nodeForm transitionsForm" icon="fa fa-reply" style="float: right; margin-top: 5px"/>
-
+                    <p:commandButton value="Начать заново" id="refresh" actionListener="#{gameController.refresh}" update="nodeForm transitionsForm" icon="ui-icon-refresh" style="float: left; margin-top: 5px" />
+                    <p:button value="Выход" id="other" outcome="/index.xhtml"  icon="ui-icon-power" style="float: right; margin-top: 5px"/>
                 </h:form>
             </p:column>
             <p:column style="width: 20%">
