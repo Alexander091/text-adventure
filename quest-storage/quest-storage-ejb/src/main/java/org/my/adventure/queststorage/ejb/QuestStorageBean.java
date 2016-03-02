@@ -61,7 +61,7 @@ public class QuestStorageBean {
         try {
             questDAO.deleteById(id);
         }catch (HibernateError h){
-            log.error(h.getMessage());
+            log.error(h.getMessage(), h);
         }
     }
 }

@@ -24,10 +24,10 @@
     </Appenders>
     <Loggers>
         <Root level="trace">
-            <!--<AppenderRef ref="fileDebug" level="DEBUG"/>-->
-            <!--<AppenderRef ref="fileErrors" level="ERROR"/>-->
-            <!--<AppenderRef ref="fileInfo" level="INFO"/>-->
-            <AppenderRef ref="STDOUT" level="INFO"/>
+            <AppenderRef ref="fileDebug" level="DEBUG"/>
+            <AppenderRef ref="fileErrors" level="ERROR"/>
+            <AppenderRef ref="fileInfo" level="INFO"/>
+            <AppenderRef ref="STDOUT" level="DEBUG"/>
         </Root>
     </Loggers>
 </Configuration>

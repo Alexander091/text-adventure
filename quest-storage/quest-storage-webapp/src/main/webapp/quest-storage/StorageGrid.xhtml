@@ -52,7 +52,7 @@
                                       value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:commandButton value="Удалить" actionListener="#{QuestStorageController.deleteQuest(quest.id)}"
+                            <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
                                              rendered="#{loginController.admin}" icon="ui-icon-trash" update="quests">
                                 <p:confirm header="Подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
@@ -61,7 +61,6 @@
 
                     <f:facet name="footer">
                         <div align="center">
-                            <!--<p:commandButton value="Подробнее" onclick="PF('dlg#{quest.id}').show();"/>-->
                             <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
@@ -69,7 +68,7 @@
                                       value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:commandButton value="Удалить" actionListener="#{QuestStorageController.deleteQuest(quest.id)}"
+                            <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
                                              rendered="#{loginController.admin}" icon="ui-icon-trash"
                                              update="quests">
                                 <p:confirm header="Требуется подтверждение" message="Вы уверены?"/>

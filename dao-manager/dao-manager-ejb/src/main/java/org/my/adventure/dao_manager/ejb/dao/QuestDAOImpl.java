@@ -57,7 +57,7 @@ public class QuestDAOImpl extends CommonDAOImpl<Quest> implements QuestDAO{
             session.close();
         } catch (Throwable t) {
             transaction.rollback();
-            log.error(t.getMessage());
+            log.error(t.getMessage(), t);
             session.close();
         }
     }
