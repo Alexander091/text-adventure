@@ -21,7 +21,7 @@
                         <p:outputLabel value="#{quest.ageLimit}+" style="float: left"/>
                     </f:facet>
 
-                    <p:graphicImage url="#{quest.imagePath}"
+                    <p:graphicImage url="#{quest.image}" rendered="#{quest.image!=null}"
                                     style="height: 300px; max-width: 100%"
                                     onclick="PF('dlg#{quest.id}').show();"/>
 
@@ -41,7 +41,7 @@
                               width="60%" modal="true"
                               draggable="false" resizable="false"
                               dynamic="true" closeOnEscape="true">
-                        <p:graphicImage url="#{quest.imagePath}" style="height: 300px"/>
+                        <p:graphicImage url="#{quest.image}" rendered="#{quest.image!=null}" style="height: 300px"/>
                         <p>#{quest.description}</p>
                         <div>
                             <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">

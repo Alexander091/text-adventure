@@ -2,11 +2,13 @@ package org.my.adventure.questeditor.web.jsf;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.my.adventure.questeditor.ejb.beans.ResourceUploaderBean;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import sun.misc.IOUtils;
 import sun.nio.ch.IOUtil;
 
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
@@ -21,6 +23,10 @@ import java.io.InputStream;
  */
 @ManagedBean(name="uploadController")
 public class UploadController {
+
+    @EJB
+    private ResourceUploaderBean uploaderBean;
+
     public void upload(FileUploadEvent event) {
         UploadedFile file = event.getFile();
         if(file!=null) {
@@ -32,23 +38,18 @@ public class UploadController {
                 e.printStackTrace();
             }
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            String questId = externalContext.getRequestParameterMap().get("editorForm:questIdInput");
-            String destPath = "/text-adventure/text-adventure-app/text-adventure-app-web/src/main/webapp/resources/";
+            String questIdStr = externalContext.getRequestParameterMap().get("editorForm:questIdInput");
+//            Long questId = Long.parseLong(questIdStr);
+            Long questId = null;
             String fileExtension = FilenameUtils.getExtension(file.getFileName());
+            Long typeId = null;
             if(fileExtension.equals("jpg")||fileExtension.equals("png")) {
-                destPath+="images/"+file.getFileName();
+                typeId = 1L;
             }
             else if(fileExtension.equals("wav")||fileExtension.equals("mp3")) {
-                destPath +="sounds/" + file.getFileName();
+                typeId = 2L;
             }
-            String basePath = new File("").getAbsolutePath();
-            File destFile = new File(basePath.concat(destPath));
-            try {
-                FileUtils.copyInputStreamToFile(inputStream,destFile);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+            uploaderBean.saveResource(file.getFileName(), questId, typeId, inputStream);
             FacesMessage message = new FacesMessage("Файл", event.getFile().getFileName() + " Загружен.");
             FacesContext.getCurrentInstance().addMessage(null,message);
         }

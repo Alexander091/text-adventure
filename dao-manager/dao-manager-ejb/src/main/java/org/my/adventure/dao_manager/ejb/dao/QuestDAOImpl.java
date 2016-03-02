@@ -50,9 +50,7 @@ public class QuestDAOImpl extends CommonDAOImpl<Quest> implements QuestDAO{
             log.debug("deleting quest with id = " + questId);
             query.setLong("id", questId);
             int result = query.executeUpdate();
-            log.debug("result = " + result);
-            if (result > 0 )
-                log.debug("quest with id = " + questId + " was removed");
+            log.debug("quest with id = " + questId + " was removed");
             transaction.commit();
             session.close();
         } catch (Throwable t) {
