@@ -41,7 +41,9 @@ public class GraphEditorBean implements Serializable {
     private TypeOfActionBean typeOfActionBean;
     @EJB
     private ResourceEditorBean resourceEditorBean;
-    private ActionBuilder actionBuilder;
+    @EJB
+    private ActionBean actionBean;
+
     private Quest quest = null;
     private Graph<NodeView, TransitionView> viewGraph;
     private List<Command> commandList;
@@ -86,6 +88,10 @@ public class GraphEditorBean implements Serializable {
         this.questEditorBean = questEditorBean;
     }
 
+    public ActionBean getActionBean() {
+        return actionBean;
+    }
+
     public void loadQuest(Long id) {
         if(id==null)
             quest= QuestBuilder.buildDefaultQuest();
@@ -93,7 +99,6 @@ public class GraphEditorBean implements Serializable {
             quest = questEditorBean.getById(id);
         viewGraph = GraphBuilder.buildQuestGraph(quest);
         commandList = new ArrayList<Command>();
-        actionBuilder = new ActionBuilder();
     }
 
     public Set<NodeView> getAllNodes() {
@@ -102,7 +107,7 @@ public class GraphEditorBean implements Serializable {
 
     public NodeView addNode(String nodeJson) {
         NodeView nodeView = ViewBuilder.buildNodeView(nodeJson, quest);
-        List<Action> actions = actionBuilder.buildActions(nodeJson);
+        List<Action> actions = ActionBuilder.buildActions(nodeJson);
         nodeView.getEntity().setActions(actions);
         commandList.add(new AddNodeViewCommand(nodeView));
         viewGraph.addVertex(nodeView);
@@ -158,7 +163,6 @@ public class GraphEditorBean implements Serializable {
         return resourceEditorBean.getResourcesList(questId, typeOfAction.getTypeOfResource().getId());
     }
     public String save(JSONArray data) {
-        updatePositions(data);
         for(Command command : commandList)
             command.saveToDB(this);
         commandList.clear();
