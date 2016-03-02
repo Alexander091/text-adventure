@@ -8,5 +8,6 @@ import java.util.List;
  * Created by Дмитрий on 11.12.2015.
  */
 public interface ActionDAO extends CommonDAO<Action> {
-    void saveAll(List<Action> actionList);
+    void saveOrUpdateAll(List<Action> actionList);
+    void deleteAll(List<Action> actionList);
 }

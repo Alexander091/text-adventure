@@ -1,7 +1,11 @@
 package org.my.adventure.questeditor.ejb.views;
 
+import org.my.adventure.dao_manager.api.entities.Action;
 import org.my.adventure.dao_manager.api.entities.Node;
+import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Created by dimko_000 on 18.02.2016.
@@ -35,6 +39,18 @@ public class NodeView extends EntityView<Node> {
         nodeJson.put("id", viewId);
         nodeJson.put("name", entity.getName());
         nodeJson.put("description", entity.getDescription());
+        List<Action> actionList = entity.getActions();
+        JSONArray actionsJsonArray = new JSONArray();
+        for (Action action : actionList) {
+            JSONObject actionJson = new JSONObject();
+            actionJson.put("id", action.getId());
+            actionJson.put("resource_id", action.getResource().getId());
+            actionJson.put("resource_name", action.getResource().getName());
+            actionJson.put("action_type_id", action.getType().getId());
+            actionJson.put("action_type_name", action.getType().getName());
+            actionsJsonArray.put(actionJson);
+        }
+        nodeJson.put("actions", actionsJsonArray);
         return nodeJson;
     }
 

@@ -70,12 +70,13 @@
     <h:form id="addActionForm">
         <p:dialog header="Добавить действие" widgetVar="addActionDialog" resizable="false" modal="true">
             <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="addDialogNodeFromMenu" value="Тип:" />
-                <select id="addDialogActionTypeMenu" class="addDialogActionTypeMenu"/>
-                <h:outputLabel for="addDialogNodeToMenu" value="Файл:" />
-                <select id="addDialogResourceMenu" class="addDialogResourceMenu"/>
+                <h:outputLabel for="actionTypeMenu" value="Тип:" />
+                <select id="actionTypeMenu" class="actionTypeMenu"/>
+                <h:outputLabel for="actionResourceMenu" value="Файл:" />
+                <select id="actionResourceMenu" class="actionResourceMenu"/>
                 <f:facet name="footer">
                     <p:commandButton value="Добавить" styleClass="addDialogActionOKButton"/>
+                    <p:commandButton value="Добавить" styleClass="editDialogActionOKButton"/>
                     <p:commandButton value="Отмена" styleClass="addDialogActionCloseButton"/>
                 </f:facet>
             </h:panelGrid>
@@ -86,15 +87,19 @@
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="nodeName" value="Название:" />
                 <p:inputText id="editNodeName"  required="true" label="Название" styleClass="editDialogNodeName"/>
-
                 <h:outputLabel for="nodeDescription" value="Описание:" />
                 <p:inputTextarea id="editNodeDescription" rows="5" cols="35" required="true" label="Описание" styleClass="editDialogNodeDescription" />
-                <p:inputText id="editNodeId"  styleClass="editDialogNodeId" style="display: none"/>
-                <f:facet name="footer">
-                    <p:commandButton value="Изменить" styleClass="editDialogNodeOKButton"/>
-                    <p:commandButton value="Отмена" styleClass="editDialogNodeCloseButton"/>
-                </f:facet>
+                <h:outputLabel for="nodeDescription" value="Действия:" />
+                <p:commandButton type="button" value="+" styleClass="addActionButton"/>
             </h:panelGrid>
+            <p:inputText id="editNodeId"  styleClass="editDialogNodeId" style="display: none"/>
+            <div class="container">
+                <table id="editDialogActionsTable" class="actionsTable"/>
+            </div>
+            <f:facet name="footer">
+                <p:commandButton value="Изменить" styleClass="editDialogNodeOKButton"/>
+                <p:commandButton value="Отмена" styleClass="editDialogNodeCloseButton"/>
+            </f:facet>
         </p:dialog>
     </h:form>
     <h:form id="editEdgeForm" >

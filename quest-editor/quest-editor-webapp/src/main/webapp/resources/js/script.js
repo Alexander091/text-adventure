@@ -58,6 +58,8 @@ $(document).ready(function() { // on dom ready
     //});
     $('.addNodeButton').click(function () {
         $('#addDialogActionsTable tr').remove();
+        $('.editDialogActionOKButton').css("display", "none");
+        $('.addDialogActionOKButton').css("display", "inline");
         PF('addNodeDialog').show();
     });
     $('.addEdgeButton').click(function () {
@@ -77,11 +79,11 @@ $(document).ready(function() { // on dom ready
     });
     $('.addActionButton').click(function () {
         PF('addActionDialog').show();
-        var actionTypeSelect = $("#addDialogActionTypeMenu");
+        var actionTypeSelect = $("#actionTypeMenu");
         $.getJSON("/TextAdventure/rest/command/actionTypes/get")
             .success(function (data) {
                 actionTypeSelect.empty();
-                $("#addDialogResourceMenu").empty();
+                $("#actionResourceMenu").empty();
                 for(var i in data)
                     actionTypeSelect.append($("<option />").val(data[i].id).text(data[i].name));
                 loadIntoAddDialogResourceSelect();
@@ -90,15 +92,15 @@ $(document).ready(function() { // on dom ready
                 console.log("error on fetching types of action from service");
             });
     });
-    $('#addDialogActionTypeMenu').change(function()  {
+    $('#actionTypeMenu').change(function()  {
         loadIntoAddDialogResourceSelect();
     })
     var loadIntoAddDialogResourceSelect=function() {
-        $.getJSON("/TextAdventure/rest/command/resource/get/"+$('.questIdInput').val()+','+$('#addDialogActionTypeMenu').val())
+        $.getJSON("/TextAdventure/rest/command/resource/get/"+$('.questIdInput').val()+','+$('#actionTypeMenu').val())
             .success(function (data) {
-                $("#addDialogResourceMenu").empty();
+                $("#actionResourceMenu").empty();
                 for(var i in data)
-                    $("#addDialogResourceMenu").append($("<option />").val(data[i].id).text(data[i].name));
+                    $("#actionResourceMenu").append($("<option />").val(data[i].id).text(data[i].name));
             })
             .error(function () {
                 console.log("error on fetching resources from service");
@@ -106,13 +108,25 @@ $(document).ready(function() { // on dom ready
     }
     $('.editButton').click(function() {
        if($('.selectedItemInput').val().substring(0,1) == 'n') {
-           PF('editNodeDialog').show();
+           $('.addDialogActionOKButton').css("display", "none");
+           $('.editDialogActionOKButton').css("display", "inline");
+           var table = $('#editDialogActionsTable');
+           $('#editDialogActionsTable tr').remove();
            $.getJSON("/TextAdventure/rest/command/node/get/" + $('.selectedItemInput').val())
                .success(function (data) {
                    console.log("node data fetched from service");
                    $(".editDialogNodeId").val(data['id']);
                    $(".editDialogNodeName").val(data['name']);
                    $(".editDialogNodeDescription").val(data['description']);
+                   var actions = data.actions;
+                   for(var i = 0; i<actions.length; i++) {
+                       table.append( '<tr ' + 'action_id = \"' + actions[i].id + '\"'
+                           + 'resource_id=\"' +  actions[i].resource_id + '\" '
+                           +  'action_type_id=\"' + actions[i].action_type_id + '\"><td>'
+                           + actions[i].action_type_name + ': ' + actions[i].resource_name
+                           + '</td><td><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only deleteActionButton" type="button" onclick="deleteClosestRow(this)"><span class="ui-button-text ui-c">-</span></button></td></tr>' );
+                   }
+                   PF('editNodeDialog').show();
                })
                .error(function () {
                    console.log("error on fetching node data from service")
@@ -225,12 +239,23 @@ $(document).ready(function() { // on dom ready
         PF('deleteNodeDialog').hide();
     });
     $('.editDialogNodeOKButton').click(function() {
+        var actions = [];
+        var table = $('#editDialogActionsTable');
+        var rows = $('tr', table);
+        for(var i = 0; i<rows.length; i++) {
+            actions.push( {
+                'action_id' : null,
+                'resource_id': rows.eq(i).attr('resource_id'),
+                'action_type_id': rows.eq(i).attr('action_type_id')
+            });
+        }
         var nodeId = $('.editDialogNodeId').val();
         var node = {
             'name' : $('.editDialogNodeName').val(),
             'description' : $('.editDialogNodeDescription').val(),
             'questId' : $('.questIdInput').val(),
-            'position' : cy.$('#'+nodeId).position('x') + ' ' + cy.$('#'+nodeId).position('y')
+            'position' : cy.$('#'+nodeId).position('x') + ' ' + cy.$('#'+nodeId).position('y'),
+            'actions' : actions
         }
         $.ajax({
             type: 'post',
@@ -285,6 +310,7 @@ $(document).ready(function() { // on dom ready
         var rows = $('tr', table);
         for(var i = 0; i<rows.length; i++) {
             actions.push( {
+                'action_id' : null,
                 'resource_id': rows.eq(i).attr('resource_id'),
                 'action_type_id': rows.eq(i).attr('action_type_id')
             });
@@ -341,14 +367,37 @@ $(document).ready(function() { // on dom ready
     })
     $('.addDialogActionOKButton').click(function() {
         var table = $("#addDialogActionsTable");
-        var resourceSelect = $('#addDialogResourceMenu');
-        var actionTypeSelect = $('#addDialogActionTypeMenu');
-        var actionTypeSelected = $('#addDialogActionTypeMenu option:selected');
-        table.append( '<tr ' +  'resource_id=\"' +  resourceSelect.val() + '\" '
+        var resourceSelect = $('#actionResourceMenu');
+        var actionTypeSelect = $('#actionTypeMenu');
+        var actionTypeSelected = $('#actionTypeMenu option:selected');
+        table.append( '<tr ' + 'action_id=\"' + null + '\"'
+            + 'resource_id=\"' +  resourceSelect.val() + '\" '
             +  'action_type_id=\"' + actionTypeSelect.val() + '\"><td>'
-            + $('#addDialogActionTypeMenu option:selected').text() + ': ' + $('#addDialogResourceMenu option:selected').text()
+            + $('#actionTypeMenu option:selected').text() + ': ' + $('#actionResourceMenu option:selected').text()
             + '</td><td><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only deleteActionButton" type="button" onclick="deleteClosestRow(this)"><span class="ui-button-text ui-c">-</span></button></td></tr>' );
         $('.addDialogActionCloseButton').click();
+    })
+    $('.editDialogActionOKButton').click(function() {
+        var table = $("#editDialogActionsTable");
+        var resourceSelect = $('#actionResourceMenu');
+        var sameAction = false;
+        var rows = $('tr', table);
+        for(var i = 0; i<rows.length; i++) {
+            if(rows[i].getAttribute("resource_id") == resourceSelect.val())
+                sameAction=true;
+        }
+        if(!sameAction){
+            var actionTypeSelect = $('#actionTypeMenu');
+            var actionTypeSelected = $('#actionTypeMenu option:selected');
+            table.append( '<tr ' + 'action_id=\"' + null + '\"'
+                + 'resource_id=\"' +  resourceSelect.val() + '\" '
+                +  'action_type_id=\"' + actionTypeSelect.val() + '\"><td>'
+                + $('#actionTypeMenu option:selected').text() + ': ' + $('#actionResourceMenu option:selected').text()
+                + '</td><td><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only deleteActionButton" type="button" onclick="deleteClosestRow(this)"><span class="ui-button-text ui-c">-</span></button></td></tr>' );
+            $('.addDialogActionCloseButton').click();
+        }
+        else
+            alert("such action exists");
     })
     $('.addDialogActionCloseButton').click(function() {
         PF('addActionDialog').hide();

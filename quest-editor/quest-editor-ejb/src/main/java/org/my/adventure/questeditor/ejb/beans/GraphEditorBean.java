@@ -124,11 +124,13 @@ public class GraphEditorBean implements Serializable {
         String oldName = nodeView.getEntity().getName();
         String oldDescription = nodeView.getEntity().getDescription();
         String oldPosition = nodeView.getEntity().getPosition();
+        List<Action> oldActions = nodeView.getEntity().getActions();
         JSONObject nodeJson = new JSONObject(nodeData);
         nodeView.getEntity().setName(nodeJson.getString("name"));
         nodeView.getEntity().setDescription(nodeJson.getString("description"));
         nodeView.getEntity().setPosition(nodeJson.getString("position"));
-        commandList.add(new EditNodeViewCommand(nodeView, oldName, oldDescription, oldPosition));
+        nodeView.getEntity().setActions(ActionBuilder.buildActions(nodeData));
+        commandList.add(new EditNodeViewCommand(nodeView, oldName, oldDescription, oldPosition, oldActions));
         return nodeView;
     }
     public TransitionView editTransition(String transitionData, String viewId) {

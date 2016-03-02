@@ -21,7 +21,7 @@ public class AddNodeViewCommand extends AddCommand<NodeView> {
         graphEditorBean.getNodeBean().saveOrUpdate(object.getEntity());
         for(Action action : actionList)
             action.setNode(node);
-        graphEditorBean.getActionBean().saveAll(actionList);
+        graphEditorBean.getActionBean().saveOrUpdateAll(actionList);
         node.setActions(actionList);
     }
 

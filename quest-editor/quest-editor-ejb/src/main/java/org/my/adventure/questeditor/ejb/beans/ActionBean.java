@@ -23,8 +23,11 @@ public class ActionBean extends CommonBean<Action> {
     public void saveOrUpdate(Action object) {
         actionDAO.saveOrUpdate(object);
     }
-    public void saveAll(List<Action> actionList) {
-        actionDAO.saveAll(actionList);
+    public void saveOrUpdateAll(List<Action> actionList) {
+        actionDAO.saveOrUpdateAll(actionList);
+    }
+    public void deleteAll(List<Action> actionList) {
+        actionDAO.deleteAll(actionList);
     }
     @Override
     public void delete(Action object) {

@@ -17,11 +17,25 @@ import java.util.List;
 @Stateless
 @Local(ActionDAO.class)
 public class ActionDAOImpl extends CommonDAOImpl<Action> implements ActionDAO {
-    public void saveAll(List<Action> actionList) {
+    public void deleteAll(List<Action> actionList) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         for(int i = 0; i<actionList.size(); i++) {
-            session.save(actionList.get(i));
+            session.delete(actionList.get(i));
+            if(i%50==0) {
+                session.flush();
+                session.clear();
+            }
+        }
+        transaction.commit();
+        session.close();
+    }
+
+    public void saveOrUpdateAll(List<Action> actionList) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        for(int i = 0; i<actionList.size(); i++) {
+            session.saveOrUpdate(actionList.get(i));
             if(i%50==0) {
                 session.flush();
                 session.clear();
