@@ -49,7 +49,7 @@ public class UploadController {
             catch (IOException e) {
                 e.printStackTrace();
             }
-            FacesMessage message = new FacesMessage("Успешно", event.getFile().getFileName() + " загружен.");
+            FacesMessage message = new FacesMessage("Р¤Р°Р№Р»", event.getFile().getFileName() + " Р—Р°РіСЂСѓР¶РµРЅ.");
             FacesContext.getCurrentInstance().addMessage(null,message);
         }
 

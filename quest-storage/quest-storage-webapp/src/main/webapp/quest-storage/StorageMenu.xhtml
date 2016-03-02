@@ -10,8 +10,8 @@
 <h:body>
     <ui:composition template="/templates/menu.xhtml">
         <ui:define name="menu_right">
-            <p:commandButton value="Изменить отображение"
-                             actionListener="#{questController.changeLayout()}" ajax="false"/>
+            <p:commandButton value="Изменить отображение" icon="ui-icon-transferthick-e-w"
+                             actionListener="#{questStorageController.changeLayout()}" ajax="false"/>
             <ui:include src="/templates/menu_right.xhtml"/>
         </ui:define>
     </ui:composition>

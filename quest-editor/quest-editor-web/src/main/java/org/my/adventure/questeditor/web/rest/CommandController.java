@@ -8,6 +8,7 @@ import org.my.adventure.questeditor.ejb.views.TransitionView;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -21,7 +22,7 @@ import java.util.Set;
 @Path("/command")
 @SessionScoped
 public class CommandController implements Serializable{
-    @Inject
+    @EJB
     GraphEditorBean graphEditorBean;
 
     @GET

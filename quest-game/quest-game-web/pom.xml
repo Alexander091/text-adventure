@@ -20,7 +20,7 @@
             <artifactId>quest-game-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
