@@ -19,6 +19,7 @@
         <module>quest-storage-impl</module>
         <module>quest-storage-webapp</module>
         <module>quest-storage-web</module>
+        <module>quest-storage-ejb</module>
     </modules>
 
 </project>

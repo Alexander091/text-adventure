@@ -1,4 +1,4 @@
-CREATE TABLE public.action
+﻿CREATE TABLE public.action
 (
   id bigint NOT NULL,
   condition character varying(200) NOT NULL,

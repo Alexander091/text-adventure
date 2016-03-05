@@ -77,8 +77,8 @@ public class QuestEditorController implements Serializable{
     public String saveQuest() {
         questEditorBean.saveOrUpdate(quest);
         Node node = new Node();
-        node.setName("Старт");
-        node.setDescription("Стартовая локация");
+        node.setName("Some quest");
+        node.setDescription("editor quest");
         node.setPosition("250 100");
         node.setQuestByQuestId(quest);
         nodeBean.saveOrUpdate(node);
