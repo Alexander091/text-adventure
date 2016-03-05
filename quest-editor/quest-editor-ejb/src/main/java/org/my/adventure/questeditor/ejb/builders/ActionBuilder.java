@@ -34,8 +34,8 @@ public class ActionBuilder {
         ResourceEditorBean resourceEditorBean = null;
         TypeOfActionBean typeOfActionBean = null;
         try {
-            resourceEditorBean = (ResourceEditorBean) new InitialContext().lookup("java:global/TextAdventure/TextAdventure/ResourceEditorBean!org.my.adventure.questeditor.ejb.beans.ResourceEditorBean");
-            typeOfActionBean = (TypeOfActionBean) new InitialContext().lookup("java:global/TextAdventure/TextAdventure/TypeOfActionBean!org.my.adventure.questeditor.ejb.beans.TypeOfActionBean");
+            resourceEditorBean = (ResourceEditorBean) new InitialContext().lookup("java:global/TextAdventure/quest-editor-ejb-1.0-SNAPSHOT/ResourceEditorBean!org.my.adventure.questeditor.ejb.beans.ResourceEditorBean");
+            typeOfActionBean = (TypeOfActionBean) new InitialContext().lookup("java:global/TextAdventure/quest-editor-ejb-1.0-SNAPSHOT/TypeOfActionBean!org.my.adventure.questeditor.ejb.beans.TypeOfActionBean");
         } catch (NamingException e) {
             e.printStackTrace();
         }

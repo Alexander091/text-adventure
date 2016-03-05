@@ -98,7 +98,7 @@ public class QuestWrapper {
         this.ageLimit = quest.getAgeLimit();
         this.rating = quest.getRating();
         this.name = quest.getName();
-        this.imagePath = quest.getImage().getPath();
+       // this.imagePath = quest.getImage().getPath();
 //        this.imagePath = "http://greentreesarborcareinc.com/wp-content/uploads/2014/01/image-placeholder.jpg";
     }
 }
