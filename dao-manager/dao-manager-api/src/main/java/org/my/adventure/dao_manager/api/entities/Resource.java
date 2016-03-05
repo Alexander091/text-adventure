@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Resource extends Common{
     private TypeOfResource type;
     private String name;
-    private String path;
+    private byte[] data;
     private Quest questByQuestId;
 
     @ManyToOne
@@ -32,14 +32,14 @@ public class Resource extends Common{
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "path", nullable = false, insertable = true, updatable = true, length = 1000)
-    public String getPath() {
-        return path;
+
+    @Column(name = "data", nullable = false, insertable = true, updatable = true)
+    public byte[] getData() {
+        return data;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     @ManyToOne
