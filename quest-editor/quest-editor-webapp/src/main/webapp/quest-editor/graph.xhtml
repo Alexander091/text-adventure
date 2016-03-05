@@ -8,31 +8,31 @@
     <h:inputText styleClass="selectedItemInput" style="display: none;"/>
     <p:toolbar style="margin-bottom: 3px">
         <f:facet name="left">
-            <p:commandButton type="button" value="Добавить узел" styleClass="addNodeButton"/>
+            <p:commandButton type="button" value="Добавить этап" styleClass="addNodeButton" icon="ui-icon-plus"/>
         </f:facet>
         <f:facet name="left">
-            <p:commandButton type="button" value="Добавить ребро" styleClass="addEdgeButton"/>
+            <p:commandButton type="button" value="Добавить переход" styleClass="addEdgeButton" icon="ui-icon-plus"/>
         </f:facet>
         <f:facet name="left">
-            <p:commandButton type="button" value="Изменить" styleClass="editButton" widgetVar="editButton" disabled="true"/>
+            <p:commandButton type="button" value="Изменить" styleClass="editButton" widgetVar="editButton" disabled="true" icon="ui-icon-pencil"/>
         </f:facet>
         <f:facet name="left">
-            <p:commandButton type="button" value="Удалить" styleClass="deleteButton" widgetVar="deleteButton" disabled="true"/>
+            <p:commandButton type="button" value="Удалить" styleClass="deleteButton" widgetVar="deleteButton" disabled="true" icon="ui-icon-trash"/>
+        </f:facet>
+        <f:facet name="right">
+            <p:commandButton type="button" value="Сохранить" styleClass="saveButton" icon="ui-icon-disk"/>
         </f:facet>
         <f:facet name="left">
-            <p:commandButton type="button" value="Сохранить" styleClass="saveButton"/>
+            <p:commandButton type="button" value="Отмена" styleClass="undoButton" disabled="true" rendered="false"/>
         </f:facet>
-        <f:facet name="left">
-            <p:commandButton type="button" value="Отмена" styleClass="undoButton" disabled="true"/>
-        </f:facet>
-        <f:facet name="left">
-            <p:commandButton type="button" value="Выйти" styleClass="exitButton"/>
+        <f:facet name="right">
+            <p:commandButton type="button" value="Выйти" styleClass="exitButton" icon="ui-icon-home"/>
         </f:facet>
     </p:toolbar>
    <div id="cy">
    </div>
     <h:form id="addNodeForm">
-        <p:dialog header="Добавить" widgetVar="addNodeDialog" resizable="false" modal="true">
+        <p:dialog header="Добавить этап" widgetVar="addNodeDialog" resizable="false" modal="true">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="nodeName" value="Название:" />
                 <p:inputText id="nodeName"  required="true" label="Название" styleClass="addDialogNodeName"/>
@@ -52,7 +52,7 @@
         </p:dialog>
     </h:form>
     <h:form id="addEdgeForm">
-        <p:dialog header="Добавить" widgetVar="addEdgeDialog" resizable="false" modal="true">
+        <p:dialog header="Добавить переход" widgetVar="addEdgeDialog" resizable="false" modal="true">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="edgeName" value="Название:" />
                 <p:inputText id="edgeName"  required="true" label="Название" styleClass="addDialogEdgeName"/>
@@ -122,7 +122,7 @@
     </h:form>
     <h:form id="deleteNodeForm">
         <p:dialog header="Удалить" widgetVar="deleteNodeDialog" resizable="false" modal="true">
-            <p:outputLabel value="Вы действительно хотите удалить этот узел вместе со всеми связанными ребрами?"></p:outputLabel>
+            <p:outputLabel value="Вы действительно хотите удалить этот этап вместе со всеми связанными переходами?"></p:outputLabel>
             <f:facet name="footer">
                 <p:commandButton value="Удалить" styleClass="deleteDialogNodeOKButton"/>
                 <p:commandButton value="Отмена" styleClass="deleteDialogNodeCloseButton"/>
@@ -132,7 +132,7 @@
     </h:form>
     <h:form id="deleteEdgeForm">
         <p:dialog header="Удалить" widgetVar="deleteEdgeDialog" resizable="false" modal="true">
-            <p:outputLabel value="Вы действительно хотите удалить это ребро?"/>
+            <p:outputLabel value="Вы действительно хотите удалить этот переход?"/>
             <f:facet name="footer">
                 <p:commandButton value="Удалить" styleClass="deleteDialogEdgeOKButton"/>
                 <p:commandButton value="Отмена" styleClass="deleteDialogEdgeCloseButton"/>

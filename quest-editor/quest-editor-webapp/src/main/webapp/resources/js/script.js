@@ -8,18 +8,23 @@ $(document).ready(function() { // on dom ready
                 'text-valign': 'center',
                 'color': 'white',
                 'text-outline-width': 2,
-                'text-outline-color': '#888'
+                'text-outline-color': '#888',
+                'background-color' : '#1484E6',
             })
             .selector('edge')
             .css({
-                'target-arrow-shape': 'triangle'
+                'target-arrow-shape': 'triangle',
+                'line-color' : '#1484E6',
+                'target-arrow-color': '#1484E6',
+                'source-arrow-color': '#1484E6',
+                'opacity': 0.8,
             })
             .selector(':selected')
             .css({
-                'background-color': 'black',
-                'line-color': 'black',
-                'target-arrow-color': 'black',
-                'source-arrow-color': 'black'
+                'background-color': '#e69700',
+                'line-color': '#e69700',
+                'target-arrow-color': '#e69700',
+                'source-arrow-color': '#e69700',
             })
             .selector('.faded')
             .css({
@@ -306,6 +311,9 @@ $(document).ready(function() { // on dom ready
     })
     $('.addDialogNodeOKButton').click(function () {
         var actions = [];
+        var panPos = cy.pan();
+        var width = cy.width();
+        var height = cy.height();
         var table = $('#addDialogActionsTable');
         var rows = $('tr', table);
         for(var i = 0; i<rows.length; i++) {
@@ -319,9 +327,10 @@ $(document).ready(function() { // on dom ready
             'name' : $('.addDialogNodeName').val(),
             'description' : $('.addDialogNodeDescription').val(),
             'questId' : $('.questIdInput').val(),
-            'position' : '100 100',
+            'position' : (-panPos.x + width/2) + " " + (-panPos.y + height/2),
             'actions' : actions
         }
+
         $.ajax({
             type: 'post',
             data: JSON.stringify(node),
