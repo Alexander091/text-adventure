@@ -16,52 +16,45 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.text-adventure.core</groupId>
-            <artifactId>core-webapp</artifactId>
+            <groupId>org.text-adventure</groupId>
+            <artifactId>quest-storage-webapp</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.text-adventure</groupId>
+            <artifactId>quest-editor-webapp</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.text-adventure</groupId>
+            <artifactId>quest-game-webapp</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.text-adventure</groupId>
+            <artifactId>security-web</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>SmartHomeWebApp</finalName>
+        <finalName>TextAdventureWebApp</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>process-overlay</id>
-                        <goals>
-                            <goal>
-                                exploded
-                            </goal>
-                        </goals>
-                        <phase>prepare-package</phase>
-                        <configuration>
-                            <overlays>
-                                <overlay>
-                                    <groupId>org.text-adventure.core</groupId>
-                                    <artifactId>core-webapp</artifactId>
-                                </overlay>
-                            </overlays>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-war</id>
-                        <configuration>
-                            <overlays>
-                                <overlay>
-                                    <groupId>org.text-adventure.core</groupId>
-                                    <artifactId>core-webapp</artifactId>
-                                    <skip>true</skip>
-                                </overlay>
-                            </overlays>
-                            <packagingExcludes>
-                                **/*-sources.jar, **/*-classes.jar
-                            </packagingExcludes>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>APP-INF/lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>

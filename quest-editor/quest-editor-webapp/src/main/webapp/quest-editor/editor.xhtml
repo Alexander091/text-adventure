@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Hello World!</title>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+<h:body>
+    <f:metadata>
+        <f:viewParam name="questId" value="#{questEditorController.questId}"/>
+        <f:viewAction action="#{questEditorController.loadQuest}"/>
+    </f:metadata>
+    <!--<h:form id="form">-->
+    <h:form id="editorForm">
+        <h:inputText styleClass="questIdInput" style="display: none;" value="#{questEditorController.questId}"/>
+        <p:growl id="msgs" showDetail="true" />
+    </h:form>
+        <!--<p:toolbar style="margin-bottom: 3px">-->
+            <!--<f:facet name="left">-->
+                <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
+            <!--</f:facet>-->
+        <!--</p:toolbar>-->
+        <p:tabView dynamic="true" activeIndex="#{questEditorController.activeIndex}">
+            <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
+                <ui:include src="graph.xhtml"/>
+            </p:tab>
+            <p:tab  title="Квест" selected="#{questEditorController.questId==null}">
+                <ui:include src="quest.xhtml"/>
+            </p:tab>
+
+
+            <!--<p:tab title="Характеристики">-->
+                <!--<h:panelGrid columns="2" cellpadding="10">-->
+                    <!--<h:outputText value="text2" />-->
+                <!--</h:panelGrid>-->
+            <!--</p:tab>-->
+            <!--<p:tab title="Предметы">-->
+                <!--<ui:include src="items.xhtml"/>-->
+            <!--</p:tab>-->
+            <!--<p:tab title="Умения">-->
+                <!--<h:panelGrid columns="2" cellpadding="10">-->
+                    <!--<h:outputText value="text3..." />-->
+                <!--</h:panelGrid>-->
+            <!--</p:tab>-->
+
+            <p:tab title="Звуки" disabled="#{questEditorController.questId==null}">
+                <ui:include src="sounds.xhtml"  />
+            </p:tab>
+            <p:tab title="Картинки" disabled="#{questEditorController.questId==null}">
+                <ui:include src="images.xhtml" />
+            </p:tab>
+        </p:tabView>
+    <!--</h:form>-->
+    <h:outputScript library="js" name="cytoscape.js"/>
+    <h:outputScript library="js" name="script.js"/>
+</h:body>
+</html>

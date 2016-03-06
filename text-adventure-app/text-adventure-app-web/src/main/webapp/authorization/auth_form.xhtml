@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+    <h:form id="login"
+            onsubmit="action='j_security_check';"
+            prependId="false" >
+        <p:panel id="panel" header="Авторизация" style="width:70%;">
+            <h:panelGrid columns="3" id="grid" width="5%" >
+                <f:facet name="header">
+                    <p style="text-align: center">Для выполнения запрашиваемого действия необходима авторизация</p>
+                </f:facet>
+                <p:outputLabel for="j_username" value="Имя пользователя" style="white-space: nowrap;" />
+                <p:inputText id="j_username" required="true"
+                             tabindex="1"
+                             label="J_username"
+                             placeholder="Логин"
+                             requiredMessage="Необходимо ввести имя пользователя">
+                </p:inputText>
+                <p:message for="j_username" display="icon"/>
+                <p:outputLabel for="j_password" value="Пароль" />
+                <p:password id="j_password" required="true" tabindex="2"
+                            placeholder="Пароль"
+                            validatorMessage="Длина пароля от 6 до 50 символов"
+                            requiredMessage="Длина пароля от 6 до 50 символов">
+                    <f:validateLength minimum="6" maximum="50" />
+                </p:password>
+                <p:message for="j_password" display="icon"/>
+                <f:facet name="footer">
+                    <div align="center">
+                        <p:commandButton id="submit" value="Войти"
+                                         validateClient="true"
+                                         tabindex="3"
+                                         onclick='j_security_check'
+                                         ajax="true" update="grid" />
+                        <p:button outcome="/index.xhtml" value="Отмена"
+                                  tabindex="4"/>
+                    </div>
+                </f:facet>
+                <!--disabled="#{not facesContext.postback or facesContext.validationFailed}"-->
+            </h:panelGrid>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>

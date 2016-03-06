@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+
+    <session-config>
+        <!-- Session idle timeout in min. -->
+        <session-timeout>300</session-timeout>
+    </session-config>
+
+    <display-name>QuestCracker</display-name>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <!--<context-param>-->
+        <!--<param-name>log4jConfiguration</param-name>-->
+        <!--<param-value>log4j2.xml</param-value>-->
+    <!--</context-param>-->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>excite-bike</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>Primefaces Upload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Primefaces Upload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+
+    <!--Defining security constraint for type of roles available-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secured</web-resource-name>
+            <url-pattern>/faces/quest-editor/*</url-pattern>
+            <url-pattern>/quest-editor/*</url-pattern>
+            <url-pattern>/quest-storage/*</url-pattern>
+            <url-pattern>/faces/quest-storage/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!--Defining type of authenitcation mechanism-->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>text-adventure-domain</realm-name>
+        <form-login-config>
+            <form-login-page>/authorization/login.xhtml</form-login-page>
+            <form-error-page>/authorization/login_error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <!--Denining security role-->
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+
+    <error-page>
+        <!-- Missing login -->
+        <error-code>401</error-code>
+        <location>/authorization/login.xhtml</location>
+    </error-page>
+    <error-page>
+        <!-- Forbidden directory listing -->
+        <error-code>403</error-code>
+        <location>/authorization/login.xhtml</location>
+        <!--TODO: create proper forbidden page-->
+    </error-page>
+    <!--<error-page>-->
+        <!--&lt;!&ndash; Uncaught exception &ndash;&gt;-->
+        <!--<error-code>500</error-code>-->
+        <!--<location>/authorization/login_error.xhtml</location>-->
+    <!--</error-page>-->
+    <!--<error-page>-->
+        <!--&lt;!&ndash; Unsupported servlet method &ndash;&gt;-->
+        <!--<error-code>503</error-code>-->
+        <!--<location>/authorization/login_error.xhtml</location>-->
+    <!--</error-page>-->
+    <error-page>
+        <!-- Not found -->
+        <error-code>404</error-code>
+        <location>/templates/404.xhtml</location>
+    </error-page>
+</web-app>

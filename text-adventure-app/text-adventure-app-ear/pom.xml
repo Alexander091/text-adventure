@@ -16,10 +16,40 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.text-adventure</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>text-adventure-app-web</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>dao-manager-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>quest-game-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>quest-editor-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>quest-storage-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>security-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
         </dependency>
     </dependencies>
 
@@ -34,15 +64,54 @@
                     <version>7</version>
                     <defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
+                    <useBaseVersion>true</useBaseVersion>
                     <modules>
                         <webModule>
                             <groupId>org.text-adventure</groupId>
                             <artifactId>text-adventure-app-web</artifactId>
                             <unpack>true</unpack>
-                            <bundleFileName>SmartHomeWebApp.war</bundleFileName>
-                            <contextRoot>/text-adventure</contextRoot>
+                            <bundleFileName>TextAdventure.war</bundleFileName>
+                            <contextRoot>/TextAdventure</contextRoot>
                         </webModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>dao-manager-ejb</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>quest-game-ejb</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>quest-storage-ejb</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>security-ejb</artifactId>
+                        </ejbModule>
                     </modules>
+                    <earSourceExcludes>
+                    </earSourceExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <configuration>
+                    <imageName>example</imageName>
+                    <baseImage>jboss/wildfly</baseImage>
+                    <resources>
+                        <resource>
+                            <targetPath>/opt/jboss/wildfly/standalone/deployments/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.ear</include>
+                        </resource>
+                    </resources>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
                 </configuration>
             </plugin>
         </plugins>

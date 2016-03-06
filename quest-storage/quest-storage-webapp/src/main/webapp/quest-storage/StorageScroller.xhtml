@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Quest storage scroller</title>
+</h:head>
+<h:body>
+    <div align="center">
+        <h:form>
+            <p:dataScroller value="#{questStorageController.quests}"
+                            var="quest" chunkSize="4" id="dataScroller">
+                <f:facet name="header">
+                    Прокрутите вниз, что бы увидеть больше квестов
+                </f:facet>
+                <div align="left">
+                    <p:panelGrid style="width: 100%">
+                        <p:row>
+                            <p:column style="width: 40%">
+                                <p:graphicImage url="#{quest.imagePath}" style="width: 100%"/>
+
+                            </p:column>
+                            <p:column style="width: 25%">
+                                <!--<p:outputPanel>-->
+                                    <p:panelGrid columns="2">
+                                        <h:outputText value="Id:" />
+                                        <h:outputText value="#{quest.id}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Name:" />
+                                        <h:outputText value="#{quest.name}" style="font-weight: bold"/>
+
+                                        <h:outputText value="genre:" />
+                                        <h:outputText value="#{quest.genre}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Rating:" />
+                                        <h:outputText value="#{quest.rating}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Age limit:" />
+                                        <h:outputText value="#{quest.ageLimit}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Version:" />
+                                        <h:outputText value="#{quest.version}" style="font-weight: bold"/>
+                                    </p:panelGrid>
+                                <!--</p:outputPanel>-->
+                            </p:column>
+
+                            <p:column >
+                                <p:scrollPanel style="width: 100%; text-align: justify; max-height: 100%">
+                                    <h:outputText value="#{quest.description}" style="font-weight: bold"/>
+                                </p:scrollPanel>
+                            </p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="3">
+                                    <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
+                                        <f:param name="questId" value="#{quest.id}" />
+                                    </p:button>
+                                    <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать"
+                                              rendered="#{loginController.admin}"
+                                              icon="ui-icon-wrench">
+                                        <f:param name="questId" value="#{quest.id}" />
+                                    </p:button>
+                                    <p:commandButton value="Удалить" rendered="#{loginController.admin}"
+                                                     actionListener="#{questStorageController.deleteQuest(quest.id)}"
+                                                     icon="ui-icon-trash" update="dataScroller">
+                                        <p:confirm header="Требуется подтверждение" message="Вы уверены?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closeOnEscape="true" closable="true">
+                                        <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </p:confirmDialog>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                </div>
+            </p:dataScroller>
+        </h:form>
+    </div>
+</h:body>
+</html>
