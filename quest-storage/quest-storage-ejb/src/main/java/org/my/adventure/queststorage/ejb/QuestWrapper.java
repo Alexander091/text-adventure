@@ -1,6 +1,10 @@
 package org.my.adventure.queststorage.ejb;
 
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Resource;
+import org.primefaces.model.DefaultStreamedContent;
+
+import java.io.ByteArrayInputStream;
 
 /**
  * Created by al on 23.02.2016.
@@ -13,7 +17,7 @@ public class QuestWrapper {
     private Integer ageLimit;
     private Float rating;
     private String name;
-    private String imagePath;
+    private DefaultStreamedContent image;
 
     public String getDescription() {
         return description;
@@ -71,24 +75,20 @@ public class QuestWrapper {
         this.name = name;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public DefaultStreamedContent getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(DefaultStreamedContent image) {
+        this.image = image;
     }
 
-    public QuestWrapper(Long id, String description, String genre, Integer version, Integer ageLimit, Float rating, String name, String imagePath) {
-        this.id = id;
-        this.description = description;
-        this.genre = genre;
-        this.version = version;
-        this.ageLimit = ageLimit;
-        this.rating = rating;
-        this.name = name;
-        this.imagePath = imagePath;
+    public void setImage(Resource image) {
+        if (image != null)
+            this.image = new DefaultStreamedContent(new ByteArrayInputStream(image.getData()), "image/jpg");
+        else image = null;
     }
+
 
     public QuestWrapper(Quest quest){
         this.id = quest.getId();
@@ -98,7 +98,9 @@ public class QuestWrapper {
         this.ageLimit = quest.getAgeLimit();
         this.rating = quest.getRating();
         this.name = quest.getName();
-       // this.imagePath = quest.getImage().getPath();
-//        this.imagePath = "http://greentreesarborcareinc.com/wp-content/uploads/2014/01/image-placeholder.jpg";
+        if (quest.getImage() != null && quest.getImage().getData() != null)
+            this.image = new DefaultStreamedContent(new ByteArrayInputStream(quest.getImage().getData()));
+        else
+            this.image = null;
     }
 }

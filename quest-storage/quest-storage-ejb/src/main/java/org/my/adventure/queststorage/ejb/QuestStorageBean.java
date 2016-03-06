@@ -42,11 +42,12 @@ public class QuestStorageBean {
             quests = questDAO.getAllByGenre(genre);
         List<QuestWrapper> questWrappers = new ArrayList<>();
         for (Quest quest : quests) {
-            if (quest.getImage() == null)
-                quest.setImage(resourceDAO.getById(0L));
-            if (quest.getRating() == null)
-                quest.setRating(0f);
-            questWrappers.add(new QuestWrapper(quest));
+            QuestWrapper questWrapper = new QuestWrapper(quest);
+//            if (questWrapper.getImage() == null)
+            questWrapper.setImage(resourceDAO.getById(0L));
+            if (questWrapper.getRating() == null)
+                questWrapper.setRating(0f);
+            questWrappers.add(questWrapper);
         }
         questWrappers.sort(new Comparator<QuestWrapper>() {
             public int compare(QuestWrapper o1, QuestWrapper o2) {
