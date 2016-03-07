@@ -2,8 +2,10 @@ package org.my.adventure.questgame.ejb;
 
 import org.my.adventure.dao_manager.api.dao.NodeDAO;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
+import org.my.adventure.dao_manager.api.dao.ResourceDAO;
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Resource;
 import org.my.adventure.dao_manager.api.entities.Transition;
 import org.my.adventure.questgame.impl.GameStage;
 
@@ -25,6 +27,8 @@ public class GameStagesBean {
     QuestDAO questDAO;
     @EJB
     NodeDAO nodeDAO;
+    @EJB
+    ResourceDAO resourceDAO;
 
     @PostConstruct
     void init(){
@@ -66,5 +70,9 @@ public class GameStagesBean {
 
     public void refresh(long questId) {
         setNewGameStage(questId, questDAO.getById(questId).getStartNode());
+    }
+
+    public Resource getResourceById(long resourceId){
+        return resourceDAO.getById(resourceId);
     }
 }

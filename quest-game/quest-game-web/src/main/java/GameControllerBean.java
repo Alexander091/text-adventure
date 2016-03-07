@@ -7,11 +7,11 @@ import org.primefaces.model.StreamedContent;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import java.io.ByteArrayInputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 
 
@@ -26,8 +26,7 @@ public class GameControllerBean implements Serializable {
 
     private long questId;
     private NodeWrapper node;
-    private boolean soundEnabled;
-    StreamedContent streamedContent;
+    private boolean soundEnabled=false;
 
     @EJB
     GameBean gameBean;
@@ -46,7 +45,7 @@ public class GameControllerBean implements Serializable {
     }
 
     public void addMessage() {
-        String summary = soundEnabled ? "Звук включен" : "Звук отключен";
+        String summary = soundEnabled ? "Sound ON" : "Sound OFF";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
     }
 
@@ -74,19 +73,6 @@ public class GameControllerBean implements Serializable {
         return questId;
     }
 
-    public StreamedContent getImage() {
-        byte[] image = node.getImage();
-
-        if (image != null) {
-            streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(image), "image/jpg");
-        }
-        else {
-            streamedContent = null;
-        }
-        return streamedContent;
-    }
-
-
     public boolean isSoundEnabled() {
         return soundEnabled;
     }
@@ -94,4 +80,13 @@ public class GameControllerBean implements Serializable {
     public void setSoundEnabled(boolean soundEnabled) {
         this.soundEnabled = soundEnabled;
     }
+
+    public long getImageResourceId(){
+        return node.getImageResourceId();
+    }
+
+    public long getSoundResourceId(){
+        return node.getSoundResourceId();
+    }
+
 }

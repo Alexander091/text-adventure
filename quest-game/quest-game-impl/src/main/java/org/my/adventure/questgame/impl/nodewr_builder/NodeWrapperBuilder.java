@@ -36,8 +36,8 @@ public class NodeWrapperBuilder {
     }
 
     public void buildActions(List<Action> actions) {
-        byte[] image = null;
-        byte[] sound = null;
+        long imageResourceId=0;
+        long soundResourceId=0;
 
         /*final long typeOfActionId = 1;
         Action action = null;
@@ -58,16 +58,16 @@ public class NodeWrapperBuilder {
             for (Action act : actions) {
                 switch (act.getType().getId().intValue()) {
                     case 1: //image
-                        image = act.getResource().getData();
+                        imageResourceId = act.getResource().getId();
                         break;
                     case 2: //sound
-                        sound = act.getResource().getData();
+                        soundResourceId = act.getResource().getId();
                         break;
                 }
             }
         }
-        nodeWrapper.setImage(image);
-        nodeWrapper.setSound(sound);
+        nodeWrapper.setImageResourceId(imageResourceId);
+        nodeWrapper.setSoundResourceId(soundResourceId);
     }
 
 }

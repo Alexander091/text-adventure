@@ -10,8 +10,8 @@ public class NodeWrapper {
     private String name = "";
     private String text = "";
     private List<TransitionWrapper> transitions = null;
-    private byte[] image = null;
-    private byte[] sound = null;
+    private long imageResourceId;
+    private long soundResourceId;
 
     public String getName() {
         return name;
@@ -37,16 +37,20 @@ public class NodeWrapper {
         this.transitions = transitions;
     }
 
-    public byte[] getImage() {
-        return image;
+    public long getImageResourceId() {
+        return imageResourceId;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageResourceId(long imageResourceId) {
+        this.imageResourceId = imageResourceId;
     }
 
-    public void setSound(byte[] sound) {
-        this.sound = sound;
+    public void setSoundResourceId(long soundResourceId) {
+        this.soundResourceId = soundResourceId;
+    }
+
+    public long getSoundResourceId() {
+        return soundResourceId;
     }
     /*public NodeWrapper(String name, String text, List<TransitionWrapper> transitions){
         this.name = name;
