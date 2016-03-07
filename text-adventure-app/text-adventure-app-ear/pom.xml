@@ -89,6 +89,10 @@
                             <groupId>org.text-adventure</groupId>
                             <artifactId>security-ejb</artifactId>
                         </ejbModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>quest-editor-ejb</artifactId>
+                        </ejbModule>
                     </modules>
                     <earSourceExcludes>
                     </earSourceExcludes>
