@@ -6,3 +6,12 @@
     border: 1px solid darkgray;
     border-radius: 2px;
 }
+
+.container {
+    display: inline-block;
+    overflow-y: scroll;
+    max-height:200px;
+}
+.actionsTable {
+    border: 1px;
+}

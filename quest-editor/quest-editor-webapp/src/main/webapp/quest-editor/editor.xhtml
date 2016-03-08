@@ -59,5 +59,10 @@
     <!--</h:form>-->
     <h:outputScript library="js" name="cytoscape.js"/>
     <h:outputScript library="js" name="script.js"/>
+    <h:outputScript>
+        function deleteClosestRow(button) {
+            button.closest('tr').remove();
+        }
+    </h:outputScript>
 </h:body>
 </html>

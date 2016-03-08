@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
  * Created by dimko_000 on 19.02.2016.
  */
 @Stateless
-public class TransitionBean {
+public class TransitionBean extends CommonBean<Transition> {
     @EJB
     TransitionDAO transitionDAO;
     public Transition getById(Long id) {
