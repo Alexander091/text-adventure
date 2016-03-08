@@ -7,6 +7,8 @@ import org.my.adventure.questeditor.ejb.builders.GraphBuilder;
 import org.my.adventure.questeditor.ejb.builders.QuestBuilder;
 import org.my.adventure.questeditor.ejb.builders.ViewBuilder;
 import org.my.adventure.questeditor.ejb.commands.*;
+import org.my.adventure.questeditor.ejb.graph.vaildator.ValidationStatus;
+import org.my.adventure.questeditor.ejb.graph.vaildator.Validator;
 import org.my.adventure.questeditor.ejb.views.NodeView;
 import org.my.adventure.questeditor.ejb.views.TransitionView;
 import org.primefaces.json.JSONArray;
@@ -138,6 +140,8 @@ public class GraphEditorBean implements Serializable {
         return transitionView;
     }
     public String save(JSONArray data) {
+        Validator validator = new Validator();
+        List<ValidationStatus> status = validator.validate(viewGraph);
         updatePositions(data);
         for(Command command : commandList)
             command.saveToDB(this);

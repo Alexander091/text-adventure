@@ -89,7 +89,7 @@ public class Validator {
         return true;
     }
 
-    public List<ValidationStatus> validation(Graph<NodeView, TransitionView> graph){
+    public List<ValidationStatus> validate(Graph<NodeView, TransitionView> graph){
         List<ValidationStatus> result = new ArrayList<>();
 
         ValidationStatus endRes = haveEnd(graph);
