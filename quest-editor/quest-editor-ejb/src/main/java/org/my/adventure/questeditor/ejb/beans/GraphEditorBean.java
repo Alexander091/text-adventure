@@ -1,8 +1,13 @@
 package org.my.adventure.questeditor.ejb.beans;
 
 import org.jgrapht.Graph;
+import org.my.adventure.dao_manager.api.dao.TypeOfActionDAO;
+import org.my.adventure.dao_manager.api.entities.Action;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Resource;
+import org.my.adventure.dao_manager.api.entities.TypeOfAction;
 import org.my.adventure.questeditor.ejb.GraphUtils;
+import org.my.adventure.questeditor.ejb.builders.ActionBuilder;
 import org.my.adventure.questeditor.ejb.builders.GraphBuilder;
 import org.my.adventure.questeditor.ejb.builders.QuestBuilder;
 import org.my.adventure.questeditor.ejb.builders.ViewBuilder;
@@ -32,6 +37,13 @@ public class GraphEditorBean implements Serializable {
     private NodeBean nodeBean;
     @EJB
     private TransitionBean transitionBean;
+    @EJB
+    private TypeOfActionBean typeOfActionBean;
+    @EJB
+    private ResourceEditorBean resourceEditorBean;
+    @EJB
+    private ActionBean actionBean;
+
     private Quest quest = null;
     private Graph<NodeView, TransitionView> viewGraph;
     private List<Command> commandList;
@@ -76,6 +88,10 @@ public class GraphEditorBean implements Serializable {
         this.questEditorBean = questEditorBean;
     }
 
+    public ActionBean getActionBean() {
+        return actionBean;
+    }
+
     public void loadQuest(Long id) {
         if(id==null)
             quest= QuestBuilder.buildDefaultQuest();
@@ -91,6 +107,8 @@ public class GraphEditorBean implements Serializable {
 
     public NodeView addNode(String nodeJson) {
         NodeView nodeView = ViewBuilder.buildNodeView(nodeJson, quest);
+        List<Action> actions = ActionBuilder.buildActions(nodeJson);
+        nodeView.getEntity().setActions(actions);
         commandList.add(new AddNodeViewCommand(nodeView));
         viewGraph.addVertex(nodeView);
         return nodeView;
@@ -106,11 +124,13 @@ public class GraphEditorBean implements Serializable {
         String oldName = nodeView.getEntity().getName();
         String oldDescription = nodeView.getEntity().getDescription();
         String oldPosition = nodeView.getEntity().getPosition();
+        List<Action> oldActions = nodeView.getEntity().getActions();
         JSONObject nodeJson = new JSONObject(nodeData);
         nodeView.getEntity().setName(nodeJson.getString("name"));
         nodeView.getEntity().setDescription(nodeJson.getString("description"));
         nodeView.getEntity().setPosition(nodeJson.getString("position"));
-        commandList.add(new EditNodeViewCommand(nodeView, oldName, oldDescription, oldPosition));
+        nodeView.getEntity().setActions(ActionBuilder.buildActions(nodeData));
+        commandList.add(new EditNodeViewCommand(nodeView, oldName, oldDescription, oldPosition, oldActions));
         return nodeView;
     }
     public TransitionView editTransition(String transitionData, String viewId) {
@@ -137,8 +157,14 @@ public class GraphEditorBean implements Serializable {
         viewGraph.removeEdge(transitionView);
         return transitionView;
     }
+    public List<TypeOfAction> getAllTypesOfAction() {
+        return typeOfActionBean.getAllTypes();
+    }
+    public List<Resource> getResourcesList(Long questId, Long typeOfActionId) {
+        TypeOfAction typeOfAction = typeOfActionBean.getById(typeOfActionId);
+        return resourceEditorBean.getResourcesList(questId, typeOfAction.getTypeOfResource().getId());
+    }
     public String save(JSONArray data) {
-        updatePositions(data);
         for(Command command : commandList)
             command.saveToDB(this);
         commandList.clear();

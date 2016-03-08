@@ -1,6 +1,8 @@
 package org.my.adventure.questeditor.web.rest;
 
 import org.jgrapht.Graph;
+import org.my.adventure.dao_manager.api.entities.Resource;
+import org.my.adventure.dao_manager.api.entities.TypeOfAction;
 import org.my.adventure.questeditor.ejb.GraphUtils;
 import org.my.adventure.questeditor.ejb.beans.GraphEditorBean;
 import org.my.adventure.questeditor.ejb.views.NodeView;
@@ -14,6 +16,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -115,6 +118,34 @@ public class CommandController implements Serializable{
     public String deleteTransition(@PathParam("id") String id) {
         graphEditorBean.deleteTransition(id);
         return graphEditorBean.successResponse();
+    }
+    @GET
+    @Path("/actionTypes/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllTypesOfAction() {
+        List<TypeOfAction> types = graphEditorBean.getAllTypesOfAction();
+        JSONArray typesArray = new JSONArray();
+        for(TypeOfAction typeOfAction : types) {
+            JSONObject typeJson = new JSONObject();
+            typeJson.put("id", typeOfAction.getId());
+            typeJson.put("name", typeOfAction.getName());
+            typesArray.put(typeJson);
+        }
+        return typesArray.toString();
+    }
+    @GET
+    @Path("/resource/get/{quest_id},{type_of_action_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllTypesOfAction(@PathParam("quest_id") Long questId, @PathParam("type_of_action_id") Long typeOfActionId ) {
+        List<Resource> resources = graphEditorBean.getResourcesList(questId, typeOfActionId);
+        JSONArray resourcesJsonArray = new JSONArray();
+        for(Resource resource : resources) {
+            JSONObject resourceJson = new JSONObject();
+            resourceJson.put("id", resource.getId());
+            resourceJson.put("name", resource.getName());
+            resourcesJsonArray.put(resourceJson);
+        }
+        return resourcesJsonArray.toString();
     }
     @POST
     @Path("/save")

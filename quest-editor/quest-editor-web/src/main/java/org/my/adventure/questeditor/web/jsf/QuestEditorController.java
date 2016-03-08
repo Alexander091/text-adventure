@@ -2,29 +2,36 @@ package org.my.adventure.questeditor.web.jsf;
 
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Resource;
 import org.my.adventure.questeditor.ejb.beans.NodeBean;
 import org.my.adventure.questeditor.ejb.beans.QuestEditorBean;
+import org.my.adventure.questeditor.ejb.beans.ResourceEditorBean;
 
 import javax.ejb.EJB;
 import javax.faces.bean.*;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by dimko_000 on 10.12.2015.
  */
 @ManagedBean(name = "questEditorController")
 //@Named(value = "questController")
-@ViewScoped
+@SessionScoped
 public class QuestEditorController implements Serializable{
     private Long questId = null;
     private Integer activeIndex = 1;
     private Quest quest;
+    private static long TYPE_IMAGE = 1;
     @EJB
     QuestEditorBean questEditorBean;
     @EJB
     NodeBean nodeBean;
+    @EJB
+    ResourceEditorBean resourceEditorBean;
     public Integer getActiveIndex() {
         return activeIndex;
     }
@@ -55,6 +62,12 @@ public class QuestEditorController implements Serializable{
         return questId;
     }
 
+    public Resource getImage() {
+        return quest.getImage();
+    }
+    public void setImage(Resource image) {
+        quest.setImage(image);
+    }
     public void setQuestId(Long questId) {
         this.questId = questId;
         activeIndex = 0;
@@ -89,5 +102,8 @@ public class QuestEditorController implements Serializable{
     }
     public void updateQuest() {
         questEditorBean.saveOrUpdate(quest);
+    }
+    public List<Resource> getAllAvailablePictures() {
+        return resourceEditorBean.getResourcesList(questId, TYPE_IMAGE);
     }
 }
