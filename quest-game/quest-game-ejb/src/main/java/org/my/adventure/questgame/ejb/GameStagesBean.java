@@ -11,6 +11,7 @@ import org.my.adventure.questgame.impl.GameStage;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Init;
 import javax.ejb.Stateful;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 @Stateful
 public class GameStagesBean {
-    private Map<Long,GameStage> gameStages;
+    private static final Map<Long,GameStage> gameStages = new HashMap<Long, GameStage>();
     @EJB
     QuestDAO questDAO;
     @EJB
@@ -30,10 +31,6 @@ public class GameStagesBean {
     @EJB
     ResourceDAO resourceDAO;
 
-    @PostConstruct
-    void init(){
-        gameStages = new HashMap<Long, GameStage>();
-    }
 
     public Map<Long,GameStage> getGameStages() {
         return gameStages;
