@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 /**
  * Created by Дмитрий on 11.12.2015.
  */
+
 @Stateless
 @Local(TypeOfResourceDAO.class)
 public class TypeOfResourceDAOImpl extends CommonDAOImpl<TypeOfResource>{
