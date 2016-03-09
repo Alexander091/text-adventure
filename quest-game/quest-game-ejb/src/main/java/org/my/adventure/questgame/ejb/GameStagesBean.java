@@ -12,6 +12,7 @@ import org.my.adventure.questgame.impl.GameStage;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Init;
+import javax.ejb.Singleton;
 import javax.ejb.Stateful;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.Map;
  * Created by Максим on 17.02.2016.
  */
 
-@Stateful
+@Singleton
 public class GameStagesBean {
     private static final Map<Long,GameStage> gameStages = new HashMap<Long, GameStage>();
     @EJB

@@ -27,7 +27,7 @@ public class GameBean {
     public NodeWrapper getNextWrappedNode(long questId,long transId) {
         Node node = findTransById(questId,transId).getNodeByToNode();
         gameStagesBean.setNewGameStage(questId, node);
-        return new NodeWrapperDirector().constructNodeWrapper(node);
+        return NodeWrapperDirector.constructNodeWrapper(node);
     }
 
     private Transition findTransById(long questId,long transId){

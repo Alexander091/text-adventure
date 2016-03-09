@@ -9,7 +9,7 @@ import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
  */
 public class NodeWrapperDirector {
 
-    public NodeWrapper constructNodeWrapper(Node node) {
+    public static NodeWrapper constructNodeWrapper(Node node) {
         NodeWrapperBuilder nodeWrapperBuilder = new NodeWrapperBuilder();
         nodeWrapperBuilder.createNodeWrapper();
         nodeWrapperBuilder.buildNodeName(node.getName());
