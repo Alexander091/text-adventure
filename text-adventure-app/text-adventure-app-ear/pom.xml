@@ -16,21 +16,39 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.text-adventure</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>text-adventure-app-web</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.text-adventure</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>dao-manager-ejb</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
         <dependency>
-            <groupId>org.text-adventure</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>quest-game-ejb</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>quest-editor-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>quest-storage-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>security-ejb</artifactId>
+            <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
     </dependencies>
@@ -62,6 +80,18 @@
                         <ejbModule>
                             <groupId>org.text-adventure</groupId>
                             <artifactId>quest-game-ejb</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>quest-storage-ejb</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>security-ejb</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>org.text-adventure</groupId>
+                            <artifactId>quest-editor-ejb</artifactId>
                         </ejbModule>
                     </modules>
                     <earSourceExcludes>

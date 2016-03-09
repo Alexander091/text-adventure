@@ -11,23 +11,45 @@
 
     <ui:composition template="/templates/layout.xhtml">
         <ui:define name="menu">
-            <!--<ui:include src="/templates/menu.xhtml"/>-->
             <ui:include src="StorageMenu.xhtml"/>
         </ui:define>
         <ui:define name="content">
             <div style="width: 100%">
-                <h:form>
-                    <c:choose>
-                        <c:when test="#{questController.layout.equals('scroller')}">
-                            <ui:include src="StorageScroller.xhtml"/>
-                        </c:when>
-                        <c:when test="#{questController.layout.equals('grid')}">
-                            <ui:include src="StorageGrid.xhtml"/>
-                        </c:when>
-                        <c:otherwise>
-                            <ui:include src="/templates/error.xhtml"/>
-                        </c:otherwise>
-                    </c:choose>
+                <h:form id="all">
+                    <p:panelGrid>
+                        <p:row style="width: 100%">
+                            <p:column style="width: 100%">
+                                <c:choose>
+                                    <c:when test="#{questStorageController.layout.equals('scroller')}">
+                                        <ui:include src="StorageScroller.xhtml"/>
+                                    </c:when>
+                                    <c:when test="#{questStorageController.layout.equals('grid')}">
+                                        <ui:include src="StorageGrid.xhtml"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <ui:include src="/templates/error.xhtml"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </p:column>
+                            <p:column style="vertical-align: text-top; text-align: center">
+                                <p:panel header="Жанры" id="genres" toggleable="true" toggleOrientation="horizontal">
+                                    <p:growl id="msgs" showDetail="true" />
+                                    <p:tagCloud model="#{questStorageController.model}">
+                                        <p:ajax event="select" update="all, msgs" listener="#{questStorageController.selectGenre}" />
+                                    </p:tagCloud>
+                                    <div align="left">
+                                        <p:dataList value="#{questStorageController.genres}" var="genre">
+                                            <p:commandButton value="#{genre}" update="all"
+                                                             actionListener="#{questStorageController.setGenreFilter(genre)}"
+                                            />
+                                        </p:dataList>
+                                    </div>
+                                    <p:button outcome="/quest-editor/editor.xhtml"
+                                              rendered="#{loginController.admin}" value="Создать новый квест"/>
+                                </p:panel>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
                 </h:form>
             </div>
         </ui:define>

@@ -3,55 +3,154 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    <h:panelGrid columns="2" cellpadding="10" style="vertical-align: top;">
-        <p:column rowspan="3">
-            <div  style="width: 500px; height: 500px; background-color: blue; margin: 0px">
-                <p  style="color: white; font-size: 48pt; text-align: center;">Здесь будет граф</p>
-            </div>
-        </p:column>
-        <p:column>
-            <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="Название локации:" />
-                        <h:inputText value="#{test.getHelloWorld()}"></h:inputText>
+    <h:outputScript library="js" name="cytoscape.js"/>
+    <h:outputScript library="js" name="script.js"/>
+    <h:inputText styleClass="selectedItemInput" style="display: none;"/>
+    <p:toolbar style="margin-bottom: 3px">
+        <f:facet name="left">
+            <p:commandButton type="button" value="Добавить этап" styleClass="addNodeButton" icon="ui-icon-plus"/>
+        </f:facet>
+        <f:facet name="left">
+            <p:commandButton type="button" value="Добавить переход" styleClass="addEdgeButton" icon="ui-icon-plus"/>
+        </f:facet>
+        <f:facet name="left">
+            <p:commandButton type="button" value="Изменить" styleClass="editButton" widgetVar="editButton" disabled="true" icon="ui-icon-pencil"/>
+        </f:facet>
+        <f:facet name="left">
+            <p:commandButton type="button" value="Удалить" styleClass="deleteButton" widgetVar="deleteButton" disabled="true" icon="ui-icon-trash"/>
+        </f:facet>
+        <f:facet name="right">
+            <p:commandButton type="button" value="Сохранить" styleClass="saveButton" icon="ui-icon-disk"/>
+        </f:facet>
+        <f:facet name="left">
+            <p:commandButton type="button" value="Отмена" styleClass="undoButton" disabled="true" rendered="false"/>
+        </f:facet>
+        <f:facet name="right">
+            <p:commandButton type="button" value="Выйти" styleClass="exitButton" icon="ui-icon-home"/>
+        </f:facet>
+    </p:toolbar>
+   <div id="cy">
+   </div>
+    <h:form id="addNodeForm">
+        <p:dialog header="Добавить этап" widgetVar="addNodeDialog" resizable="false" modal="true">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="nodeName" value="Название:" />
+                <p:inputText id="nodeName"  required="true" label="Название" styleClass="addDialogNodeName"/>
 
-                        <h:outputText value="Описание:" />
-                        <h:inputTextarea value="#{test.getHelloWorld()}" rows="7" cols="50"></h:inputTextarea>
-
+                <h:outputLabel for="nodeDescription" value="Описание:" />
+                <p:inputTextarea id="nodeDescription" rows="5" cols="35" required="true" label="Описание" styleClass="addDialogNodeDescription" />
+                <h:outputLabel for="nodeDescription" value="Действия:" />
+                <p:commandButton type="button" value="+" styleClass="addActionButton"/>
             </h:panelGrid>
-            <p:accordionPanel>
-                <p:tab title="Действия">
-                    <p:scrollPanel style="height: 250px; width:600px" mode="native">
-                        <p:button value="Добавить" style="margin: 5px"></p:button>
-                        <h:panelGrid columns="3" cellpadding="3">
-                            Действие 1
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 2
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 3
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 4
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 5
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 6
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 7
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                            Действие 8
-                            <p:button value="Изменить"></p:button>
-                            <p:button value="Удалить"></p:button>
-                        </h:panelGrid>
-                    </p:scrollPanel>
-                </p:tab>
-            </p:accordionPanel>
-        </p:column>
-    </h:panelGrid>
+            <div class="container">
+                <table id="addDialogActionsTable" class="actionsTable"/>
+            </div>
+            <f:facet name="footer">
+                <p:commandButton value="Добавить" styleClass="addDialogNodeOKButton"/>
+                <p:commandButton value="Отмена" styleClass="addDialogNodeCloseButton"/>
+            </f:facet>
+        </p:dialog>
+    </h:form>
+    <h:form id="addEdgeForm">
+        <p:dialog header="Добавить переход" widgetVar="addEdgeDialog" resizable="false" modal="true">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="edgeName" value="Название:" />
+                <p:inputText id="edgeName"  required="true" label="Название" styleClass="addDialogEdgeName"/>
+                <h:outputLabel for="addDialogNodeFromMenu" value="Откуда:" />
+                <select id="addDialogNodeFromMenu" class="addDialogNodeFromMenu"/>
+                <h:outputLabel for="addDialogNodeToMenu" value="Куда:" />
+                <select id="addDialogNodeToMenu" class="addDialogNodeToMenu"/>
+                <f:facet name="footer">
+                    <p:commandButton value="Добавить" styleClass="addDialogEdgeOKButton"/>
+                    <p:commandButton value="Отмена" styleClass="addDialogEdgeCloseButton"/>
+                </f:facet>
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
+    <h:form id="addActionForm">
+        <p:dialog header="Добавить действие" widgetVar="addActionDialog" resizable="false" modal="true">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="actionTypeMenu" value="Тип:" />
+                <select id="actionTypeMenu" class="actionTypeMenu"/>
+                <h:outputLabel for="actionResourceMenu" value="Файл:" />
+                <select id="actionResourceMenu" class="actionResourceMenu"/>
+                <f:facet name="footer">
+                    <p:commandButton value="Добавить" styleClass="addDialogActionOKButton"/>
+                    <p:commandButton value="Добавить" styleClass="editDialogActionOKButton"/>
+                    <p:commandButton value="Отмена" styleClass="addDialogActionCloseButton"/>
+                </f:facet>
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
+    <h:form id="editNodeForm">
+        <p:dialog header="Изменить" widgetVar="editNodeDialog" resizable="false" modal="true">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="nodeName" value="Название:" />
+                <p:inputText id="editNodeName"  required="true" label="Название" styleClass="editDialogNodeName"/>
+                <h:outputLabel for="nodeDescription" value="Описание:" />
+                <p:inputTextarea id="editNodeDescription" rows="5" cols="35" required="true" label="Описание" styleClass="editDialogNodeDescription" />
+                <h:outputLabel for="nodeDescription" value="Действия:" />
+                <p:commandButton type="button" value="+" styleClass="addActionButton"/>
+            </h:panelGrid>
+            <p:inputText id="editNodeId"  styleClass="editDialogNodeId" style="display: none"/>
+            <div class="container">
+                <table id="editDialogActionsTable" class="actionsTable"/>
+            </div>
+            <f:facet name="footer">
+                <p:commandButton value="Изменить" styleClass="editDialogNodeOKButton"/>
+                <p:commandButton value="Отмена" styleClass="editDialogNodeCloseButton"/>
+            </f:facet>
+        </p:dialog>
+    </h:form>
+    <h:form id="editEdgeForm" >
+        <p:dialog header="Изменить" widgetVar="editEdgeDialog" resizable="false" modal="true">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="editEdgeName" value="Название:" />
+                <p:inputText id="editEdgeName"  required="true" label="Название" styleClass="editDialogEdgeName"/>
+                <h:outputLabel for="editDialogNodeFromMenu" value="Откуда:" />
+                <select id="editDialogNodeFromMenu" class="editDialogNodeFromMenu"/>
+                <h:outputLabel for="editDialogNodeToMenu" value="Куда:" />
+                <select id="editDialogNodeToMenu" class="editDialogNodeToMenu"/>
+                <h:outputLabel for="editEdgeId" value="Куда:" style="display:none;"/>
+                <p:inputText id="editEdgeId"  styleClass="editDialogEdgeId" style="display: none;"/>
+                <f:facet name="footer">
+                    <p:commandButton value="Изменить" styleClass="editDialogEdgeOKButton"/>
+                    <p:commandButton value="Отмена" styleClass="editDialogEdgeCloseButton"/>
+                </f:facet>
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
+    <h:form id="deleteNodeForm">
+        <p:dialog header="Удалить" widgetVar="deleteNodeDialog" resizable="false" modal="true">
+            <p:outputLabel value="Вы действительно хотите удалить этот этап вместе со всеми связанными переходами?"></p:outputLabel>
+            <f:facet name="footer">
+                <p:commandButton value="Удалить" styleClass="deleteDialogNodeOKButton"/>
+                <p:commandButton value="Отмена" styleClass="deleteDialogNodeCloseButton"/>
+            </f:facet>
+        </p:dialog>
 
+    </h:form>
+    <h:form id="deleteEdgeForm">
+        <p:dialog header="Удалить" widgetVar="deleteEdgeDialog" resizable="false" modal="true">
+            <p:outputLabel value="Вы действительно хотите удалить этот переход?"/>
+            <f:facet name="footer">
+                <p:commandButton value="Удалить" styleClass="deleteDialogEdgeOKButton"/>
+                <p:commandButton value="Отмена" styleClass="deleteDialogEdgeCloseButton"/>
+            </f:facet>
+        </p:dialog>
+    </h:form>
+    <h:form>
+        <p:dialog header="Сохранение" widgetVar="waitForSavingDialog" resizable="false" modal="true" closable="false">
+            <p:outputLabel value="Идет сохранение. Подождите пожалуйста."/>
+        </p:dialog>
+    </h:form>
+    <h:form>
+        <p:dialog header="Выйти" widgetVar="exitDialog" resizable="false" modal="true" closable="false">
+            <p:outputLabel value="Вы действительно хотите выйти? Все несохраненные изменения будут потеряны."/>
+            <f:facet name="footer">
+                <p:commandButton value="Выйти" styleClass="exitDialogOKButton" action="/quest-storage/storage?faces-redirect=true"/>
+                <p:commandButton value="Отмена" styleClass="exitDialogCloseButton"/>
+            </f:facet>
+        </p:dialog>
+    </h:form>
 </ui:composition>

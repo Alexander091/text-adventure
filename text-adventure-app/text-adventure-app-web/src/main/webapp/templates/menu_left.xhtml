@@ -8,10 +8,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
     <p:button outcome="/index.xhtml" value="Quest Cracker" icon="ui-icon-star"/>
-    <p:button outcome="/quest-editor/editor.xhtml" value="Редактор квестов" icon="ui-icon-star"/>
-    <p:button outcome="/quest-storage/storage.xhtml" value="Список квестов" icon="ui-icon-star"/>
-    <!--<p:button outcome="/authorization/login.xhtml" value="Войти" icon="ui-icon-star"/>-->
-    <!--<p:commandButton type="button" value="New" icon="ui-icon-document" />-->
-    <!--<p:commandButton type="button" value="Open" icon="ui-icon-folder-open"/>-->
+    <p:button outcome="/quest-editor/editor.xhtml" rendered="#{loginController.admin}"
+              value="Редактор квестов" icon="ui-icon-wrench"/>
 </h:body>
 </html>
