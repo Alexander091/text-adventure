@@ -57,7 +57,7 @@ As of current, the game doesn''t feature many variations - many choices lead to 
     INSERT INTO public.quest(id, agelimit, description, genre, name, rating, version, start_node, image)
  VALUES(2, 12, 'You are a Stormtrooper who has been captured during a mission on a rebel flagship. You are currently awaiting execution; can you escape and get to the escape pods? 
 
-Play this game multiple times. There are much more than a single ending for each Chapter. Just check the achievement list to see how many paths there are for each chapter. Though there is not an achievement for every single path. 
+Play this game multiple times. There are much more than a single ending for each Chapter. Just check the achievement list to see how many paths there are for each chapter. Though there is not an achievement for every single data.
 
 This is a message for Titanfield. Stormtroopers are not clones, and it is painful to see you give a 2 star rating for a reason you were misinformed about. :( ',
   'Фэнтези', 'Escape the flarship', 42.0, 2, NULL, NULL);
@@ -66,12 +66,12 @@ This is a message for Titanfield. Stormtroopers are not clones, and it is painfu
  VALUES(6, 18, 'Two women take a wrong turn in the woods and make a gruesome discovery. They seek help from a mysterious stranger and are dragged into a vicious trap that they will be lucky to survive. ',
   'Фэнтези', 'Escape the flarship', 77.0, 1, NULL, NULL);
   
-INSERT INTO resource (id, name, path, quest_id, type_id) VALUES (1, 'Hitchhiker', '/resources/images/Hitchhiker.jpg', 1, 1);
-INSERT INTO resource (id, name, path, quest_id, type_id) VALUES (2, 'Escape from flagship', '/resources/images/escape.jpg', 2, 1);
-INSERT INTO resource (id, name, path, quest_id, type_id) VALUES (3, 'Star command', '/resources/images/star_command.jpg', 3, 1);
-INSERT INTO resource (id, name, path, quest_id, type_id) VALUES (4, 'Victorian detective', '/resources/images/Victorian_detective.jpg', 4, 1);
-INSERT INTO resource (id, name, path, quest_id, type_id) VALUES (5, 'Coming out simulator 2014', '/resources/images/coming_out.png', 5, 1);
-INSERT INTO resource (id, name, path, quest_id, type_id) VALUES (6, 'Following me', '/resources/images/following_me.jpg', 6, 1);
+INSERT INTO resource (id, name, data, quest_id, type_id) VALUES (1, 'Hitchhiker', '/resources/images/Hitchhiker.jpg', 1, 1);
+INSERT INTO resource (id, name, data, quest_id, type_id) VALUES (2, 'Escape from flagship', '/resources/images/escape.jpg', 2, 1);
+INSERT INTO resource (id, name, data, quest_id, type_id) VALUES (3, 'Star command', '/resources/images/star_command.jpg', 3, 1);
+INSERT INTO resource (id, name, data, quest_id, type_id) VALUES (4, 'Victorian detective', '/resources/images/Victorian_detective.jpg', 4, 1);
+INSERT INTO resource (id, name, data, quest_id, type_id) VALUES (5, 'Coming out simulator 2014', '/resources/images/coming_out.png', 5, 1);
+INSERT INTO resource (id, name, data, quest_id, type_id) VALUES (6, 'Following me', '/resources/images/following_me.jpg', 6, 1);
 
 UPDATE quest
    SET image=0

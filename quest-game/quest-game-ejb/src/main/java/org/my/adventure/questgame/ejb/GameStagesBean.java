@@ -2,18 +2,18 @@ package org.my.adventure.questgame.ejb;
 
 import org.my.adventure.dao_manager.api.dao.NodeDAO;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
+import org.my.adventure.dao_manager.api.dao.ResourceDAO;
 import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Resource;
 import org.my.adventure.dao_manager.api.entities.Transition;
 import org.my.adventure.questgame.impl.GameStage;
-import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
-import org.my.adventure.questgame.impl.wrappers.QuestWrapper;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Init;
+import javax.ejb.Singleton;
 import javax.ejb.Stateful;
-import javax.ejb.Stateless;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,28 +22,32 @@ import java.util.Map;
  * Created by Максим on 17.02.2016.
  */
 
-@Stateful
+@Singleton
 public class GameStagesBean {
-    private Map<Long,GameStage> gameStages;
+    private static final Map<Long,GameStage> gameStages = new HashMap<Long, GameStage>();
     @EJB
     QuestDAO questDAO;
     @EJB
     NodeDAO nodeDAO;
+    @EJB
+    ResourceDAO resourceDAO;
 
-    @PostConstruct
-    void init(){
-        gameStages = new HashMap<Long, GameStage>();
-    }
 
     public Map<Long,GameStage> getGameStages() {
         return gameStages;
     }
 
-    public void loadGameByQuestId(long questId){
+    public Node loadGameByQuestId(long questId){
         Quest quest = questDAO.getById(questId);
+        Node startNode = null;
         if(!gameStages.containsKey(questId)){
-            gameStages.put(questId, new GameStage(questId,quest.getStartNode()));
+            startNode = quest.getStartNode();
+            gameStages.put(questId, new GameStage(questId,startNode));
         }
+        else {
+            startNode = gameStages.get(questId).getNode();
+        }
+        return startNode;
     }
 
     public List<Transition> getCurrentTransitionsByQuestId(long questId){
@@ -60,5 +64,13 @@ public class GameStagesBean {
 
     public void setNewGameStage(long questId, Node node){
         gameStages.put(questId, new GameStage(questId, node));
+    }
+
+    public void refresh(long questId) {
+        setNewGameStage(questId, questDAO.getById(questId).getStartNode());
+    }
+
+    public Resource getResourceById(long resourceId){
+        return resourceDAO.getById(resourceId);
     }
 }
