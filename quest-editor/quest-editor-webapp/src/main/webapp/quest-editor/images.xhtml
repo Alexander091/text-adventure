@@ -13,7 +13,7 @@
             <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
                           update="messages, mainform"
                           auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpe?g|png)$/">
-                <f:attribute name="questId" value="1252" />
+                <f:attribute name="questId" value="#{questEditorController.questId}" />
             </p:fileUpload>
 
             <p:contentFlow value="#{uploadController.imagesId}" var="imageId">
@@ -46,7 +46,7 @@
         <h:form>
             <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
                           sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" >
-                <f:attribute name="questId" value="1252" />
+                <f:attribute name="questId" value="#{questEditorController.questId}" />
             </p:fileUpload>
             <p:contentFlow value="#{uploadController.imagesId}" var="image">
                 <p:graphicImage value="#{uploadController.image}"
