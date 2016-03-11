@@ -4,10 +4,16 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
+      <!--<property name="hibernate.connection.url">jdbc:postgresql://127.10.86.2:5432/netcracker</property>-->
+      <!--<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>-->
+      <!--<property name="hibernate.connection.username">adminpeuw425</property>-->
+      <!--<property name="hibernate.connection.password">gQrluy5-ifXq</property>-->
       <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/netcracker</property>
       <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
       <property name="hibernate.connection.username">postgres</property>
       <property name="hibernate.connection.password">root</property>
+      <!--<property name="connection.datasource">java:/PostgresDS</property>-->
+      <!--<property name="connection.datasource">java:jboss/datasources/PostgreSQLDS</property>-->
       <property name="hibernate.hbm2ddl.auto">validate</property>
       <property name="hibernate.show_sql">true</property>
       <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
