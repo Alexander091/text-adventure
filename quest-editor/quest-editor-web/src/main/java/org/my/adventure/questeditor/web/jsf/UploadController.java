@@ -101,9 +101,9 @@ public class UploadController implements Serializable{
             }
 
             FacesContext context = FacesContext.getCurrentInstance();
-            String questId = (String) event.getComponent().getAttributes().get("questId");
+            Long questId = (Long) event.getComponent().getAttributes().get("questId");
 
-            uploaderBean.saveResource(file.getFileName(), Long.parseLong(questId), typeId, inputStream);
+            uploaderBean.saveResource(file.getFileName(), questId, typeId, inputStream);
             FacesMessage message = new FacesMessage("Файл", event.getFile().getFileName() + " Загружен.");
             FacesContext.getCurrentInstance().addMessage(null,message);
         }
