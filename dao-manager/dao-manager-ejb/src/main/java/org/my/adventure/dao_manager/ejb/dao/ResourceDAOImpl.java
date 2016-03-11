@@ -10,7 +10,6 @@ import org.my.adventure.dao_manager.api.entities.Resource;
 import org.my.adventure.dao_manager.api.entities.TypeOfResource;
 
 import javax.ejb.Local;
-import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;

@@ -5,25 +5,57 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <f:view>
-        <h:form enctype="multipart/form-data">
+        <f:metadata>
+            <f:viewParam name="questId" value="#{uploadController.questId}"/>
+
+        </f:metadata>
+        <h:form enctype="multipart/form-data" id="mainform">
             <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
-                          auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(jpe?g|png)$/">
-                <f:attribute name="questId" value="#{questEditorController.questId}"/>
-                <f:attribute name="myd" value="#{questEditorController.questId}"/>
-                <f:attribute name="iid" value="1488"/>
+                          update="messages, mainform"
+                          auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpe?g|png)$/">
+                <f:attribute name="questId" value="1252" />
             </p:fileUpload>
+
+            <p:contentFlow value="#{uploadController.imagesId}" var="imageId">
+                <p:graphicImage value="#{uploadController.image}"
+                                rendered="#{imageId!=null}" style="height: 200px;">
+                    <f:param name="resourceId" value="#{imageId}" />
+                </p:graphicImage>
+                <div class="caption">#{imageId}</div>
+            </p:contentFlow>
+
+            <p:galleria value="#{uploadController.imagesId}" var="imageId" panelWidth="500" panelHeight="313" showCaption="true">
+                <p:graphicImage value="#{uploadController.image}"
+                                rendered="#{imageId!=null}" style="height: 200px;">
+                    <f:param name="resourceId" value="#{imageId}" />
+                </p:graphicImage>
+            </p:galleria>
+
+            <p:dataList value="#{uploadController.imagesId}" var="imageId" id="idatalist">
+                <f:facet name="header">
+                    Картинки
+                </f:facet>
+                    <p:graphicImage value="#{uploadController.image}"
+                                    rendered="#{imageId!=null}" style="height: 200px;">
+                        <f:param name="resourceId" value="#{imageId}" />
+                    </p:graphicImage>
+            </p:dataList>
+
             <p:growl id="messages" showDetail="true" />
         </h:form>
         <h:form>
-            <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="false"
-                          update="messages2" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-
+            <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
+                          sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" >
+                <f:attribute name="questId" value="1252" />
+            </p:fileUpload>
+            <p:contentFlow value="#{uploadController.imagesId}" var="image">
+                <p:graphicImage value="#{uploadController.image}"
+                                rendered="#{imageId!=null}" style="height: 200px;">
+                    <f:param name="resourceId" value="#{imageId}" />
+                </p:graphicImage>
+                <div class="caption">#{image}</div>
+            </p:contentFlow>
             <p:growl id="messages2" showDetail="true" />
         </h:form>
     </f:view>
-    <!--<p:dataList var="car" type="definition">-->
-        <!--<f:facet name="header">-->
-            <!--Картинки-->
-        <!--</f:facet>-->
-    <!--</p:dataList>-->
 </ui:composition>
