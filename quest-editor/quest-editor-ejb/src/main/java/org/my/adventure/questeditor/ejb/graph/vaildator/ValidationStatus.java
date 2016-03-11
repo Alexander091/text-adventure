@@ -5,10 +5,8 @@ package org.my.adventure.questeditor.ejb.graph.vaildator;
  */
 public enum ValidationStatus {
     VALID,
-    NOT_VALID,
-    NOT_VALID_START_NODE,
-    NOT_VALID_END_NODE,
-    NOT_VALID_SATRT_AND_END_NODE,
-    NOT_VALID_CONNECTIVITY,
-    ERROR
+    MISSING_START_NODE,
+    MULTIPLE_START_NODES,
+    MISSING_END_NODE,
+    NOT_CONNECTED
 }
