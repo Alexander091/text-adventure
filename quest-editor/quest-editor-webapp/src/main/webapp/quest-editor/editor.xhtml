@@ -22,47 +22,54 @@
         <h:inputText styleClass="questIdInput" style="display: none;" value="#{questEditorController.questId}"/>
         <p:growl id="msgs" showDetail="true" />
     </h:form>
-        <!--<p:toolbar style="margin-bottom: 3px">-->
-            <!--<f:facet name="left">-->
-                <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
-            <!--</f:facet>-->
-        <!--</p:toolbar>-->
-        <p:tabView dynamic="true" activeIndex="#{questEditorController.activeIndex}">
-            <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
+    <!--<p:toolbar style="margin-bottom: 3px">-->
+    <!--<f:facet name="left">-->
+    <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
+    <!--</f:facet>-->
+    <!--</p:toolbar>-->
+    <p:tabView dynamic="true" activeIndex="#{questEditorController.activeIndex}"
+               effect="fade" effectDuration="fast">
+        <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
+            <h:form>
                 <ui:include src="graph.xhtml"/>
-            </p:tab>
-            <p:tab  title="Квест" selected="#{questEditorController.questId==null}">
+            </h:form>
+        </p:tab>
+        <p:tab  title="Квест" selected="#{questEditorController.questId==null}">
+            <h:form>
                 <ui:include src="quest.xhtml"/>
-            </p:tab>
+            </h:form>
+        </p:tab>
 
 
-            <!--<p:tab title="Характеристики">-->
-                <!--<h:panelGrid columns="2" cellpadding="10">-->
-                    <!--<h:outputText value="text2" />-->
-                <!--</h:panelGrid>-->
-            <!--</p:tab>-->
-            <!--<p:tab title="Предметы">-->
-                <!--<ui:include src="items.xhtml"/>-->
-            <!--</p:tab>-->
-            <!--<p:tab title="Умения">-->
-                <!--<h:panelGrid columns="2" cellpadding="10">-->
-                    <!--<h:outputText value="text3..." />-->
-                <!--</h:panelGrid>-->
-            <!--</p:tab>-->
+        <!--<p:tab title="Характеристики">-->
+        <!--<h:panelGrid columns="2" cellpadding="10">-->
+        <!--<h:outputText value="text2" />-->
+        <!--</h:panelGrid>-->
+        <!--</p:tab>-->
+        <!--<p:tab title="Предметы">-->
+        <!--<ui:include src="items.xhtml"/>-->
+        <!--</p:tab>-->
+        <!--<p:tab title="Умения">-->
+        <!--<h:panelGrid columns="2" cellpadding="10">-->
+        <!--<h:outputText value="text3..." />-->
+        <!--</h:panelGrid>-->
+        <!--</p:tab>-->
 
-            <p:tab title="Звуки" disabled="#{questEditorController.questId==null}">
-                <ui:include src="sounds.xhtml"  />
-            </p:tab>
-            <p:tab title="Картинки" disabled="#{questEditorController.questId==null}">
+        <p:tab title="Звуки" disabled="#{questEditorController.questId==null}">
+            <ui:include src="sounds.xhtml"  />
+        </p:tab>
+        <p:tab title="Картинки" disabled="#{questEditorController.questId==null}">
+
                 <ui:include src="images.xhtml" />
-            </p:tab>
-        </p:tabView>
+
+        </p:tab>
+    </p:tabView>
     <!--</h:form>-->
     <h:outputScript library="js" name="cytoscape.js"/>
     <h:outputScript library="js" name="script.js"/>
     <h:outputScript>
         function deleteClosestRow(button) {
-            button.closest('tr').remove();
+        button.closest('tr').remove();
         }
     </h:outputScript>
 </h:body>

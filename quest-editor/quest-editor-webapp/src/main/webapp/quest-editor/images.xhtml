@@ -3,59 +3,47 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
+    <div align="center">
+        <h:form id="mainform">
 
-    <f:view>
-        <f:metadata>
-            <f:viewParam name="questId" value="#{uploadController.questId}"/>
+            <f:metadata>
+                <f:viewParam name="questId" value="#{uploadController.questId}"/>
+            </f:metadata>
 
-        </f:metadata>
-        <h:form enctype="multipart/form-data" id="mainform">
             <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
-                          update="messages, mainform"
+                          uploadLabel="Загрузить файл"
+                          multiple="true"
+                          update="iDataGrid, messages"
                           auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpe?g|png)$/">
                 <f:attribute name="questId" value="#{questEditorController.questId}" />
             </p:fileUpload>
 
-            <p:contentFlow value="#{uploadController.imagesId}" var="imageId">
-                <p:graphicImage value="#{uploadController.image}"
-                                rendered="#{imageId!=null}" style="height: 200px;">
-                    <f:param name="resourceId" value="#{imageId}" />
-                </p:graphicImage>
-                <div class="caption">#{imageId}</div>
-            </p:contentFlow>
-
-            <p:galleria value="#{uploadController.imagesId}" var="imageId" panelWidth="500" panelHeight="313" showCaption="true">
-                <p:graphicImage value="#{uploadController.image}"
-                                rendered="#{imageId!=null}" style="height: 200px;">
-                    <f:param name="resourceId" value="#{imageId}" />
-                </p:graphicImage>
-            </p:galleria>
-
-            <p:dataList value="#{uploadController.imagesId}" var="imageId" id="idatalist">
-                <f:facet name="header">
-                    Картинки
-                </f:facet>
+            <p:dataGrid value="#{resourceController.getImages(questEditorController.questId)}" var="image"
+                        paginator="true"
+                        rows="6" rowsPerPageTemplate="3,6,8,12,18"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
+                        {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        id="iDataGrid">
+                <p:panel style="text-align: center;">
+                    <f:facet name="header">
+                        <p:outputLabel value="#{image.name}"/>
+                    </f:facet>
                     <p:graphicImage value="#{uploadController.image}"
-                                    rendered="#{imageId!=null}" style="height: 200px;">
-                        <f:param name="resourceId" value="#{imageId}" />
+                                    rendered="#{image!=null}" style="height: 200px;">
+                        <f:param name="resourceId" value="#{image.id}" />
                     </p:graphicImage>
-            </p:dataList>
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Удалить"
+                                             update="iDataGrid"
+                                             actionListener="#{resourceController.deleteResource(image.id)}">
+                            </p:commandButton>
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </p:dataGrid>
 
             <p:growl id="messages" showDetail="true" />
         </h:form>
-        <h:form>
-            <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
-                          sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" >
-                <f:attribute name="questId" value="#{questEditorController.questId}" />
-            </p:fileUpload>
-            <p:contentFlow value="#{uploadController.imagesId}" var="image">
-                <p:graphicImage value="#{uploadController.image}"
-                                rendered="#{imageId!=null}" style="height: 200px;">
-                    <f:param name="resourceId" value="#{imageId}" />
-                </p:graphicImage>
-                <div class="caption">#{image}</div>
-            </p:contentFlow>
-            <p:growl id="messages2" showDetail="true" />
-        </h:form>
-    </f:view>
+    </div>
 </ui:composition>

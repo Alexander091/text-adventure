@@ -3,6 +3,7 @@ package org.my.adventure.questeditor.ejb.beans;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.HibernateError;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
 import org.my.adventure.dao_manager.api.dao.ResourceDAO;
 import org.my.adventure.dao_manager.api.dao.TypeOfResourceDAO;
@@ -37,6 +38,15 @@ public class ResourceUploaderBean {
 
     public List<Resource> getQuestResources(Long questId, Long typeOfResourceId){
         return resourceDAO.getResources(questId, typeOfResourceId);
+    }
+
+    public void deleteResource(Long id){
+        log.debug("deleting " + id+ " " + questDAO.getById(id));
+        try {
+            resourceDAO.deleteById(id);
+        }catch (HibernateError h){
+            log.error(h.getMessage(), h);
+        }
     }
 
     public void saveResource(String name, Long questId, Long typeId, InputStream res){
