@@ -1,6 +1,8 @@
 $(document).ready(function() { // on dom ready
+    $('#cy').height(window.innerHeight-165);
     var cy = cytoscape({
         container: document.getElementById('cy'),
+        height: window.innerHeight,
         style: cytoscape.stylesheet()
             .selector('node')
             .css({
@@ -186,11 +188,41 @@ $(document).ready(function() { // on dom ready
             data: JSON.stringify(outputArray),
             url: "/TextAdventure/rest/command/save"
         }).done(function(data) {
-            if(data["response"]=="success") {
+            var responseArray = data.response;
+            if(responseArray[0] == "success" && responseArray.length==1) {
+                PF('messages').renderMessage({
+                    "summary": "Successfully saved",
+                    "severity": "info"
+                });
                 console.log("save success");
-                PF('waitForSavingDialog').hide();
             }
-            console.log("error on save");
+            else {
+                var totalMessage = "";
+                for(var i = 0; i<responseArray.length; i++)
+                {
+                    switch(responseArray[i]) {
+                        case "invalid_start": {
+                            totalMessage += "Invalid start stage\r\n"; break;
+                        }
+                        case "invalid_end": {
+                            totalMessage += "Invalid finish stage\r\n"; break;
+                        }
+                        case "invalid_start_and_end": {
+                            totalMessage += "Invalid start and finish stage\r\n"; break;
+                        }
+                        case "connectivity_error": {
+                            totalMessage += "Connectivity error\r\n"; break;
+                        }
+                    }
+                }
+                PF('messages').renderMessage({
+                    "summary": "Error on saving",
+                    "detail": totalMessage,
+                    "severity": "error"
+                });
+                console.log("error on save");
+            }
+            PF('waitForSavingDialog').hide();
         }).fail(function() {
             console.log("error on save");
         })
@@ -229,10 +261,13 @@ $(document).ready(function() { // on dom ready
                 cy.$('#'+nodeId).remove();
                 $('.deleteDialogNodeCloseButton').click();
             }
-            if(data.response=='error'){
+            else if(data.response=='error'){
                 console.log("error on deleting node");
                 $('.deleteDialogNodeCloseButton').click();
-                alert("you can't delete start node");
+                PF('messages').renderMessage({
+                    "summary": "You can't delete start node",
+                    "severity": "error"
+                });
             }
             else
                 console.log("error on delete node");
@@ -313,6 +348,7 @@ $(document).ready(function() { // on dom ready
         var actions = [];
         var panPos = cy.pan();
         var width = cy.width();
+        var zoom = cy.zoom();
         var height = cy.height();
         var table = $('#addDialogActionsTable');
         var rows = $('tr', table);
@@ -327,7 +363,7 @@ $(document).ready(function() { // on dom ready
             'name' : $('.addDialogNodeName').val(),
             'description' : $('.addDialogNodeDescription').val(),
             'questId' : $('.questIdInput').val(),
-            'position' : (-panPos.x + width/2) + " " + (-panPos.y + height/2),
+            'position' : (-panPos.x/zoom + (width/zoom)/2) + " " + (-panPos.y/zoom + (height/zoom)/2),
             'actions' : actions
         }
 
@@ -379,12 +415,25 @@ $(document).ready(function() { // on dom ready
         var resourceSelect = $('#actionResourceMenu');
         var actionTypeSelect = $('#actionTypeMenu');
         var actionTypeSelected = $('#actionTypeMenu option:selected');
-        table.append( '<tr ' + 'action_id=\"' + null + '\"'
-            + 'resource_id=\"' +  resourceSelect.val() + '\" '
-            +  'action_type_id=\"' + actionTypeSelect.val() + '\"><td>'
-            + $('#actionTypeMenu option:selected').text() + ': ' + $('#actionResourceMenu option:selected').text()
-            + '</td><td><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only deleteActionButton" type="button" onclick="deleteClosestRow(this)"><span class="ui-button-text ui-c">-</span></button></td></tr>' );
-        $('.addDialogActionCloseButton').click();
+        var sameAction = false;
+        var rows = $('tr', table);
+        for(var i = 0; i<rows.length; i++) {
+            if(rows[i].getAttribute("resource_id") == resourceSelect.val())
+                sameAction=true;
+        }
+        if(!sameAction) {
+            table.append('<tr ' + 'action_id=\"' + null + '\"'
+                + 'resource_id=\"' + resourceSelect.val() + '\" '
+                + 'action_type_id=\"' + actionTypeSelect.val() + '\"><td>'
+                + $('#actionTypeMenu option:selected').text() + ': ' + $('#actionResourceMenu option:selected').text()
+                + '</td><td><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only deleteActionButton" type="button" onclick="deleteClosestRow(this)"><span class="ui-button-text ui-c">-</span></button></td></tr>');
+            $('.addDialogActionCloseButton').click();
+        }
+        else
+            PF('messages').renderMessage({
+                "summary": "Such action exists",
+                "severity": "error"
+            });
     })
     $('.editDialogActionOKButton').click(function() {
         var table = $("#editDialogActionsTable");
@@ -406,7 +455,10 @@ $(document).ready(function() { // on dom ready
             $('.addDialogActionCloseButton').click();
         }
         else
-            alert("such action exists");
+            PF('messages').renderMessage({
+                "summary": "Such action exists",
+                "severity": "error"
+            });
     })
     $('.addDialogActionCloseButton').click(function() {
         PF('addActionDialog').hide();

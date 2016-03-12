@@ -12,57 +12,61 @@
     <h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 <h:body>
-    <f:metadata>
-        <f:viewParam name="questId" value="#{questEditorController.questId}"/>
-        <f:viewAction action="#{questEditorController.loadQuest}"/>
-    </f:metadata>
-    <!--<h:form id="form">-->
-    <h:form id="editorForm">
-        <h:inputText styleClass="questIdInput" style="display: none;" value="#{questEditorController.questId}"/>
-        <p:growl id="msgs" showDetail="true" />
-    </h:form>
-        <!--<p:toolbar style="margin-bottom: 3px">-->
-            <!--<f:facet name="left">-->
-                <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
-            <!--</f:facet>-->
-        <!--</p:toolbar>-->
-        <p:tabView dynamic="true" activeIndex="#{questEditorController.activeIndex}">
-            <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
-                <ui:include src="graph.xhtml"/>
-            </p:tab>
-            <p:tab  title="Квест" selected="#{questEditorController.questId==null}">
-                <ui:include src="quest.xhtml"/>
-            </p:tab>
+    <!--<ui:composition template="/templates/layout.xhtml">-->
+        <!--<ui:define name="content">-->
+        <f:metadata>
+            <f:viewParam name="questId" value="#{questEditorController.questId}"/>
+            <f:viewAction action="#{questEditorController.loadQuest}"/>
+        </f:metadata>
+        <!--<h:form id="form">-->
+        <h:form id="editorForm">
+            <h:inputText styleClass="questIdInput" style="display: none;" value="#{questEditorController.questId}"/>
+            <p:growl id="msgs" showDetail="true" widgetVar="messages" />
+        </h:form>
+            <!--<p:toolbar style="margin-bottom: 3px">-->
+                <!--<f:facet name="left">-->
+                    <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
+                <!--</f:facet>-->
+            <!--</p:toolbar>-->
+            <p:tabView dynamic="true" activeIndex="#{questEditorController.activeIndex}">
+                <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
+                    <ui:include src="graph.xhtml"/>
+                </p:tab>tyle
+                <p:tab  title="Квест" selected="#{questEditorController.questId==null}">
+                    <ui:include src="quest.xhtml"/>
+                </p:tab>
 
 
-            <!--<p:tab title="Характеристики">-->
-                <!--<h:panelGrid columns="2" cellpadding="10">-->
-                    <!--<h:outputText value="text2" />-->
-                <!--</h:panelGrid>-->
-            <!--</p:tab>-->
-            <!--<p:tab title="Предметы">-->
-                <!--<ui:include src="items.xhtml"/>-->
-            <!--</p:tab>-->
-            <!--<p:tab title="Умения">-->
-                <!--<h:panelGrid columns="2" cellpadding="10">-->
-                    <!--<h:outputText value="text3..." />-->
-                <!--</h:panelGrid>-->
-            <!--</p:tab>-->
+                <!--<p:tab title="Характеристики">-->
+                    <!--<h:panelGrid columns="2" cellpadding="10">-->
+                        <!--<h:outputText value="text2" />-->
+                    <!--</h:panelGrid>-->
+                <!--</p:tab>-->
+                <!--<p:tab title="Предметы">-->
+                    <!--<ui:include src="items.xhtml"/>-->
+                <!--</p:tab>-->
+                <!--<p:tab title="Умения">-->
+                    <!--<h:panelGrid columns="2" cellpadding="10">-->
+                        <!--<h:outputText value="text3..." />-->
+                    <!--</h:panelGrid>-->
+                <!--</p:tab>-->
 
-            <p:tab title="Звуки" disabled="#{questEditorController.questId==null}">
-                <ui:include src="sounds.xhtml"  />
-            </p:tab>
-            <p:tab title="Картинки" disabled="#{questEditorController.questId==null}">
-                <ui:include src="images.xhtml" />
-            </p:tab>
-        </p:tabView>
-    <!--</h:form>-->
-    <h:outputScript library="js" name="cytoscape.js"/>
-    <h:outputScript library="js" name="script.js"/>
-    <h:outputScript>
-        function deleteClosestRow(button) {
-            button.closest('tr').remove();
-        }
-    </h:outputScript>
+                <p:tab title="Звуки" disabled="#{questEditorController.questId==null}">
+                    <ui:include src="sounds.xhtml"  />
+                </p:tab>
+                <p:tab title="Картинки" disabled="#{questEditorController.questId==null}">
+                    <ui:include src="images.xhtml" />
+                </p:tab>
+            </p:tabView>
+        <!--</h:form>-->
+        <h:outputScript library="js" name="cytoscape.js"/>
+        <h:outputScript library="js" name="script.js"/>
+        <h:outputScript>
+            function deleteClosestRow(button) {
+                button.closest('tr').remove();
+            }
+        </h:outputScript>
+        <!--</ui:define>-->
+    <!--</ui:composition>-->
 </h:body>
 </html>

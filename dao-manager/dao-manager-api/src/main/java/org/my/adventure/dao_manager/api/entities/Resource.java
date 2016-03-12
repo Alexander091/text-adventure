@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Resource extends Common{
     private TypeOfResource type;
     private String name;
-    private Byte[] data;
+    private byte[] data;
     private Quest questByQuestId;
 
     @ManyToOne
@@ -34,11 +34,11 @@ public class Resource extends Common{
 
     @Lob
     @Column(name = "data", nullable = false, insertable = true, updatable = true)
-    public Byte[] getData() {
+    public byte[] getData() {
         return data;
     }
 
-    public void setData(Byte[] data) {
+    public void setData(byte[] data) {
         this.data = data;
     }
 

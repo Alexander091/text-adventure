@@ -12,6 +12,8 @@ import org.my.adventure.questeditor.ejb.builders.GraphBuilder;
 import org.my.adventure.questeditor.ejb.builders.QuestBuilder;
 import org.my.adventure.questeditor.ejb.builders.ViewBuilder;
 import org.my.adventure.questeditor.ejb.commands.*;
+import org.my.adventure.questeditor.ejb.graph.vaildator.ValidationStatus;
+import org.my.adventure.questeditor.ejb.graph.vaildator.Validator;
 import org.my.adventure.questeditor.ejb.views.NodeView;
 import org.my.adventure.questeditor.ejb.views.TransitionView;
 import org.primefaces.json.JSONArray;
@@ -47,6 +49,7 @@ public class GraphEditorBean implements Serializable {
     private Quest quest = null;
     private Graph<NodeView, TransitionView> viewGraph;
     private List<Command> commandList;
+    private Validator validator;
 
     public TransitionBean getTransitionBean() {
         return transitionBean;
@@ -99,6 +102,7 @@ public class GraphEditorBean implements Serializable {
             quest = questEditorBean.getById(id);
         viewGraph = GraphBuilder.buildQuestGraph(quest);
         commandList = new ArrayList<Command>();
+        validator = new Validator();
     }
 
     public Set<NodeView> getAllNodes() {
@@ -165,11 +169,15 @@ public class GraphEditorBean implements Serializable {
         return resourceEditorBean.getResourcesList(questId, typeOfAction.getTypeOfResource().getId());
     }
     public String save(JSONArray data) {
-        for(Command command : commandList)
-            command.saveToDB(this);
-        commandList.clear();
-        updatePositions(data);
-        return successResponse();
+        ValidationStatus connectivityStatus = validator.testConnectivity(viewGraph);
+        ValidationStatus startEndStatus = validator.testStartEnd(viewGraph);
+        if(connectivityStatus.equals(ValidationStatus.VALID) && startEndStatus.equals(ValidationStatus.VALID)) {
+            for (Command command : commandList)
+                command.saveToDB(this);
+            commandList.clear();
+            updatePositions(data);
+        }
+        return buildResponse(connectivityStatus, startEndStatus);
     }
     public String undo() {
         Command command = commandList.get(commandList.size() - 1);
@@ -184,6 +192,35 @@ public class GraphEditorBean implements Serializable {
             nodeView.getEntity().setPosition(nodeJson.getString("position"));
             nodeBean.saveOrUpdate(nodeView.getEntity());
         }
+    }
+    public String buildResponse(ValidationStatus connectivityStatus,ValidationStatus startEndStatus) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray responseArray = new JSONArray();
+        if(connectivityStatus.equals(ValidationStatus.VALID) && startEndStatus.equals(ValidationStatus.VALID)) {
+            responseArray.put("success");
+            jsonObject.put("response", responseArray);
+        }
+        else {
+            switch (connectivityStatus) {
+                case VALID:
+                    break;
+                case NOT_VALID_CONNECTIVITY:
+                    responseArray.put("connectivity_error");
+                    break;
+            }
+            switch (startEndStatus) {
+                case VALID:
+                    break;
+                case NOT_VALID_START_NODE:
+                    responseArray.put("invalid_start"); break;
+                case NOT_VALID_END_NODE:
+                    responseArray.put("invalid_end"); break;
+                case NOT_VALID_START_AND_END_NODE:
+                    responseArray.put("invalid_start_and_end"); break;
+            }
+            jsonObject.put("response", responseArray);
+        }
+        return jsonObject.toString();
     }
     public String successResponse() {
         JSONObject jsonObject = new JSONObject();

@@ -1,7 +1,6 @@
 package org.my.adventure.questeditor.ejb.graph.vaildator;
 
 import org.jgrapht.Graph;
-import org.my.adventure.dao_manager.api.entities.Node;
 import org.my.adventure.questeditor.ejb.views.NodeView;
 import org.my.adventure.questeditor.ejb.views.TransitionView;
 
@@ -63,7 +62,7 @@ public class Validator {
                 return ValidationStatus.VALID;
         }
         if (startFinded && endFinded)
-            result = ValidationStatus.NOT_VALID_SATRT_AND_END_NODE;
+            result = ValidationStatus.NOT_VALID_START_AND_END_NODE;
         else if (!startFinded)
             result = ValidationStatus.NOT_VALID_START_NODE;
         else if (!endFinded)
