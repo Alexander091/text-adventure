@@ -85,6 +85,8 @@ $(document).ready(function() { // on dom ready
             });
     });
     $('.addActionButton').click(function () {
+        PF('addDialogActionOKButton').disable();
+        PF('editDialogActionOKButton').disable();
         PF('addActionDialog').show();
         var actionTypeSelect = $("#actionTypeMenu");
         $.getJSON("/TextAdventure/rest/command/actionTypes/get")
@@ -103,11 +105,17 @@ $(document).ready(function() { // on dom ready
         loadIntoAddDialogResourceSelect();
     })
     var loadIntoAddDialogResourceSelect=function() {
+        PF('addDialogActionOKButton').disable();
+        PF('editDialogActionOKButton').disable();
         $.getJSON("/TextAdventure/rest/command/resource/get/"+$('.questIdInput').val()+','+$('#actionTypeMenu').val())
             .success(function (data) {
                 $("#actionResourceMenu").empty();
                 for(var i in data)
                     $("#actionResourceMenu").append($("<option />").val(data[i].id).text(data[i].name));
+                if(data.length>0) {
+                    PF('addDialogActionOKButton').enable();
+                    PF('editDialogActionOKButton').enable();
+                }
             })
             .error(function () {
                 console.log("error on fetching resources from service");

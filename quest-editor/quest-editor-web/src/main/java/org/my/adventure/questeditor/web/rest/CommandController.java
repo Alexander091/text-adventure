@@ -16,8 +16,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dimko_000 on 18.02.2016.
@@ -52,7 +51,7 @@ public class CommandController implements Serializable{
     @Path("/node/get")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllNodesOfQuest() {
-        Set<NodeView> nodeViews = graphEditorBean.getAllNodes();
+        List<NodeView> nodeViews = graphEditorBean.getSortedByNameNodeViews();
         JSONArray jsonArray = new JSONArray();
         for (NodeView nodeView : nodeViews)
             jsonArray.put(nodeView.getJsonOfView());
@@ -97,7 +96,7 @@ public class CommandController implements Serializable{
         TransitionView transitionView = GraphUtils.getTransitionViewByViewId(graphEditorBean.getViewGraph(), id);
         resultJson.put("transition", transitionView.getJsonOfEntity());
         JSONArray nodesJson = new JSONArray();
-        Set<NodeView> nodeViews = graphEditorBean.getAllNodes();
+        List<NodeView> nodeViews = graphEditorBean.getSortedByNameNodeViews();
         for(NodeView nodeView : nodeViews) {
             JSONObject nodeViewJson = nodeView.getJsonOfEntity();
             nodesJson.put(nodeViewJson);

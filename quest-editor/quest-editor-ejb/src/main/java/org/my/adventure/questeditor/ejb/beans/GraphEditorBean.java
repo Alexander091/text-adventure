@@ -23,9 +23,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dimko_000 on 18.02.2016.
@@ -192,6 +190,15 @@ public class GraphEditorBean implements Serializable {
             nodeView.getEntity().setPosition(nodeJson.getString("position"));
             nodeBean.saveOrUpdate(nodeView.getEntity());
         }
+    }
+    public List<NodeView> getSortedByNameNodeViews() {
+        List<NodeView> nodeViews = new ArrayList<NodeView>(getAllNodes());
+        Collections.sort(nodeViews, new Comparator<NodeView>() {
+            public int compare(NodeView o1, NodeView o2) {
+                return String.CASE_INSENSITIVE_ORDER.compare(o1.getEntity().getName(), o2.getEntity().getName());
+            }
+        });
+        return nodeViews;
     }
     public String buildResponse(ValidationStatus connectivityStatus,ValidationStatus startEndStatus) {
         JSONObject jsonObject = new JSONObject();
