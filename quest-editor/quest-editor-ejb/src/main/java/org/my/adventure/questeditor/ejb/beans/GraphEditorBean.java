@@ -167,13 +167,14 @@ public class GraphEditorBean implements Serializable {
         return resourceEditorBean.getResourcesList(questId, typeOfAction.getTypeOfResource().getId());
     }
     public String save(JSONArray data) {
-        validator.validate(viewGraph);
-//        for (Command command : commandList)
-//            command.saveToDB(this);
-//        commandList.clear();
-//        updatePositions(data);
-//        return buildResponse(connectivityStatus, startEndStatus);
-        return successResponse();
+        List<ValidationStatus> validationStatuses = validator.validate(viewGraph, quest.getStartNode());
+        if(validationStatuses.get(0)==ValidationStatus.VALID) {
+            for (Command command : commandList)
+                command.saveToDB(this);
+            commandList.clear();
+            updatePositions(data);
+        }
+        return buildResponse(validationStatuses);
     }
     public String undo() {
         Command command = commandList.get(commandList.size() - 1);
@@ -198,35 +199,22 @@ public class GraphEditorBean implements Serializable {
         });
         return nodeViews;
     }
-//    public String buildResponse(ValidationStatus connectivityStatus,ValidationStatus startEndStatus) {
-//        JSONObject jsonObject = new JSONObject();
-//        JSONArray responseArray = new JSONArray();
-//        if(connectivityStatus.equals(ValidationStatus.VALID) && startEndStatus.equals(ValidationStatus.VALID)) {
-//            responseArray.put("success");
-//            jsonObject.put("response", responseArray);
-//        }
-//        else {
-//            switch (connectivityStatus) {
-//                case VALID:
-//                    break;
-//                case NOT_VALID_CONNECTIVITY:
-//                    responseArray.put("connectivity_error");
-//                    break;
-//            }
-//            switch (startEndStatus) {
-//                case VALID:
-//                    break;
-//                case NOT_VALID_START_NODE:
-//                    responseArray.put("invalid_start"); break;
-//                case NOT_VALID_END_NODE:
-//                    responseArray.put("invalid_end"); break;
-//                case NOT_VALID_START_AND_END_NODE:
-//                    responseArray.put("invalid_start_and_end"); break;
-//            }
-//            jsonObject.put("response", responseArray);
-//        }
-//        return jsonObject.toString();
-//    }
+    public String buildResponse(List<ValidationStatus> validationStatuses) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray responseArray = new JSONArray();
+        for(ValidationStatus status : validationStatuses) {
+            switch (status) {
+                case VALID: responseArray.put("valid"); break;
+                case NOT_CONNECTED: responseArray.put("not_connected"); break;
+                case INVALID_START_NODE: responseArray.put("invalid_start_node"); break;
+                case MISSING_START_NODE: responseArray.put("missing_start_node"); break;
+                case MULTIPLE_START_NODES: responseArray.put("multiple_start_nodes"); break;
+                case MISSING_END_NODE: responseArray.put("missing_end_node"); break;
+            }
+        }
+        jsonObject.put("response", responseArray);
+        return jsonObject.toString();
+    }
     public String successResponse() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("response", "success");

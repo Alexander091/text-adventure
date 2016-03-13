@@ -197,9 +197,9 @@ $(document).ready(function() { // on dom ready
             url: "/TextAdventure/rest/command/save"
         }).done(function(data) {
             var responseArray = data.response;
-            if(responseArray[0] == "success" && responseArray.length==1) {
+            if(responseArray[0] == "valid") {
                 PF('messages').renderMessage({
-                    "summary": "Successfully saved",
+                    "summary": "Успешно сохранено",
                     "severity": "info"
                 });
                 console.log("save success");
@@ -209,22 +209,25 @@ $(document).ready(function() { // on dom ready
                 for(var i = 0; i<responseArray.length; i++)
                 {
                     switch(responseArray[i]) {
-                        case "invalid_start": {
-                            totalMessage += "Invalid start stage\r\n"; break;
+                        case "invalid_start_node": {
+                            totalMessage += "Неправильный стартовый этап\r\n"; break;
                         }
-                        case "invalid_end": {
-                            totalMessage += "Invalid finish stage\r\n"; break;
+                        case "missing_start_node": {
+                            totalMessage += "Не найден стартовый этап\r\n"; break;
                         }
-                        case "invalid_start_and_end": {
-                            totalMessage += "Invalid start and finish stage\r\n"; break;
+                        case "multiple_start_nodes": {
+                            totalMessage += "Больше одного стартового этапа\r\n"; break;
                         }
-                        case "connectivity_error": {
-                            totalMessage += "Connectivity error\r\n"; break;
+                        case "missing_end_node": {
+                            totalMessage += "Не найдено ни одного финального этапа\r\n"; break;
+                        }
+                        case "not_connected": {
+                            totalMessage += "Не все этапы связаны\r\n"; break;
                         }
                     }
                 }
                 PF('messages').renderMessage({
-                    "summary": "Error on saving",
+                    "summary": "Ошибка при сохранении",
                     "detail": totalMessage,
                     "severity": "error"
                 });
