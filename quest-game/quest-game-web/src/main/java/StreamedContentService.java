@@ -4,21 +4,19 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.ejb.EJB;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.util.Locale;
 
 /**
  * Created by Максим on 06.03.2016.
  */
 
 @ManagedBean(name="contentService")
-@ApplicationScoped
+@SessionScoped
 public class StreamedContentService implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +43,17 @@ public class StreamedContentService implements Serializable {
         }
 
         return streamedContent;
+
+    }
+
+    byte[] toPrimitives(Byte[] oBytes)
+    {
+
+        byte[] bytes = new byte[oBytes.length];
+        for(int i = 0; i < oBytes.length; i++){
+            bytes[i] = oBytes[i];
+        }
+        return bytes;
 
     }
 

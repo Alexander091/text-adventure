@@ -3,28 +3,24 @@ package org.my.adventure.questgame.ejb;
 import org.my.adventure.dao_manager.api.dao.NodeDAO;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
 import org.my.adventure.dao_manager.api.dao.ResourceDAO;
-import org.my.adventure.dao_manager.api.entities.Node;
-import org.my.adventure.dao_manager.api.entities.Quest;
-import org.my.adventure.dao_manager.api.entities.Resource;
-import org.my.adventure.dao_manager.api.entities.Transition;
+import org.my.adventure.dao_manager.api.entities.*;
 import org.my.adventure.questgame.impl.GameStage;
+import org.my.adventure.questgame.impl.QuestTimer;
+import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.Init;
-import javax.ejb.Singleton;
 import javax.ejb.Stateful;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Максим on 17.02.2016.
  */
 
-@Singleton
+@Stateful
 public class GameStagesBean {
-    private static final Map<Long,GameStage> gameStages = new HashMap<Long, GameStage>();
+    private static final Map<Long,Stack<GameStage>> gameStagesStacks = new HashMap<Long, Stack<GameStage>>();
+    private static final Map<Long, QuestTimer> timeMap = new HashMap<Long, QuestTimer>();
+
     @EJB
     QuestDAO questDAO;
     @EJB
@@ -33,29 +29,31 @@ public class GameStagesBean {
     ResourceDAO resourceDAO;
 
 
-    public Map<Long,GameStage> getGameStages() {
-        return gameStages;
+    public Map<Long,Stack<GameStage>> getGameStages() {
+        return gameStagesStacks;
     }
 
     public Node loadGameByQuestId(long questId){
         Quest quest = questDAO.getById(questId);
         Node startNode = null;
-        if(!gameStages.containsKey(questId)){
+        if(!gameStagesStacks.containsKey(questId)){
             startNode = quest.getStartNode();
-            gameStages.put(questId, new GameStage(questId,startNode));
+            gameStagesStacks.put(questId, new Stack<GameStage>());
+            gameStagesStacks.get(questId).push(new GameStage(questId, startNode));
+            timeMap.put(questId, new QuestTimer());
         }
         else {
-            startNode = gameStages.get(questId).getNode();
+            startNode = gameStagesStacks.get(questId).peek().getNode();
         }
         return startNode;
     }
 
     public List<Transition> getCurrentTransitionsByQuestId(long questId){
-        return gameStages.get(questId).getNodeTransitions();
+        return gameStagesStacks.get(questId).peek().getNodeTransitions();
     }
 
     public Node getNodeByQuestId(long questId){
-        return gameStages.get(questId).getNode();
+        return gameStagesStacks.get(questId).peek().getNode();
     }
 
     public Quest getQuest(long questId){
@@ -63,14 +61,39 @@ public class GameStagesBean {
     }
 
     public void setNewGameStage(long questId, Node node){
-        gameStages.put(questId, new GameStage(questId, node));
+        gameStagesStacks.get(questId).push(new GameStage(questId, node));
     }
 
     public void refresh(long questId) {
-        setNewGameStage(questId, questDAO.getById(questId).getStartNode());
+        gameStagesStacks.remove(questId);
     }
 
     public Resource getResourceById(long resourceId){
         return resourceDAO.getById(resourceId);
+    }
+
+    public Node getPreviousNode(long questId) {
+        return gameStagesStacks.get(questId).pop().getNode();
+    }
+
+    public boolean started(long questId) {
+        return gameStagesStacks.get(questId).size() > 1;
+    }
+
+    public List<Node> getNodesList(long questId) {
+        List<GameStage> gameStages = new ArrayList<GameStage>(gameStagesStacks.get(questId));
+        List<Node> nodes = new ArrayList<Node>();
+        for (GameStage gameStage:gameStages){
+            nodes.add(gameStage.getNode());
+        }
+        return nodes;
+    }
+
+    public void incQuestTimer(long questId) {
+        timeMap.get(questId).increment();
+    }
+
+    public String getQuestTimerString(long questId) {
+        return timeMap.get(questId).toString();
     }
 }
