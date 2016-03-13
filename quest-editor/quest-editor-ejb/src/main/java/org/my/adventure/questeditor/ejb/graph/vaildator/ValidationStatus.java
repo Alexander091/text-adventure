@@ -7,6 +7,7 @@ public enum ValidationStatus {
     VALID,
     MISSING_START_NODE,
     MULTIPLE_START_NODES,
+    INVALID_START_NODE,
     MISSING_END_NODE,
     NOT_CONNECTED
 }

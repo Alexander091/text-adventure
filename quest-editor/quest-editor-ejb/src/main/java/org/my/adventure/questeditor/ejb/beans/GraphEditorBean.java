@@ -12,6 +12,8 @@ import org.my.adventure.questeditor.ejb.builders.GraphBuilder;
 import org.my.adventure.questeditor.ejb.builders.QuestBuilder;
 import org.my.adventure.questeditor.ejb.builders.ViewBuilder;
 import org.my.adventure.questeditor.ejb.commands.*;
+import org.my.adventure.questeditor.ejb.graph.vaildator.ValidationStatus;
+import org.my.adventure.questeditor.ejb.graph.vaildator.Validator;
 import org.my.adventure.questeditor.ejb.views.NodeView;
 import org.my.adventure.questeditor.ejb.views.TransitionView;
 import org.primefaces.json.JSONArray;
@@ -21,9 +23,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dimko_000 on 18.02.2016.
@@ -47,6 +47,7 @@ public class GraphEditorBean implements Serializable {
     private Quest quest = null;
     private Graph<NodeView, TransitionView> viewGraph;
     private List<Command> commandList;
+    private Validator validator;
 
     public TransitionBean getTransitionBean() {
         return transitionBean;
@@ -99,6 +100,7 @@ public class GraphEditorBean implements Serializable {
             quest = questEditorBean.getById(id);
         viewGraph = GraphBuilder.buildQuestGraph(quest);
         commandList = new ArrayList<Command>();
+        validator = new Validator();
     }
 
     public Set<NodeView> getAllNodes() {
@@ -165,11 +167,14 @@ public class GraphEditorBean implements Serializable {
         return resourceEditorBean.getResourcesList(questId, typeOfAction.getTypeOfResource().getId());
     }
     public String save(JSONArray data) {
-        for(Command command : commandList)
-            command.saveToDB(this);
-        commandList.clear();
-        updatePositions(data);
-        return successResponse();
+        List<ValidationStatus> validationStatuses = validator.validate(viewGraph, quest.getStartNode());
+        if(validationStatuses.get(0)==ValidationStatus.VALID) {
+            for (Command command : commandList)
+                command.saveToDB(this);
+            commandList.clear();
+            updatePositions(data);
+        }
+        return buildResponse(validationStatuses);
     }
     public String undo() {
         Command command = commandList.get(commandList.size() - 1);
@@ -184,6 +189,31 @@ public class GraphEditorBean implements Serializable {
             nodeView.getEntity().setPosition(nodeJson.getString("position"));
             nodeBean.saveOrUpdate(nodeView.getEntity());
         }
+    }
+    public List<NodeView> getSortedByNameNodeViews() {
+        List<NodeView> nodeViews = new ArrayList<NodeView>(getAllNodes());
+        Collections.sort(nodeViews, new Comparator<NodeView>() {
+            public int compare(NodeView o1, NodeView o2) {
+                return String.CASE_INSENSITIVE_ORDER.compare(o1.getEntity().getName(), o2.getEntity().getName());
+            }
+        });
+        return nodeViews;
+    }
+    public String buildResponse(List<ValidationStatus> validationStatuses) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray responseArray = new JSONArray();
+        for(ValidationStatus status : validationStatuses) {
+            switch (status) {
+                case VALID: responseArray.put("valid"); break;
+                case NOT_CONNECTED: responseArray.put("not_connected"); break;
+                case INVALID_START_NODE: responseArray.put("invalid_start_node"); break;
+                case MISSING_START_NODE: responseArray.put("missing_start_node"); break;
+                case MULTIPLE_START_NODES: responseArray.put("multiple_start_nodes"); break;
+                case MISSING_END_NODE: responseArray.put("missing_end_node"); break;
+            }
+        }
+        jsonObject.put("response", responseArray);
+        return jsonObject.toString();
     }
     public String successResponse() {
         JSONObject jsonObject = new JSONObject();
