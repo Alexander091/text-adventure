@@ -41,7 +41,7 @@
                                 <aj:animate target="nodeForm" type="fadeInDown" />
                                 <p:panel id="nodePanel" header="#{gameController.nodeName}" style="   margin-bottom: 15px; margin-right: 10px" >
                                     <h:panelGrid id="pgrid"  columns="1" cellpadding="5">
-                                        <p:graphicImage value="#{contentService.streamedContent}" rendered="#{contentService.streamedContent!=null}" style="max-width: 100%; height: auto">
+                                        <p:graphicImage value="#{contentService.streamedContent}" rendered="#{contentService.streamedContent!=null}" style="max-width: 80%; height: auto">
                                             <f:param name="resourceId" value="#{gameController.imageResourceId}" />
                                         </p:graphicImage>
                                         <h:outputText id="text" value="#{gameController.nodeText}" style="color: #1484e6; font-weight: bold" />
