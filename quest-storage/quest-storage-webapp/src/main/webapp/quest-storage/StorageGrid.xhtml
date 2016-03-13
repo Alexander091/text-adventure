@@ -9,7 +9,7 @@
     <div align="center">
         <h:form id="form">
             <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="3" layout="grid"
-                        rows="6" paginator="true" id="quests"
+                        rows="36" paginator="true" id="quests"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="3,6,8,12,18">
@@ -21,11 +21,20 @@
                         <p:outputLabel value="#{quest.ageLimit}+" style="float: left"/>
                     </f:facet>
 
-                    <p:graphicImage url="#{quest.image.data}"
-                                    style="height: 300px; max-width: 100%"
-                                    onclick="PF('dlg#{quest.id}').show();"/>
-
+                    <div style="max-width: 100%;">
+                        <div style="height: 200px;">
+                            <p:graphicImage value="#{storageResourceController.image}"
+                                            rendered="#{storageResourceController.image!=null}"
+                                            style="max-width: 100%; max-height: 100%"
+                                            onclick="PF('dlg#{quest.id}').show();">
+                                <f:param name="resourceId" value="#{quest.image.id}" />
+                            </p:graphicImage>
+                        </div>
+                    </div>
                     <h:panelGrid columns="2" style="width: 100%">
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{quest.id}" style="font-weight: bold"/>
+
                         <h:outputText value="Жанр:" />
                         <h:outputText value="#{quest.genre}" style="font-weight: bold"/>
 
@@ -41,7 +50,11 @@
                               width="60%" modal="true"
                               draggable="false" resizable="false"
                               dynamic="true" closeOnEscape="true">
-                        <p:graphicImage url="#{quest.image.data}" style="height: 300px"/>
+                        <!--<p:graphicImage value="#{storageResourceController.image}"-->
+                        <!--rendered="#{storageResourceController.image!=null}"-->
+                        <!--style="height: 300px; max-width: 100%">-->
+                        <!--<f:param name="resourceId" value="#{quest.image.id}" />-->
+                        <!--</p:graphicImage>-->
                         <p>#{quest.description}</p>
                         <div>
                             <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
