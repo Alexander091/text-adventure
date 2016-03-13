@@ -8,24 +8,20 @@
 <h:body>
     <div align="center">
         <h:form id="form">
-            <p:dataGrid var="quest" value="#{questController.quests}" columns="3" layout="grid"
+            <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="3" layout="grid"
                         rows="6" paginator="true" id="quests"
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="3,6,9,12,18">
+                        rowsPerPageTemplate="3,6,8,12,18">
 
-                <f:facet name="header" id="header">
-                    Quest to play
-                </f:facet>
-
-                <p:panel style="text-align: center">
+                <p:panel style="text-align: center;">
 
                     <f:facet name="header">
-                        <p style="float: right; position: relative">#{quest.ageLimit}+</p>
-                        <p style="position: relative; float: left;">#{quest.name}</p>
+                        <p:outputLabel value="#{quest.name}" style="width: 50px"/>
+                        <p:outputLabel value="#{quest.ageLimit}+" style="float: left"/>
                     </f:facet>
 
-                    <p:graphicImage url="#{quest.image.data}"
+                    <p:graphicImage url="#{quest.image}" rendered="#{quest.image!=null}"
                                     style="height: 300px; max-width: 100%"
                                     onclick="PF('dlg#{quest.id}').show();"/>
 
@@ -45,16 +41,19 @@
                               width="60%" modal="true"
                               draggable="false" resizable="false"
                               dynamic="true" closeOnEscape="true">
-                        <p:graphicImage url="#{quest.image.data}" style="height: 300px"/>
+                        <p:graphicImage url="#{quest.image}" rendered="#{quest.image!=null}" style="height: 300px"/>
                         <p>#{quest.description}</p>
                         <div>
-                            <p:button outcome="/index.xhtml" value="Играть">
+                            <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать">
+                            <p:button outcome="/quest-editor/editor.xhtml" icon="ui-icon-wrench"
+                                      rendered="#{loginController.admin}"
+                                      value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                                <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}" update="quests">
+                            <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
+                                             rendered="#{loginController.admin}" icon="ui-icon-trash" update="quests">
                                 <p:confirm header="Подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
                         </div>
@@ -62,14 +61,16 @@
 
                     <f:facet name="footer">
                         <div align="center">
-                            <!--<p:commandButton value="Подробнее" onclick="PF('dlg#{quest.id}').show();"/>-->
-                            <p:button outcome="/index.xhtml" value="Играть">
+                            <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать">
+                            <p:button outcome="/quest-editor/editor.xhtml" rendered="#{loginController.admin}"
+                                      value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}" update="quests">
+                            <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
+                                             rendered="#{loginController.admin}" icon="ui-icon-trash"
+                                             update="quests">
                                 <p:confirm header="Требуется подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
 

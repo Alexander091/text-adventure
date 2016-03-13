@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class Node extends Common{
     private String name;
     private String description;
+    private String position;
     private Quest questByQuestId;
     private List<Action> Actions;
     private List<Transition> transitions;
@@ -32,6 +33,16 @@ public class Node extends Common{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "position", nullable = false, insertable = true, updatable = true, length = 200)
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     @Basic

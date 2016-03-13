@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.util.Locale;
 
 /**
  * Created by Максим on 06.03.2016.
@@ -45,6 +44,17 @@ public class StreamedContentService implements Serializable {
         }
 
         return streamedContent;
+
+    }
+
+    byte[] toPrimitives(Byte[] oBytes)
+    {
+
+        byte[] bytes = new byte[oBytes.length];
+        for(int i = 0; i < oBytes.length; i++){
+            bytes[i] = oBytes[i];
+        }
+        return bytes;
 
     }
 

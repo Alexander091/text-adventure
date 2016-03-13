@@ -11,15 +11,16 @@
 <h:body>
     <div align="center">
         <h:form>
-            <p:dataScroller value="#{questController.quests}" var="quest" chunkSize="3" id="dataScroller">
+            <p:dataScroller value="#{questStorageController.quests}"
+                            var="quest" chunkSize="4" id="dataScroller">
                 <f:facet name="header">
                     Прокрутите вниз, что бы увидеть больше квестов
                 </f:facet>
                 <div align="left">
                     <p:panelGrid style="width: 100%">
                         <p:row>
-                            <p:column style="width: 25%; min-width: 25%;">
-                                <p:graphicImage url="#{quest.image.data}" style="width: 100%"/>
+                            <p:column style="width: 40%">
+                                <p:graphicImage url="#{quest.imagePath}" style="width: 100%"/>
 
                             </p:column>
                             <p:column style="width: 25%">
@@ -55,13 +56,17 @@
                         <f:facet name="footer">
                             <p:row>
                                 <p:column colspan="3">
-                                    <p:button outcome="/index.xhtml" value="Играть" icon="ui-icon-star">
+                                    <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
                                         <f:param name="questId" value="#{quest.id}" />
                                     </p:button>
-                                    <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать" icon="ui-icon-star">
+                                    <p:button outcome="/quest-editor/editor.xhtml" value="Редактировать"
+                                              rendered="#{loginController.admin}"
+                                              icon="ui-icon-wrench">
                                         <f:param name="questId" value="#{quest.id}" />
                                     </p:button>
-                                    <p:commandButton value="Удалить" actionListener="#{questController.deleteQuest(quest.id)}" update="dataScroller">
+                                    <p:commandButton value="Удалить" rendered="#{loginController.admin}"
+                                                     actionListener="#{questStorageController.deleteQuest(quest.id)}"
+                                                     icon="ui-icon-trash" update="dataScroller">
                                         <p:confirm header="Требуется подтверждение" message="Вы уверены?" icon="ui-icon-alert" />
                                     </p:commandButton>
 

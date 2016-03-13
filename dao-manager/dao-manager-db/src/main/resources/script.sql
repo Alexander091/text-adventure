@@ -1,4 +1,4 @@
-CREATE TABLE public.action
+﻿CREATE TABLE public.action
 (
   id bigint NOT NULL,
   condition character varying(200) NOT NULL,
@@ -175,10 +175,12 @@ ALTER TABLE public.saved_stat
 ALTER TABLE public.stat 
 	ADD FOREIGN KEY (quest_id) REFERENCES public.quest (id);
 	
-ALTER TABLE public.transition 
-	ADD FOREIGN KEY (to_node) REFERENCES public.node (id);
 ALTER TABLE public.transition
-	ADD FOREIGN KEY (from_node) REFERENCES public.node (id);
+  ADD CONSTRAINT trans_to_node_f_key
+	FOREIGN KEY (to_node) REFERENCES public.node (id) ON DELETE CASCADE;
+ALTER TABLE public.transition
+  ADD CONSTRAINT trans_from_node_f_key
+  FOREIGN KEY (from_node) REFERENCES public.node (id) ON DELETE CASCADE;
 	
 ALTER TABLE public."user" 
 	ADD FOREIGN KEY (user_role) REFERENCES public.user_role (id);

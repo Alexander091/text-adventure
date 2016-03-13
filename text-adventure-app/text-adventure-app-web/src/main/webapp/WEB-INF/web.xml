@@ -3,6 +3,12 @@
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
+
+    <session-config>
+        <!-- Session idle timeout in min. -->
+        <session-timeout>300</session-timeout>
+    </session-config>
+
     <display-name>QuestCracker</display-name>
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
@@ -30,6 +36,11 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+
+    <!--<context-param>-->
+        <!--<param-name>log4jConfiguration</param-name>-->
+        <!--<param-value>log4j2.xml</param-value>-->
+    <!--</context-param>-->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
@@ -40,13 +51,23 @@
         <param-value>excite-bike</param-value>
     </context-param>
 
-    <!--Defining security constraint for type of roles available-->
+    <filter>
+        <filter-name>Primefaces Upload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Primefaces Upload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
 
+    <!--Defining security constraint for type of roles available-->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>secured</web-resource-name>
             <url-pattern>/faces/quest-editor/*</url-pattern>
             <url-pattern>/quest-editor/*</url-pattern>
+            <url-pattern>/quest-storage/*</url-pattern>
+            <url-pattern>/faces/quest-storage/*</url-pattern>
             <http-method>POST</http-method>
             <http-method>GET</http-method>
             <http-method>PUT</http-method>
@@ -57,22 +78,6 @@
         </auth-constraint>
     </security-constraint>
 
-    <!--<security-constraint>-->
-        <!--<queststorageweb-resource-collection>-->
-            <!--<queststorageweb-resource-name>user</queststorageweb-resource-name>-->
-            <!--<url-pattern>/quest-storage/*</url-pattern>-->
-            <!--<http-method>POST</http-method>-->
-            <!--<http-method>GET</http-method>-->
-            <!--<http-method>PUT</http-method>-->
-            <!--<http-method>DELETE</http-method>-->
-        <!--</queststorageweb-resource-collection>-->
-        <!--<auth-constraint>-->
-            <!--<role-name>ADMIN</role-name>-->
-            <!--<role-name>user</role-name>-->
-        <!--</auth-constraint>-->
-    <!--</security-constraint>-->
-    <!--Defining security constraint for type of roles available-->
-
     <!--Defining type of authenitcation mechanism-->
     <login-config>
         <auth-method>FORM</auth-method>
@@ -82,7 +87,6 @@
             <form-error-page>/authorization/login_error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-    <!--Defining type of authenitcation mechanism-->
 
     <!--Denining security role-->
     <security-role>
@@ -92,8 +96,6 @@
     <security-role>
         <role-name>user</role-name>
     </security-role>
-    <!--Denining security role-->
-
 
     <error-page>
         <!-- Missing login -->
@@ -104,6 +106,7 @@
         <!-- Forbidden directory listing -->
         <error-code>403</error-code>
         <location>/authorization/login.xhtml</location>
+        <!--TODO: create proper forbidden page-->
     </error-page>
     <!--<error-page>-->
         <!--&lt;!&ndash; Uncaught exception &ndash;&gt;-->
