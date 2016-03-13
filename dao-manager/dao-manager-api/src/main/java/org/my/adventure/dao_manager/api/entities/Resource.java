@@ -32,7 +32,7 @@ public class Resource extends Common{
         this.name = name;
     }
 
-    @Lob
+    @Basic
     @Column(name = "data", nullable = false, insertable = true, updatable = true)
     public byte[] getData() {
         return data;
