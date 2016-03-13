@@ -1,5 +1,6 @@
 package org.my.adventure.dao_manager.ejb.dao;
 
+import org.my.adventure.dao_manager.api.dao.ResourceDAO;
 import org.my.adventure.dao_manager.api.dao.TypeOfActionDAO;
 import org.my.adventure.dao_manager.api.entities.TypeOfAction;
 
