@@ -6,6 +6,9 @@ import org.my.adventure.dao_manager.api.entities.Resource;
 import org.my.adventure.questeditor.ejb.beans.NodeBean;
 import org.my.adventure.questeditor.ejb.beans.QuestEditorBean;
 import org.my.adventure.questeditor.ejb.beans.ResourceEditorBean;
+import org.primefaces.component.tabview.Tab;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.TabChangeEvent;
 
 import javax.ejb.EJB;
 import javax.faces.bean.*;
@@ -105,5 +108,9 @@ public class QuestEditorController implements Serializable{
     }
     public List<Resource> getAllAvailablePictures() {
         return resourceEditorBean.getResourcesList(questId, TYPE_IMAGE);
+    }
+    public void onTabChange(TabChangeEvent event) {
+        if(event.getTab().getId().equals("questTab"))
+            RequestContext.getCurrentInstance().update("tabs:questForm:questPictureMenu");
     }
 }

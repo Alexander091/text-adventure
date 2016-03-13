@@ -21,9 +21,6 @@
                         <p:outputLabel value="#{quest.ageLimit}+" style="float: left"/>
                     </f:facet>
 
-                    <p:graphicImage url="#{quest.image.data}"
-                                    style="height: 300px; max-width: 100%"
-                                    onclick="PF('dlg#{quest.id}').show();"/>
 
                     <h:panelGrid columns="2" style="width: 100%">
                         <h:outputText value="Жанр:" />
@@ -41,7 +38,6 @@
                               width="60%" modal="true"
                               draggable="false" resizable="false"
                               dynamic="true" closeOnEscape="true">
-                        <p:graphicImage url="#{quest.image.data}" style="height: 300px"/>
                         <p>#{quest.description}</p>
                         <div>
                             <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">

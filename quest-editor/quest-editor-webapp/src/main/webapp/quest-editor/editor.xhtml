@@ -12,29 +12,29 @@
     <h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 <h:body>
-    <!--<ui:composition template="/templates/layout.xhtml">-->
-        <!--<ui:define name="content">-->
-        <f:metadata>
-            <f:viewParam name="questId" value="#{questEditorController.questId}"/>
-            <f:viewAction action="#{questEditorController.loadQuest}"/>
-        </f:metadata>
-        <!--<h:form id="form">-->
-        <h:form id="editorForm">
-            <h:inputText styleClass="questIdInput" style="display: none;" value="#{questEditorController.questId}"/>
-            <p:growl id="msgs" showDetail="true" widgetVar="messages" />
-        </h:form>
-            <!--<p:toolbar style="margin-bottom: 3px">-->
-                <!--<f:facet name="left">-->
-                    <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
-                <!--</f:facet>-->
-            <!--</p:toolbar>-->
-            <p:tabView dynamic="true" activeIndex="#{questEditorController.activeIndex}">
-                <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
-                    <ui:include src="graph.xhtml"/>
-                </p:tab>tyle
-                <p:tab  title="Квест" selected="#{questEditorController.questId==null}">
-                    <ui:include src="quest.xhtml"/>
-                </p:tab>
+    <f:metadata>
+        <f:viewParam name="questId" value="#{questEditorController.questId}"/>
+        <f:viewParam name="questId" value="#{uploadController.questId}"/>
+        <f:viewAction action="#{questEditorController.loadQuest}"/>
+    </f:metadata>
+    <!--<h:form id="form">-->
+    <h:form id="editorForm">
+        <h:inputText styleClass="questIdInput" style="display: none;" value="#{questEditorController.questId}"/>
+        <p:growl id="msgs" showDetail="true" />
+    </h:form>
+        <!--<p:toolbar style="margin-bottom: 3px">-->
+            <!--<f:facet name="left">-->
+                <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
+            <!--</f:facet>-->
+        <!--</p:toolbar>-->
+        <p:tabView id="tabs" dynamic="true" activeIndex="#{questEditorController.activeIndex}">
+            <p:ajax event="tabChange" listener="#{questEditorController.onTabChange}"/>
+            <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
+                <ui:include src="graph.xhtml"/>
+            </p:tab>
+            <p:tab id="questTab"  title="Квест" selected="#{questEditorController.questId==null}" >
+                <ui:include src="quest.xhtml"/>
+            </p:tab>
 
 
                 <!--<p:tab title="Характеристики">-->

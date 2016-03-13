@@ -5,7 +5,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
 import org.my.adventure.dao_manager.api.dao.ResourceDAO;
-import org.my.adventure.dao_manager.api.dao.TypeOfActionDAO;
 import org.my.adventure.dao_manager.api.dao.TypeOfResourceDAO;
 import org.my.adventure.dao_manager.api.entities.Resource;
 
@@ -13,6 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by al on 02.03.2016.
@@ -31,6 +31,14 @@ public class ResourceUploaderBean {
     @EJB
     TypeOfResourceDAO typeOfResourceDAO;
 
+    public byte[] getImage(Long resourceId){
+        return resourceDAO.getById(resourceId).getData();
+    }
+
+    public List<Resource> getQuestResources(Long questId, Long typeOfResourceId){
+        return resourceDAO.getResources(questId, typeOfResourceId);
+    }
+
     public void saveResource(String name, Long questId, Long typeId, InputStream res){
         Resource resource = new Resource();
         resource.setName(name);
@@ -39,16 +47,6 @@ public class ResourceUploaderBean {
         resource.setType(typeOfResourceDAO.getById(typeId));
         try {
             resource.setData(IOUtils.toByteArray(res));
-            resourceDAO.saveOrUpdate(resource);
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        }
-    }
-
-    public void setImage(Long resourceId, InputStream in){
-        Resource resource = resourceDAO.getById(resourceId);
-        try {
-            resource.setData(IOUtils.toByteArray(in));
             resourceDAO.saveOrUpdate(resource);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
