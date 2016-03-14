@@ -31,6 +31,9 @@ public class StorageResourceController implements Serializable {
             streamedContent = new DefaultStreamedContent();
         }else {
             String resourceId = context.getExternalContext().getRequestParameterMap().get("resourceId");
+            if (resourceId == null){
+                resourceId = "0";//TODO: fix placeholder
+            }
             byte[] imageData = questStorageBean.getImageByResourceId(Long.parseLong(resourceId));
             if (imageData != null) {
                 streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(imageData), "image/jpg");

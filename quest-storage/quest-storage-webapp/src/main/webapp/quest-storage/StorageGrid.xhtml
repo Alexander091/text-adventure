@@ -9,7 +9,7 @@
     <div align="center">
         <h:form id="form">
             <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="3" layout="grid"
-                        rows="36" paginator="true" id="quests"
+                        rows="6" paginator="true" id="quests"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="3,6,8,12,18">
@@ -50,11 +50,11 @@
                               width="60%" modal="true"
                               draggable="false" resizable="false"
                               dynamic="true" closeOnEscape="true">
-                        <!--<p:graphicImage value="#{storageResourceController.image}"-->
-                        <!--rendered="#{storageResourceController.image!=null}"-->
-                        <!--style="height: 300px; max-width: 100%">-->
-                        <!--<f:param name="resourceId" value="#{quest.image.id}" />-->
-                        <!--</p:graphicImage>-->
+                        <p:graphicImage value="#{storageResourceController.image}"
+                                        rendered="#{storageResourceController.image!=null}"
+                                        style="height: 300px; max-width: 100%">
+                            <f:param name="resourceId" value="#{quest.image.id}" />
+                        </p:graphicImage>
                         <p>#{quest.description}</p>
                         <div>
                             <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">

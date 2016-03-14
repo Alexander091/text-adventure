@@ -64,8 +64,8 @@ public class QuestStorageBean {
         for (Quest quest : quests) {
             if (quest.getId()!=null){
                 QuestWrapper questWrapper = new QuestWrapper(quest);
-//            if (questWrapper.getImage() == null)
-//                questWrapper.setImage(new DefaultStreamedContent(new ByteArrayInputStream(resourceDAO.getById(1954L).getData()), "image/jpg"));
+            if (questWrapper.getImage() == null)
+                questWrapper.setImage(resourceDAO.getById(0L));//Image placeholder
                 if (questWrapper.getRating() == null)
                     questWrapper.setRating(0f);
                 questWrappers.add(questWrapper);
