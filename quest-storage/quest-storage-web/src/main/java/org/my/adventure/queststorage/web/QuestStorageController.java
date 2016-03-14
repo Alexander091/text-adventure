@@ -10,9 +10,8 @@ import org.primefaces.model.tagcloud.TagCloudModel;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
@@ -24,7 +23,7 @@ import java.util.Map;
  * Created by al on 18.02.2016.
  */
 @ManagedBean(name = "questStorageController")
-@ViewScoped
+@SessionScoped
 public class QuestStorageController implements Serializable{
 
     @EJB

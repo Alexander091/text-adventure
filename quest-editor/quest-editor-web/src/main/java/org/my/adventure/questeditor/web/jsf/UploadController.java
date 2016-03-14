@@ -28,6 +28,9 @@ import java.util.List;
 @SessionScoped
 public class UploadController implements Serializable{
 
+    private static final Long IMAGE = 1L;
+    private static final Long SOUND = 2L;
+
     @EJB
     private ResourceUploaderBean uploaderBean;
 
@@ -59,26 +62,21 @@ public class UploadController implements Serializable{
         return streamedContent;
     }
 
-    public List<StreamedContent> getImagesContent(){
-        questId = 5L;
-        List<Resource> resources = uploaderBean.getQuestResources(questId, 1L);
-        List<StreamedContent> content = new ArrayList<>();
-        for (Resource resource : resources) {
-            StreamedContent sc = null;
-            if (resource != null && resource.getData() != null)
-                sc = new DefaultStreamedContent(new ByteArrayInputStream(resource.getData()));
-            content.add(sc);
-        }
-        return content;
+    public List<Resource> getImages(){
+        return uploaderBean.getQuestResources(questId, IMAGE);
     }
 
     public List<Long> getImagesId(){
         List<Long> list = new ArrayList<>();
-        List<Resource> resources = uploaderBean.getQuestResources(questId, 1L);
+        List<Resource> resources = uploaderBean.getQuestResources(questId, IMAGE);
         for (Resource resource : resources) {
             list.add(resource.getId());
         }
         return list;
+    }
+
+    public void deleteResource(Long resourceId){
+        uploaderBean.deleteResource(resourceId);
     }
 
     public void upload(FileUploadEvent event) {
@@ -94,10 +92,10 @@ public class UploadController implements Serializable{
             String fileExtension = FilenameUtils.getExtension(file.getFileName());
             Long typeId = null;
             if(fileExtension.equals("jpg")||fileExtension.equals("png")) {
-                typeId = 1L;
+                typeId = IMAGE;
             }
             else if(fileExtension.equals("wav")||fileExtension.equals("mp3")) {
-                typeId = 2L;
+                typeId = SOUND;
             }
 
             FacesContext context = FacesContext.getCurrentInstance();

@@ -39,17 +39,22 @@
                             -->
                             <h:form id="nodeForm">
                                 <aj:animate target="nodeForm" type="fadeInDown" />
-                                <p:panel id="nodePanel" header="#{gameController.nodeName}" style="   margin-bottom: 15px; margin-right: 10px" >
-                                    <h:panelGrid id="pgrid"  columns="1" cellpadding="5">
-                                        <p:graphicImage value="#{contentService.streamedContent}" rendered="#{contentService.streamedContent!=null}" style="max-width: 80%; height: auto">
+                                <p:panel id="nodePanel" header="#{gameController.nodeName}"
+                                         style="margin-bottom: 15px; margin-right: 10px" >
+                                    <h:panelGrid id="pgrid"  columns="1" cellpadding="5" style="text-align: center">
+                                        <p:graphicImage value="#{contentService.streamedContent}"
+                                                        rendered="#{contentService.streamedContent!=null}"
+                                                        style="max-width: 80%; height: auto">
                                             <f:param name="resourceId" value="#{gameController.imageResourceId}" />
                                         </p:graphicImage>
-                                        <h:outputText id="text" value="#{gameController.nodeText}" style="color: #1484e6; font-weight: bold" />
+                                        <h:outputText id="text" value="#{gameController.nodeText}"
+                                                      style="color: #1484e6; font-weight: bold" />
                                     </h:panelGrid>
 
                                     <p:media id="media"
                                              value="#{contentService.streamedContent}"
-                                             player="quicktime" width="1" height="1" rendered="#{gameController.soundEnabled==true}">
+                                             player="quicktime" width="1" height="1"
+                                             rendered="#{gameController.soundEnabled==true}">
                                         <f:param name="autoPlay" value="true" />
                                         <f:param name="resourceId" value="#{gameController.soundResourceId}" />
                                     </p:media>
@@ -61,14 +66,19 @@
                             -->
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-3">
-                                <p:commandButton id="backbutton" value="Вернуться назад" icon="ui-icon-arrowreturnthick-1-w" action="#{gameController.goBack}" update="nodeForm transitionsForm final" style="float: left; margin-bottom: 5px;width: 100%;height:auto; margin-left: 3px "/>
+                                <p:commandButton id="backbutton" value="Вернуться назад"
+                                                 icon="ui-icon-arrowreturnthick-1-w" action="#{gameController.goBack}"
+                                                 update="nodeForm transitionsForm final" style="float: left;
+                                                  margin-bottom: 5px; width: 100%; height:auto; margin-left: 3px "/>
                                 </div>
                                 <div class="ui-grid-col-6">
                                 </div>
                                 <div class="ui-grid-col-3">
                                     <h:form>
-                                        <h:outputText id="txt_count" value="#{timeController.getQuestTimer(gameController.questId)}" style="color: #e69701; margin-top: 10px; font-weight: bold"/>
-                                        <p:poll interval="1" listener="#{timeController.incrementTimer(gameController.questId)}" update="txt_count" resetValues="false"/>
+                                        <h:outputText id="txt_count" value="#{timeController.getQuestTimer(gameController.questId)}"
+                                                      style="color: #e69701; margin-top: 10px; font-weight: bold"/>
+                                        <p:poll interval="1" listener="#{timeController.incrementTimer(gameController.questId)}"
+                                                update="txt_count" resetValues="false"/>
                                     </h:form>
                                 </div>
                             </div>
@@ -77,17 +87,22 @@
                             <h:form id="transitionsForm" style="margin-right: 5px">
                                 <aj:animate target="transitionsForm" type="fadeInUp" />
 
-                                <p:dataList id="transitionsDataList" value="#{gameController.currentTransitions}" var="transitionWrapper" type="definition" rendered="#{not gameController.final}" style="width:100%; border: none; margin-left: 10px">
+                                <p:dataList id="transitionsDataList" value="#{gameController.currentTransitions}"
+                                            var="transitionWrapper" type="definition" rendered="#{not gameController.final}"
+                                            style="width:100%; border: none; margin-left: 10px">
                                     <f:facet name="header" >
-                                        Выберете, куда отправиться дальше:
+                                        Выберите, куда отправиться дальше:
                                     </f:facet>
-                                    <p:commandButton id="button" value="#{transitionWrapper.text}" icon="ui-icon-check" action="#{gameController.changeCurrentNode(transitionWrapper.id)}" update="nodeForm transitionsForm final" style="width:100%;height: 80px"/>
+                                    <p:commandButton id="button" value="#{transitionWrapper.text}" icon="ui-icon-check"
+                                                     action="#{gameController.changeCurrentNode(transitionWrapper.id)}"
+                                                     update="nodeForm transitionsForm final" style="width:100%;height: 80px"/>
                                 </p:dataList>
                             </h:form >
 
                             <h:form id="final" style="margin-right: 5px">
                                 <aj:animate target="final" type="fadeInUp" />
-                                        <p:dataScroller rendered="#{gameController.final}" value="#{gameController.stack}" var="node" chunkSize="4" mode="inline" scrollHeight="300">
+                                        <p:dataScroller rendered="#{gameController.final}" value="#{gameController.stack}"
+                                                        var="node" chunkSize="4" mode="inline" scrollHeight="300">
                                             <f:facet name="header">
                                                 Вы прошли через следующие этапы:
                                             </f:facet>
@@ -95,7 +110,6 @@
                                                     <h:panelGrid style="width: 100%" columns="1">
                                                         <f:facet name="header" >
                                                             <h:outputText value="#{node.name}" style="font-weight: bold; color: #1484e6" />
-
                                                         </f:facet>
                                                         <h:outputText value="#{node.text}" style="font-style: italic"/>
 
@@ -116,7 +130,9 @@
                             -->
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-3">
-                                    <p:commandButton value="Начать заново"  onclick="PF('dlg').show();" icon="ui-icon-refresh" style="float: left; margin-top: 5px;width: 100%;height:auto; margin-left: 3px "/>
+                                    <p:commandButton value="Начать заново"  onclick="PF('dlg').show();"
+                                                     icon="ui-icon-refresh" style="float: left; margin-top: 5px;
+                                                     width: 100%;height:auto; margin-left: 3px "/>
                                 </div>
 
                                 <div class="ui-grid-col-5">
@@ -131,7 +147,8 @@
                                     </h:form>
                                 </div>
                                 <div class="ui-grid-col-2">
-                                    <p:button value="Выход" outcome="/index.xhtml"  icon="ui-icon-power" style="float: right; margin-top: 5px;width: 100%;height: auto;margin-right: 3px; "/>
+                                    <p:button value="Выход" outcome="/index.xhtml"  icon="ui-icon-power" style="float: right;
+                                     margin-top: 5px;width: 100%;height: auto;margin-right: 3px; "/>
                                 </div>
 
                             </div>
@@ -145,10 +162,13 @@
                                                  showEffect="fade" hideEffect="fade"
                                                  visible="#{gameController.alreadyStarted}">
 
-                                    <p:commandButton value="Начать заново" type="button" styleClass="ui-icon-refresh" icon="ui-icon-close"  onclick="PF('dlg').hide();" actionListener="#{gameController.refresh}"  update="nodeForm transitionsForm">
+                                    <p:commandButton value="Начать заново" type="button" styleClass="ui-icon-refresh"
+                                                     icon="ui-icon-close"  onclick="PF('dlg').hide();"
+                                                     actionListener="#{gameController.refresh}"  update="nodeForm transitionsForm">
                                         <p:ajax listener="#{gameController.refresh}" update="nodeForm transitionsForm final" />
                                     </p:commandButton>
-                                    <p:commandButton value="Продолжить" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"   onclick="PF('dlg').hide();" update="nodeForm transitionsForm" />
+                                    <p:commandButton value="Продолжить" type="button" styleClass="ui-confirmdialog-yes"
+                                                     icon="ui-icon-check"   onclick="PF('dlg').hide();" update="nodeForm transitionsForm" />
                                 </p:confirmDialog>
                             </h:form>
                         </div>
