@@ -9,16 +9,11 @@ public class QuestTimer {
     private int seconds = 0;
 
     public void increment(){
-        if(seconds==59) {
-            seconds = 0;
-            if (minutes == 59) {
-                minutes = 0;
-                hours++;
-            } else {
-                minutes++;
-            }
-        }else {
-            seconds++;
+        if (minutes == 59) {
+            minutes = 0;
+            hours++;
+        } else {
+            minutes++;
         }
     }
 
@@ -28,8 +23,7 @@ public class QuestTimer {
         stringBuffer.append(appendValue(hours));
         stringBuffer.append(":");
         stringBuffer.append(appendValue(minutes));
-        stringBuffer.append(":");
-        stringBuffer.append(appendValue(seconds));
+
         return stringBuffer.toString();
     }
 

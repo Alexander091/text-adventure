@@ -16,8 +16,10 @@
 
 <f:metadata>
     <f:viewParam name="questId" value="#{gameController.questId}" />
+    <f:viewParam name="questId" value="#{timeController.questId}" />
     <f:event type="preRenderView" listener="#{gameController.loadQuest()}"/>
-    <!--<f:viewAction action="#{gameController.loadQuest()}" onPostback="false"/>-->
+   <!-- <f:viewAction action="#{gameController.loadQuest()}" onPostback="false"/>-->
+    <f:viewAction action="#{timeController.init()}" onPostback="false"/>
 </f:metadata>
 
 <h:body>
@@ -33,7 +35,7 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-3">
                         </div>
-                        <div class="ui-grid-col-6">
+                        <div class="ui-grid-col-8">
 
                             <!--Node (name, picture, sound, text):
                             -->
@@ -41,7 +43,7 @@
                                 <aj:animate target="nodeForm" type="fadeInDown" />
                                 <p:panel id="nodePanel" header="#{gameController.nodeName}" style="   margin-bottom: 15px; margin-right: 10px" >
                                     <h:panelGrid id="pgrid"  columns="1" cellpadding="5">
-                                        <p:graphicImage value="#{contentService.streamedContent}" rendered="#{contentService.streamedContent!=null}" style="max-width: 80%; height: auto">
+                                        <p:graphicImage value="#{contentService.streamedContent}" rendered="#{contentService.streamedContent!=null}" style="max-width: 90%; height: auto; margin-left: auto; margin-right: auto;">
                                             <f:param name="resourceId" value="#{gameController.imageResourceId}" />
                                         </p:graphicImage>
                                         <h:outputText id="text" value="#{gameController.nodeText}" style="color: #1484e6; font-weight: bold" />
@@ -67,8 +69,10 @@
                                 </div>
                                 <div class="ui-grid-col-3">
                                     <h:form>
-                                        <h:outputText id="txt_count" value="#{timeController.getQuestTimer(gameController.questId)}" style="color: #e69701; margin-top: 10px; font-weight: bold"/>
-                                        <p:poll interval="1" listener="#{timeController.incrementTimer(gameController.questId)}" update="txt_count" resetValues="false"/>
+                                        <h:outputText id="txt_count" value="#{timeController.questTimer}"
+                                                      style="color: #e69701; margin-top: 10px; font-weight: bold"/>
+                                        <p:poll interval="60" listener="#{timeController.incrementTimer()}"
+                                                update="txt_count" resetValues="false"/>
                                     </h:form>
                                 </div>
                             </div>
@@ -79,7 +83,7 @@
 
                                 <p:dataList id="transitionsDataList" value="#{gameController.currentTransitions}" var="transitionWrapper" type="definition" rendered="#{not gameController.final}" style="width:100%; border: none; margin-left: 10px">
                                     <f:facet name="header" >
-                                        Выберете, куда отправиться дальше:
+                                        Выберите, куда отправиться дальше:
                                     </f:facet>
                                     <p:commandButton id="button" value="#{transitionWrapper.text}" icon="ui-icon-check" action="#{gameController.changeCurrentNode(transitionWrapper.id)}" update="nodeForm transitionsForm final" style="width:100%;height: 80px"/>
                                 </p:dataList>
@@ -119,7 +123,7 @@
                                     <p:commandButton value="Начать заново"  onclick="PF('dlg').show();" icon="ui-icon-refresh" style="float: left; margin-top: 5px;width: 100%;height:auto; margin-left: 3px "/>
                                 </div>
 
-                                <div class="ui-grid-col-5">
+                                <div class="ui-grid-col-7">
                                 </div>
                                 <div class="ui-grid-col-2">
                                     <h:form>
