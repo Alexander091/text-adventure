@@ -1,7 +1,7 @@
-﻿CREATE TABLE public.action
+﻿﻿CREATE TABLE public.action
 (
   id bigint NOT NULL,
-  condition character varying(200),
+  condition character varying(200) NOT NULL,
   value real,
   item bigint,
   node bigint,

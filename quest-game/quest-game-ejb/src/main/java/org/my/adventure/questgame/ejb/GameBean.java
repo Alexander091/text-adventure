@@ -1,7 +1,5 @@
 package org.my.adventure.questgame.ejb;
 
-import org.my.adventure.dao_manager.api.dao.ResourceDAO;
-import org.my.adventure.dao_manager.api.dao.TypeOfResourceDAO;
 import org.my.adventure.dao_manager.api.entities.*;
 import org.my.adventure.questgame.impl.nodewr_builder.NodeWrapperDirector;
 import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
@@ -9,9 +7,8 @@ import org.my.adventure.questgame.impl.wrappers.QuestWrapper;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.Stateless;
-import java.io.File;
-import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Максим on 28.01.2016.
@@ -52,6 +49,27 @@ public class GameBean {
     public void refresh(long questId) {
         gameStagesBean.refresh(questId);
     }
+
+    public NodeWrapper goBack(long questId) {
+        return NodeWrapperDirector.constructNodeWrapper(gameStagesBean.getPreviousNode(questId));
+    }
+
+    public boolean started(long questId) {
+        return gameStagesBean.started(questId);
+    }
+
+    public List<NodeWrapper> getStack(long questId) {
+        List<NodeWrapper> list =  new ArrayList<NodeWrapper>();
+        for(Node node : gameStagesBean.getNodesList(questId)){
+            list.add(NodeWrapperDirector.constructNodeWrapper(node));
+        }
+        return list;
+    }
+
+    /*public QuestTimer getQtuestTimer(long questId) {
+        return gameStagesBean.getQuestTimer(questId);
+    }*/
+
     /*@EJB
     ResourceDAO resourceDAO;
 

@@ -1,13 +1,10 @@
 import org.my.adventure.questgame.ejb.GameBean;
 import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
 import org.my.adventure.questgame.impl.wrappers.TransitionWrapper;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -42,11 +39,28 @@ public class GameControllerBean implements Serializable {
     public void refresh(){
         gameBean.refresh(questId);
         node = gameBean.loadGame(questId);
+
+    }
+
+    public void goBack(){
+        node = gameBean.goBack(questId);
+    }
+
+    public boolean isAlreadyStarted(){
+        return gameBean.started(questId);
+    }
+
+    public List<NodeWrapper> getStack(){
+        return gameBean.getStack(questId);
     }
 
     public void addMessage() {
         String summary = soundEnabled ? "Sound ON" : "Sound OFF";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
+    }
+
+    public boolean isFinal(){
+        return node.getTransitions().isEmpty();
     }
 
     public String getName() {
