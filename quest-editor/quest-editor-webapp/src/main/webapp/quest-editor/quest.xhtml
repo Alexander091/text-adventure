@@ -6,11 +6,11 @@
     <h:form id="questForm">
         <h:panelGrid columns="2" cellpadding="10">
             <h:outputText value="Имя квеста:" />
-            <p:inputText value="#{questEditorController.name}"/>
+            <p:inputText value="#{questEditorController.name}" placeholder="Введите имя квеста..."/>
             <h:outputText value="Краткое описание:" />
-            <p:inputTextarea value="#{questEditorController.description}" rows="10" cols="50"/>
+            <p:inputTextarea value="#{questEditorController.description}" rows="10" cols="50" placeholder="Введите описание квеста..."/>
             <h:outputText value="Жанр:" />
-            <p:inputText value="#{questEditorController.genre}" />
+            <p:inputText value="#{questEditorController.genre}" placeholder="Введите жанр квеста..."/>
             <h:outputText value="Версия:" />
             <p:inputText value="#{questEditorController.version}" validatorMessage="Только цифры!">
                 <!--<f:validateRegex pattern="^[0-9]+$"/>-->

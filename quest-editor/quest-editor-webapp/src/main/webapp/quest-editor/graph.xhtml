@@ -148,7 +148,7 @@
         <p:dialog header="Выйти" widgetVar="exitDialog" resizable="false" modal="true" closable="false">
             <p:outputLabel value="Вы действительно хотите выйти? Все несохраненные изменения будут потеряны."/>
             <f:facet name="footer">
-                <p:commandButton value="Выйти" styleClass="exitDialogOKButton" action="/quest-storage/storage?faces-redirect=true"/>
+                <p:commandButton value="Выйти" styleClass="exitDialogOKButton" action="#{questEditorController.quit()}"/>
                 <p:commandButton value="Отмена" styleClass="exitDialogCloseButton"/>
             </f:facet>
         </p:dialog>

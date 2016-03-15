@@ -113,4 +113,10 @@ public class QuestEditorController implements Serializable{
         if(event.getTab().getId().equals("questTab"))
             RequestContext.getCurrentInstance().update("tabs:questForm:questPictureMenu");
     }
+    public String quit() {
+        quest=null;
+        questId=null;
+        activeIndex = 1;
+        return "/quest-storage/storage?faces-redirect=true";
+    }
 }
