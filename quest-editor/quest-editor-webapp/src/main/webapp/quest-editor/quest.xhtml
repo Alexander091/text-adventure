@@ -4,28 +4,61 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <h:form id="questForm">
-        <h:panelGrid columns="2" cellpadding="10">
-            <h:outputText value="Имя квеста:" />
-            <p:inputText value="#{questEditorController.name}" placeholder="Введите имя квеста..."/>
-            <h:outputText value="Краткое описание:" />
-            <p:inputTextarea value="#{questEditorController.description}" rows="10" cols="50" placeholder="Введите описание квеста..."/>
-            <h:outputText value="Жанр:" />
-            <p:inputText value="#{questEditorController.genre}" placeholder="Введите жанр квеста..."/>
-            <h:outputText value="Версия:" />
-            <p:inputText value="#{questEditorController.version}" validatorMessage="Только цифры!">
-                <!--<f:validateRegex pattern="^[0-9]+$"/>-->
-            </p:inputText>
-            <h:outputText value="Минимальный возраст:" />
-            <p:inputText value="#{questEditorController.ageLimit}" validatorMessage="Только цифры!">
-                <!--<f:validateRegex pattern="^[0-9]+$"/>-->
-            </p:inputText>
-            <h:outputText value="Картинка:" rendered="#{questEditorController.questId!=null}"/>
-            <p:selectOneMenu id="questPictureMenu" value="#{questEditorController.image}" converter="#{resourceConverter}" rendered="#{questEditorController.questId!=null}">
-                <f:selectItem itemLabel="Выберите картинку" itemValue=""/>
-                <f:selectItems value="#{questEditorController.allAvailablePictures}" var="image" itemValue="#{image}" itemLabel="#{image.name}" converter="#{resourceConverter}"/>
-            </p:selectOneMenu>
-            <p:commandButton id="saveButton" value="Сохранить" styleClass="acceptButton" action="#{questEditorController.saveQuest}" rendered="#{questEditorController.questId==null}"/>
-            <p:commandButton id="acceptButton" value="Применить" styleClass="acceptButton" action="#{questEditorController.updateQuest}" rendered="#{questEditorController.questId!=null}"/>
+        <h:panelGrid columns="2">
+            <p:panel style="border: 0px !important;">
+                <h:panelGrid cellpadding="10" columns="2">
+
+                        <h:outputText value="Имя квеста:" />
+                        <p:inputText value="#{questEditorController.name}" placeholder="Введите имя квеста..."/>
+
+
+                        <h:outputText value="Краткое описание:" />
+                        <p:inputTextarea value="#{questEditorController.description}" rows="10" cols="50" placeholder="Введите описание квеста..."/>
+
+
+                        <h:outputText value="Жанр:" />
+                        <p:inputText value="#{questEditorController.genre}" placeholder="Введите жанр квеста..."/>
+
+
+                        <h:outputText value="Версия:" />
+                        <p:inputText value="#{questEditorController.version}" validatorMessage="Только цифры!">
+                            <!--<f:validateRegex pattern="^[0-9]+$"/>-->
+                        </p:inputText>
+
+
+                        <h:outputText value="Минимальный возраст:" />
+                        <p:inputText value="#{questEditorController.ageLimit}" validatorMessage="Только цифры!">
+                            <!--<f:validateRegex pattern="^[0-9]+$"/>-->
+                        </p:inputText>
+
+
+
+
+
+
+
+                    <p:commandButton id="saveButton" value="Сохранить" styleClass="acceptButton" action="#{questEditorController.saveQuest}" rendered="#{questEditorController.questId==null}"/>
+                    <p:commandButton id="acceptButton" value="Применить" styleClass="acceptButton" action="#{questEditorController.updateQuest}" rendered="#{questEditorController.questId!=null}"/>
+                </h:panelGrid>
+            </p:panel>
+            <p:panel style="border: 0px !important;">
+                <h:panelGrid cellpadding="10" columns="1">
+                    <h:outputText value="Картинка:" rendered="#{questEditorController.questId!=null}"/>
+
+
+                    <p:selectOneMenu id="questPictureMenu" value="#{questEditorController.image}" converter="#{resourceConverter}" rendered="#{questEditorController.questId!=null}" widgetVar="questPictureMenu">
+
+                        <f:selectItem itemLabel="Выберите картинку" itemValue="#{questEditorController.getDefaultPicture()}" converter="#{resourceConverter}"/>
+                        <f:selectItems value="#{questEditorController.allAvailablePictures}" var="image" itemValue="#{image}" itemLabel="#{image.name}" converter="#{resourceConverter}"/>
+                        <p:ajax update="questPicture"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Превью:" rendered="#{questEditorController.questId!=null}"/>
+                    <p:graphicImage id="questPicture" value="#{questEditorController.byteImage}"
+                                    rendered="#{questEditorController.image!=null}"
+                                    style="height: 300px; max-width: 100% padding: 2px; border: 1px solid gray;" cache="false">
+                    </p:graphicImage>
+                </h:panelGrid>
+            </p:panel>
         </h:panelGrid>
     </h:form>
 </ui:composition>

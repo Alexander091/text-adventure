@@ -9,12 +9,17 @@ import org.my.adventure.questeditor.ejb.beans.ResourceEditorBean;
 import org.primefaces.component.tabview.Tab;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import javax.ejb.EJB;
 import javax.faces.bean.*;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -43,6 +48,9 @@ public class QuestEditorController implements Serializable{
         this.activeIndex = activeIndex;
     }
 
+    public Resource getDefaultPicture() {
+        return resourceEditorBean.getById(0L);
+    }
     public void loadQuest() {
         quest= questEditorBean.getById(questId);
     }
@@ -70,6 +78,7 @@ public class QuestEditorController implements Serializable{
     }
     public void setImage(Resource image) {
         quest.setImage(image);
+       // RequestContext.getCurrentInstance().update("tabs:questForm:questPicture");
     }
     public void setQuestId(Long questId) {
         this.questId = questId;
@@ -118,5 +127,28 @@ public class QuestEditorController implements Serializable{
         questId=null;
         activeIndex = 1;
         return "/quest-storage/storage?faces-redirect=true";
+    }
+    public StreamedContent getByteImage(){
+        StreamedContent streamedContent;
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+//             So, we're rendering the HTML. Return a stub StreamedContent so that it will generate right URL.
+            streamedContent = new DefaultStreamedContent();
+        }else {
+//            String resourceId = context.getExternalContext().getRequestParameterMap().get("resourceId");
+            Resource image = quest.getImage();
+            byte[] imageData;
+            if (image == null){
+                imageData = resourceEditorBean.getById(0L).getData();
+            }
+            else
+                imageData = image.getData();
+            if (imageData != null) {
+                streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(imageData), "image/jpg");
+            } else {
+                streamedContent = new DefaultStreamedContent();
+            }
+        }
+        return streamedContent;
     }
 }

@@ -27,7 +27,7 @@
                 <!--<p:commandButton type="button" value="Сохранить"></p:commandButton>-->
             <!--</f:facet>-->
         <!--</p:toolbar>-->
-        <p:tabView id="tabs" dynamic="true" activeIndex="#{questEditorController.activeIndex}">
+        <p:tabView id="tabs" dynamic="true" activeIndex="#{questEditorController.activeIndex}" styleClass="Container">
             <p:ajax event="tabChange" listener="#{questEditorController.onTabChange}"/>
             <p:tab title="Граф" disabled="#{questEditorController.questId==null}">
                 <ui:include src="graph.xhtml"/>
@@ -65,6 +65,7 @@
             function deleteClosestRow(button) {
                 button.closest('tr').remove();
             }
+
         </h:outputScript>
         <!--</ui:define>-->
     <!--</ui:composition>-->
