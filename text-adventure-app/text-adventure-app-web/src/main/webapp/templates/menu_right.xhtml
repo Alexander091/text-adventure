@@ -10,7 +10,8 @@
 <h:body>
     <c:choose>
         <c:when test="#{loginController.jaasUser() == null}">
-            <p:button outcome="/quest-storage/storage.xhtml" value="Login" icon="ui-icon-key"/>
+            <p:button outcome="/security/registration.xhtml" value="Зарегистрироваться" icon="ui-icon-plus"/>
+            <p:button outcome="/quest-storage/storage.xhtml" value="Войти" icon="ui-icon-key"/>
         </c:when>
         <c:otherwise>
             <p:commandButton value="#{loginController.jaasUser()}"/>

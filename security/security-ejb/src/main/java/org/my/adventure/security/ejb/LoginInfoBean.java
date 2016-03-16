@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by al on 29.02.2016.
  */
 @Stateless
-public class LoginInfo {
+public class LoginInfoBean {
 
     public boolean isAdmin(){
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
