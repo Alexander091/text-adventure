@@ -15,3 +15,7 @@
 .actionsTable {
     border: 1px;
 }
+
+.alignTop td {
+    vertical-align: top;
+}

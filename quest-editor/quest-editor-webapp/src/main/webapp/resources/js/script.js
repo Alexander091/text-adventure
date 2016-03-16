@@ -290,6 +290,13 @@ $(document).ready(function() { // on dom ready
         PF('deleteNodeDialog').hide();
     });
     $('.editDialogNodeOKButton').click(function() {
+        if($('.editDialogNodeName').val()=="" || $('.editDialogNodeDescription').val()=="") {
+            PF('messages').renderMessage({
+                "summary": "Не все поля заполнены",
+                "severity": "error"
+            });
+            return;
+        }
         var actions = [];
         var table = $('#editDialogActionsTable');
         var rows = $('tr', table);
@@ -329,6 +336,13 @@ $(document).ready(function() { // on dom ready
         PF('editNodeDialog').hide();
     });
     $('.editDialogEdgeOKButton').click(function() {
+        if($('.editDialogEdgeName').val()=="") {
+            PF('messages').renderMessage({
+                "summary": "Не все поля заполнены",
+                "severity": "error"
+            });
+            return;
+        }
         var edgeId = $('.editDialogEdgeId').val();
         var edge = {
             'name' : $('.editDialogEdgeName').val(),
@@ -356,6 +370,13 @@ $(document).ready(function() { // on dom ready
         PF('editEdgeDialog').hide();
     })
     $('.addDialogNodeOKButton').click(function () {
+        if($('.addDialogNodeName').val()=="" || $('.addDialogNodeDescription').val()=="") {
+            PF('messages').renderMessage({
+                "summary": "Не все поля заполнены",
+                "severity": "error"
+            });
+            return;
+        }
         var actions = [];
         var panPos = cy.pan();
         var width = cy.width();
@@ -398,6 +419,13 @@ $(document).ready(function() { // on dom ready
         PF('addNodeDialog').hide();
     });
     $('.addDialogEdgeOKButton').click(function () {
+        if($('.addDialogEdgeName').val()=="") {
+            PF('messages').renderMessage({
+                "summary": "Не все поля заполнены",
+                "severity": "error"
+            });
+            return;
+        }
         var edge = {
             'name' : $('.addDialogEdgeName').val(),
             'source' : $("#addDialogNodeFromMenu").val(),

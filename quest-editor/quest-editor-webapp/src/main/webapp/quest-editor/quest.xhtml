@@ -4,59 +4,47 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
     <h:form id="questForm">
+        <p:messages autoUpdate="true"/>
         <h:panelGrid columns="2">
             <p:panel style="border: 0px !important;">
                 <h:panelGrid cellpadding="10" columns="2">
 
                         <h:outputText value="Имя квеста:" />
-                        <p:inputText value="#{questEditorController.name}" placeholder="Введите имя квеста..."/>
-
+                        <p:inputTextarea id="questName" value="#{questEditorController.name}" rows="1" cols="40" placeholder="Введите имя квеста..." required="true" requiredMessage="Введите имя"/>
 
                         <h:outputText value="Краткое описание:" />
-                        <p:inputTextarea value="#{questEditorController.description}" rows="10" cols="50" placeholder="Введите описание квеста..."/>
-
+                        <p:inputTextarea id="questDescription" value="#{questEditorController.description}" rows="10" cols="50" placeholder="Введите описание квеста..." required="true" requiredMessage="Введите описание"/>
 
                         <h:outputText value="Жанр:" />
-                        <p:inputText value="#{questEditorController.genre}" placeholder="Введите жанр квеста..."/>
-
-
-                        <h:outputText value="Версия:" />
-                        <p:inputText value="#{questEditorController.version}" validatorMessage="Только цифры!">
-                            <!--<f:validateRegex pattern="^[0-9]+$"/>-->
-                        </p:inputText>
+                        <p:inputTextarea value="#{questEditorController.genre}" rows="1" cols="40" placeholder="Введите жанр квеста..." required="true" requiredMessage="Введите жанр"/>
 
 
                         <h:outputText value="Минимальный возраст:" />
-                        <p:inputText value="#{questEditorController.ageLimit}" validatorMessage="Только цифры!">
-                            <!--<f:validateRegex pattern="^[0-9]+$"/>-->
-                        </p:inputText>
-
-
-
-
-
-
-
-                    <p:commandButton id="saveButton" value="Сохранить" styleClass="acceptButton" action="#{questEditorController.saveQuest}" rendered="#{questEditorController.questId==null}"/>
-                    <p:commandButton id="acceptButton" value="Применить" styleClass="acceptButton" action="#{questEditorController.updateQuest}" rendered="#{questEditorController.questId!=null}"/>
+                        <p:inputTextarea value="#{questEditorController.ageLimit}" rows="1" cols="40" validatorMessage="Возраст должен быть в диапазоне от 3 до 100!" required="true" requiredMessage="Введите минимальный возраст">
+                                <f:validateDoubleRange minimum="3" maximum="100"/>
+                        </p:inputTextarea>
+                    <p:commandButton id="saveButton" value="Сохранить" styleClass="acceptButton" action="#{questEditorController.saveQuest}" rendered="#{questEditorController.questId==null}" validateClient="true"/>
+                    <p:commandButton id="acceptButton" value="Применить" styleClass="acceptButton" action="#{questEditorController.updateQuest}" rendered="#{questEditorController.questId!=null}" validateClient="true"/>
                 </h:panelGrid>
             </p:panel>
             <p:panel style="border: 0px !important;">
-                <h:panelGrid cellpadding="10" columns="1">
-                    <h:outputText value="Картинка:" rendered="#{questEditorController.questId!=null}"/>
+                <h:panelGrid cellpadding="5" columns="1" styleClass="alignTop" style="width: 100%;">
+                    <h:panelGrid cellpadding="10" columns="2" styleClass="alignTop">
+                        <h:outputText value="Картинка:" rendered="#{questEditorController.questId!=null}"/>
+                        <p:selectOneMenu id="questPictureMenu" value="#{questEditorController.image}" converter="#{resourceConverter}" rendered="#{questEditorController.questId!=null}" widgetVar="questPictureMenu">
 
-
-                    <p:selectOneMenu id="questPictureMenu" value="#{questEditorController.image}" converter="#{resourceConverter}" rendered="#{questEditorController.questId!=null}" widgetVar="questPictureMenu">
-
-                        <f:selectItem itemLabel="Выберите картинку" itemValue="#{questEditorController.getDefaultPicture()}" converter="#{resourceConverter}"/>
-                        <f:selectItems value="#{questEditorController.allAvailablePictures}" var="image" itemValue="#{image}" itemLabel="#{image.name}" converter="#{resourceConverter}"/>
-                        <p:ajax update="questPicture"/>
-                    </p:selectOneMenu>
+                            <f:selectItem itemLabel="Выберите картинку" itemValue="#{questEditorController.getDefaultPicture()}" converter="#{resourceConverter}"/>
+                            <f:selectItems value="#{questEditorController.allAvailablePictures}" var="image" itemValue="#{image}" itemLabel="#{image.name}" converter="#{resourceConverter}"/>
+                            <p:ajax update="questPicture"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
                     <h:outputText value="Превью:" rendered="#{questEditorController.questId!=null}"/>
-                    <p:graphicImage id="questPicture" value="#{questEditorController.byteImage}"
-                                    rendered="#{questEditorController.image!=null}"
-                                    style="height: 300px; max-width: 100% padding: 2px; border: 1px solid gray;" cache="false">
-                    </p:graphicImage>
+                    <div>
+                        <p:graphicImage id="questPicture" value="#{questEditorController.byteImage}"
+                                        rendered="#{questEditorController.image!=null}"
+                                        style="height: 300px; width: 100%; padding: 2px; border: 1px solid gray;" cache="false">
+                        </p:graphicImage>
+                    </div>
                 </h:panelGrid>
             </p:panel>
         </h:panelGrid>

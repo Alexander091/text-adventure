@@ -11,10 +11,10 @@
             </f:metadata>
 
             <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
-                          label="Загрузить файл"
+                          label="Загрузить картинку"
                           multiple="true"
                           update="iDataGrid, messages"
-                          auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpe?g|png|mp3|wav)$/">
+                          auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpe?g|png)$/">
                 <f:attribute name="questId" value="#{questEditorController.questId}" />
             </p:fileUpload>
 
