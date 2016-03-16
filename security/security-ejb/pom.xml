@@ -22,6 +22,11 @@
             <artifactId>dao-manager-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>de.rtner</groupId>
+            <artifactId>PBKDF2</artifactId>
+            <version>1.1.1</version>
+        </dependency>
     </dependencies>
 
 </project>

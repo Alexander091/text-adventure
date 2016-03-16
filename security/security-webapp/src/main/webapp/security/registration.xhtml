@@ -66,6 +66,9 @@
                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
                             </p:inputText>
                             <p:message for="r_mail" display="both"/>
+                            <p:outputLabel/>
+                            <p:captcha label="Captcha" />
+                            <p:outputLabel/>
                             <f:facet name="footer">
                                 <p:commandButton id="registerButton" value="Зарегистрироваться" tabindex="6"
                                                  action="#{registrationBean.register()}"
