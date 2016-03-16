@@ -2,9 +2,6 @@ package org.my.adventure.queststorage.ejb;
 
 import org.my.adventure.dao_manager.api.entities.Quest;
 import org.my.adventure.dao_manager.api.entities.Resource;
-import org.primefaces.model.DefaultStreamedContent;
-
-import java.io.ByteArrayInputStream;
 
 /**
  * Created by al on 23.02.2016.
@@ -17,7 +14,7 @@ public class QuestWrapper {
     private Integer ageLimit;
     private Float rating;
     private String name;
-    private DefaultStreamedContent image;
+    private Resource image;
 
     public String getDescription() {
         return description;
@@ -75,20 +72,13 @@ public class QuestWrapper {
         this.name = name;
     }
 
-    public DefaultStreamedContent getImage() {
+    public Resource getImage() {
         return image;
     }
 
-    public void setImage(DefaultStreamedContent image) {
+    public void setImage(Resource image) {
         this.image = image;
     }
-
-    public void setImage(Resource image) {
-        if (image != null)
-            this.image = new DefaultStreamedContent(new ByteArrayInputStream(image.getData()), "image/jpg");
-        else image = null;
-    }
-
 
     public QuestWrapper(Quest quest){
         this.id = quest.getId();
@@ -98,9 +88,6 @@ public class QuestWrapper {
         this.ageLimit = quest.getAgeLimit();
         this.rating = quest.getRating();
         this.name = quest.getName();
-        if (quest.getImage() != null && quest.getImage().getData() != null)
-            this.image = new DefaultStreamedContent(new ByteArrayInputStream(quest.getImage().getData()));
-        else
-            this.image = null;
+        this.image = quest.getImage();
     }
 }

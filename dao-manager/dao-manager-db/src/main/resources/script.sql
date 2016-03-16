@@ -1,4 +1,4 @@
-﻿CREATE TABLE public.action
+﻿﻿CREATE TABLE public.action
 (
   id bigint NOT NULL,
   condition character varying(200) NOT NULL,
@@ -35,6 +35,7 @@ CREATE TABLE public.node
   description character varying(2000),
   name character varying(200) NOT NULL,
   quest_id bigint NOT NULL,
+  position character varying(200) NOT NULL,
   CONSTRAINT node_pkey PRIMARY KEY (id)
 );
 
@@ -48,6 +49,7 @@ CREATE TABLE public.quest
   rating real,
   version integer,
   start_node bigint,
+  image bigint,
   CONSTRAINT quest_pkey PRIMARY KEY (id)
 );
 
@@ -55,9 +57,9 @@ CREATE TABLE public.resource
 (
   id bigint NOT NULL,
   name character varying(200) NOT NULL,
-  path character varying(1000) NOT NULL,
   quest_id bigint NOT NULL,
   type_id bigint NOT NULL,
+  data bytea,
   CONSTRAINT resource_pkey PRIMARY KEY (id)
 );
 
@@ -91,6 +93,7 @@ CREATE TABLE public.stat
 CREATE TABLE public.transition
 (
   id bigint NOT NULL,
+  name character varying(200) NOT NULL,
   condition character varying(1000) NOT NULL,
   from_node bigint NOT NULL,
   to_node bigint NOT NULL,
@@ -101,6 +104,7 @@ CREATE TABLE public.type_of_action
 (
   id bigint NOT NULL,
   name character varying(100) NOT NULL,
+  type_of_resource_id bigint,
   CONSTRAINT type_of_action_pkey PRIMARY KEY (id)
 );
 
@@ -111,7 +115,7 @@ CREATE TABLE public.type_of_resource
   CONSTRAINT type_of_resource_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE public."user"
+CREATE TABLE public."users"
 (
   id bigint NOT NULL,
   email character varying(200) NOT NULL,
@@ -137,28 +141,42 @@ ALTER TABLE public.action
 ALTER TABLE public.action
 	ADD FOREIGN KEY (stat) REFERENCES public.stat (id);
 ALTER TABLE public.action
-	ADD FOREIGN KEY (node) REFERENCES public.node (id);
+  ADD CONSTRAINT action_node_fkey
+  FOREIGN KEY (node) REFERENCES public.node (id) ON DELETE CASCADE;
 ALTER TABLE public.action
 	ADD FOREIGN KEY (parent) REFERENCES public.action (id);
 ALTER TABLE public.action
 	ADD FOREIGN KEY (item) REFERENCES public.item (id);
 
+ALTER TABLE type_of_action
+ADD CONSTRAINT type_of_resource_fk
+   FOREIGN KEY (type_of_resource_id) REFERENCES type_of_resource(id);
+
 ALTER TABLE public.game 
 	ADD FOREIGN KEY (quest_id) REFERENCES public.quest (id);
 ALTER TABLE public.game
-	ADD FOREIGN KEY (user_id) REFERENCES public."user" (id);
+	ADD FOREIGN KEY (user_id) REFERENCES public."users" (id);
 
 ALTER TABLE public.item 
 	ADD FOREIGN KEY (quest_id) REFERENCES public.quest (id);
 
-ALTER TABLE public.node 
-	ADD FOREIGN KEY (quest_id) REFERENCES public.quest (id);
+ALTER TABLE node
+  ADD CONSTRAINT node_quest_id_cas_fkey FOREIGN KEY (quest_id)
+      REFERENCES quest (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
 	
 ALTER TABLE public.quest 
 	ADD FOREIGN KEY (start_node) REFERENCES public.node (id);
 
-ALTER TABLE public.resource 
-	ADD FOREIGN KEY (quest_id) REFERENCES public.quest (id);
+ALTER TABLE public.quest
+  ADD CONSTRAINT image_resource_fk FOREIGN KEY (image)
+      REFERENCES resource (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE public.resource
+	ADD CONSTRAINT resource_quest_id_fk FOREIGN KEY (quest_id)
+		REFERENCES public.quest (id)
+		ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE public.resource
 	ADD FOREIGN KEY (type_id) REFERENCES public.type_of_resource (id);
 	
@@ -181,6 +199,15 @@ ALTER TABLE public.transition
 ALTER TABLE public.transition
   ADD CONSTRAINT trans_from_node_f_key
   FOREIGN KEY (from_node) REFERENCES public.node (id) ON DELETE CASCADE;
-	
-ALTER TABLE public."user" 
+
+ALTER TABLE public."users"
 	ADD FOREIGN KEY (user_role) REFERENCES public.user_role (id);
+
+CREATE SEQUENCE entity_id_seq
+  INCREMENT 50
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 2651
+  CACHE 1;
+ALTER TABLE entity_id_seq
+  OWNER TO postgres;

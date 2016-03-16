@@ -32,7 +32,7 @@ public class Resource extends Common{
         this.name = name;
     }
 
-
+    @Basic
     @Column(name = "data", nullable = false, insertable = true, updatable = true)
     public byte[] getData() {
         return data;
@@ -50,5 +50,14 @@ public class Resource extends Common{
 
     public void setQuestByQuestId(Quest questByQuestId) {
         this.questByQuestId = questByQuestId;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return (other!=null && getClass() == other.getClass() && id != null) ? id.equals(((Resource)other).getId()) : (other==this);
+    }
+    @Override
+    public int hashCode() {
+        return (id!=null) ? (getClass().hashCode()+id.hashCode()) : super.hashCode();
     }
 }

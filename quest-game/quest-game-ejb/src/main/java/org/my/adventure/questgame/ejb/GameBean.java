@@ -1,16 +1,12 @@
 package org.my.adventure.questgame.ejb;
 
-import org.my.adventure.dao_manager.api.entities.Node;
-import org.my.adventure.dao_manager.api.entities.Quest;
-import org.my.adventure.dao_manager.api.entities.Transition;
+import org.my.adventure.dao_manager.api.entities.*;
+import org.my.adventure.questgame.impl.nodewr_builder.NodeWrapperDirector;
 import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
 import org.my.adventure.questgame.impl.wrappers.QuestWrapper;
-import org.my.adventure.questgame.impl.wrappers.TransitionWrapper;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +24,7 @@ public class GameBean {
     public NodeWrapper getNextWrappedNode(long questId,long transId) {
         Node node = findTransById(questId,transId).getNodeByToNode();
         gameStagesBean.setNewGameStage(questId, node);
-        return getCurrentWrappedNode(questId);
+        return NodeWrapperDirector.constructNodeWrapper(node);
     }
 
     private Transition findTransById(long questId,long transId){
@@ -41,26 +37,61 @@ public class GameBean {
         return tr;
     }
 
-    public List<TransitionWrapper> getWrappedTransitions(List<Transition> transitions) {
-        List<TransitionWrapper> trans = new ArrayList<TransitionWrapper>();
-        for(Transition tr : transitions)
-            trans.add(new TransitionWrapper(tr.getName(),tr.getId()));
-        return trans;
-    }
-
-    public NodeWrapper getCurrentWrappedNode(long questId){
-        Node node = gameStagesBean.getNodeByQuestId(questId);
-        return new NodeWrapper(node.getName(),
-                node.getDescription(),
-                getWrappedTransitions(node.getTransitions()));
-    }
-
-    public void loadGame(long questId){
-        gameStagesBean.loadGameByQuestId(questId);
+    public NodeWrapper loadGame(long questId){
+        return new NodeWrapperDirector().constructNodeWrapper(gameStagesBean.loadGameByQuestId(questId));
     }
 
     public QuestWrapper getWrappedQuest(long questId){
         Quest quest = gameStagesBean.getQuest(questId);
         return new QuestWrapper(questId, quest.getName());
     }
+
+    public void refresh(long questId) {
+        gameStagesBean.refresh(questId);
+    }
+
+    public NodeWrapper goBack(long questId) {
+        return NodeWrapperDirector.constructNodeWrapper(gameStagesBean.getPreviousNode(questId));
+    }
+
+    public boolean started(long questId) {
+        return gameStagesBean.started(questId);
+    }
+
+    public List<NodeWrapper> getStack(long questId) {
+        List<NodeWrapper> list =  new ArrayList<NodeWrapper>();
+        for(Node node : gameStagesBean.getNodesList(questId)){
+            list.add(NodeWrapperDirector.constructNodeWrapper(node));
+        }
+        return list;
+    }
+
+    /*public QuestTimer getQtuestTimer(long questId) {
+        return gameStagesBean.getQuestTimer(questId);
+    }*/
+
+    /*@EJB
+    ResourceDAO resourceDAO;
+
+                @EJB
+                TypeOfResourceDAO typeOfResourceDAO;
+
+                public void input(long questId){
+           File file = new File("C:\\sound.mp3");
+                    byte[] imageData = new byte[(int) file.length()];
+
+                        try {
+                        FileInputStream fileInputStream = new FileInputStream(file);
+                        fileInputStream.read(imageData);
+                        fileInputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                Resource res = new Resource();
+                res.setName("sound");
+                res.setType(typeOfResourceDAO.getById(1L));
+                res.setData(imageData);
+                res.setQuestByQuestId(gameStagesBean.getQuest(questId));
+                resourceDAO.saveOrUpdate(res);
+            }*/
 }

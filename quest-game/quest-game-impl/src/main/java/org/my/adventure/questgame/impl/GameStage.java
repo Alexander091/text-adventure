@@ -14,13 +14,11 @@ public class GameStage {
     
     private long questId;
     private Node node;
-    
+
     public GameStage (long questId, Node node){
         this.questId = questId;
         this.node = node;
     }
-
-
 
     public long getQuestId() {
         return questId;
@@ -33,7 +31,6 @@ public class GameStage {
     public void setNode(Node node) {
        this.node = node;
     }
-
 
     public Node getNode() {
         return node;

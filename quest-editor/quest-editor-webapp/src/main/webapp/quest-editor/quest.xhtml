@@ -3,7 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    <h:form>
+    <h:form id="questForm">
         <h:panelGrid columns="2" cellpadding="10">
             <h:outputText value="Имя квеста:" />
             <p:inputText value="#{questEditorController.name}"/>
@@ -19,6 +19,11 @@
             <p:inputText value="#{questEditorController.ageLimit}" validatorMessage="Только цифры!">
                 <!--<f:validateRegex pattern="^[0-9]+$"/>-->
             </p:inputText>
+            <h:outputText value="Картинка:" rendered="#{questEditorController.questId!=null}"/>
+            <p:selectOneMenu id="questPictureMenu" value="#{questEditorController.image}" converter="#{resourceConverter}" rendered="#{questEditorController.questId!=null}">
+                <f:selectItem itemLabel="Выберите картинку" itemValue=""/>
+                <f:selectItems value="#{questEditorController.allAvailablePictures}" var="image" itemValue="#{image}" itemLabel="#{image.name}" converter="#{resourceConverter}"/>
+            </p:selectOneMenu>
             <p:commandButton id="saveButton" value="Сохранить" styleClass="acceptButton" action="#{questEditorController.saveQuest}" rendered="#{questEditorController.questId==null}"/>
             <p:commandButton id="acceptButton" value="Применить" styleClass="acceptButton" action="#{questEditorController.updateQuest}" rendered="#{questEditorController.questId!=null}"/>
         </h:panelGrid>

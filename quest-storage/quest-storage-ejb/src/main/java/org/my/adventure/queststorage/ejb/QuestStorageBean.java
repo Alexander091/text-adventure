@@ -6,6 +6,7 @@ import org.hibernate.HibernateError;
 import org.my.adventure.dao_manager.api.dao.QuestDAO;
 import org.my.adventure.dao_manager.api.dao.ResourceDAO;
 import org.my.adventure.dao_manager.api.entities.Quest;
+import org.my.adventure.dao_manager.api.entities.Resource;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -34,26 +35,47 @@ public class QuestStorageBean {
         return getQuests(ALL_GENRES);
     }
 
+    public byte[] getImageByQuestId(Long questId){
+        Quest quest = questDAO.getById(questId);
+        Resource resource = null;
+        if (quest != null)
+            resource = quest.getImage();
+        if (resource != null)
+            return resource.getData();
+        else
+            return null;
+    }
+
+    public byte[] getImageByResourceId(Long resourceId){
+        Resource resource = resourceDAO.getById(resourceId);
+        if (resource != null)
+            return resource.getData();
+        else
+            return null;
+    }
+
     public List<QuestWrapper> getQuests(String genre){
         List<Quest> quests = null;
         if (genre.equals(ALL_GENRES))
             quests = questDAO.getAll();
         else
             quests = questDAO.getAllByGenre(genre);
-        List<QuestWrapper> questWrappers = new ArrayList<>();
+        List<QuestWrapper> questWrappers = new ArrayList<QuestWrapper>();
         for (Quest quest : quests) {
-            QuestWrapper questWrapper = new QuestWrapper(quest);
-//            if (questWrapper.getImage() == null)
-            questWrapper.setImage(resourceDAO.getById(0L));
-            if (questWrapper.getRating() == null)
-                questWrapper.setRating(0f);
-            questWrappers.add(questWrapper);
+            if (quest.getId()!=null){
+                QuestWrapper questWrapper = new QuestWrapper(quest);
+            if (questWrapper.getImage() == null)
+                questWrapper.setImage(resourceDAO.getById(0L));//Image placeholder
+                if (questWrapper.getRating() == null)
+                    questWrapper.setRating(0f);
+                questWrappers.add(questWrapper);
+            }
         }
-        questWrappers.sort(new Comparator<QuestWrapper>() {
+        /*questWrappers.sort(new Comparator<QuestWrapper>() {
             public int compare(QuestWrapper o1, QuestWrapper o2) {
                 return o1.getName().compareTo(o2.getName());
             }
-        });
+        });*/
         return questWrappers;
     }
 

@@ -3,17 +3,72 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    <f:view>
-        <h:form enctype="multipart/form-data">
+    <div align="center">
+        <h:form id="mainform">
 
+            <f:metadata>
+                <f:viewParam name="questId" value="#{uploadController.questId}"/>
+            </f:metadata>
 
-            <p:fileUpload mode="advanced" auto="true" fileUploadListener="#{uploadController.upload}" sizeLimit="1000000" allowTypes="/(\.|\/)(jpe?g|png)$/"/>
+            <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
+                          label="Загрузить файл"
+                          multiple="true"
+                          update="iDataGrid, messages"
+                          auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(jpe?g|png|mp3|wav)$/">
+                <f:attribute name="questId" value="#{questEditorController.questId}" />
+            </p:fileUpload>
+
+            <p:dataGrid value="#{resourceController.getImages(questEditorController.questId)}" var="image"
+                        paginator="true"
+                        rows="6" rowsPerPageTemplate="3,6,8,12,18"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
+                        {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        id="iDataGrid">
+                <p:panel style="text-align: center;">
+                    <f:facet name="header">
+                        <p:outputLabel value="#{image.name}"/>
+                    </f:facet>
+                    <p:graphicImage value="#{uploadController.image}"
+                                    rendered="#{image!=null}" style="height: 200px;"
+                                    onclick="PF('dlg#{image.id}').show();">
+                        <f:param name="resourceId" value="#{image.id}" />
+                    </p:graphicImage>
+                    <f:facet name="footer">
+                        <div align="center">
+                            <p:commandButton value="Удалить"
+                                             update="iDataGrid"
+                                             actionListener="#{resourceController.deleteResource(image.id)}">
+                                <p:confirm header="Подтверждение" message="Вы уверены?"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closeOnEscape="true" closable="true">
+                                <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            </p:confirmDialog>
+                        </div>
+                    </f:facet>
+                </p:panel>
+                <p:dialog header="#{image.name}" widgetVar="dlg#{image.id}"
+                          showEffect="clip" hideEffect="clip"
+                          width="60%" modal="true"
+                          style="text-align: center"
+                          draggable="false" resizable="false"
+                          dynamic="true" closeOnEscape="true">
+                            <p:graphicImage value="#{uploadController.image}"
+                                            rendered="#{image!=null}"
+                                            style="height: 500px; max-width: 100%">
+                                <f:param name="resourceId" value="#{image.id}" />
+                            </p:graphicImage>
+                    <div align="center">
+                        <p:commandButton value="Удалить"
+                                         update="iDataGrid"
+                                         actionListener="#{resourceController.deleteResource(image.id)}">
+                            <p:confirm header="Подтверждение" message="Вы уверены?"/>
+                        </p:commandButton>
+                    </div>
+                </p:dialog>
+            </p:dataGrid>
+
             <p:growl id="messages" showDetail="true" />
         </h:form>
-    </f:view>
-    <!--<p:dataList var="car" type="definition">-->
-        <!--<f:facet name="header">-->
-            <!--Картинки-->
-        <!--</f:facet>-->
-    <!--</p:dataList>-->
+    </div>
 </ui:composition>
