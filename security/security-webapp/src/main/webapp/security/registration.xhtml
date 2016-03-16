@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+
+    <ui:composition template="/templates/layout.xhtml">
+
+        <ui:define name="content">
+            <div style="width: 100%">
+                <p:growl id="r_messages"/>
+                <h:form id="registrationForm" onsubmit="action='index.xhtml';">
+                    <p:panel id="register" style="width:70%; text-align: left">
+
+                        <f:facet name="header">
+                            <p:outputLabel value="Регистрация"/>
+                        </f:facet>
+
+                        <p:panelGrid columns="3" id="grid" style="margin-left: 30%">
+                            <p:outputLabel value="Логин"/>
+                            <p:inputText value="#{registrationBean.login}" placeholder="Логин"
+                                         id="r_login"
+                                         required="true" tabindex="1"
+                                         validatorMessage="Длина логина от 2 до 20 символов"
+                                         requiredMessage="Необходимо ввести имя пользователя">
+                                <f:validateLength minimum="2" maximum="20" />
+                            </p:inputText>
+                            <p:message for="r_login" display="both"/>
+                            <p:outputLabel value="Пароль"/>
+                            <p:password value="#{registrationBean.password}" placeholder="Пароль"
+                                        id="r_password" inline="true"
+                                        required="true" tabindex="2" feedback="true"
+                                        promptLabel="Необходимо ввести пароль" weakLabel="Слабый"
+                                        goodLabel="Хороший" strongLabel="Отличный"
+                                        validatorMessage="Длина пароля от 6 до 50 символов, одна цифра,
+                                            минимум одна заглавная буква, одна строчная буква и один специальный символ (@#$%)"
+                                        requiredMessage="Длина пароля от 6 до 50 символов">
+                                <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})" />
+                                <f:validateLength minimum="6" maximum="50" />
+                            </p:password>
+                            <p:message for="r_password" display="both"/>
+                            <p:outputLabel value="Имя"/>
+                            <p:inputText value="#{registrationBean.name}" placeholder="Имя"
+                                         id="r_name"
+                                         required="true" tabindex="3"
+                                         requiredMessage="Необходимо ввести имя"/>
+                            <p:message for="r_name" display="both"/>
+                            <p:outputLabel value="Фамилия"/>
+                            <p:inputText value="#{registrationBean.surname}" placeholder="Фамилия"
+                                         id="r_surname"
+                                         required="true" tabindex="4"
+                                         requiredMessage="Необходимо ввести фамилию">
+                            </p:inputText>
+                            <p:message for="r_surname" display="both"/>
+                            <p:outputLabel value="Адрес почты"/>
+                            <p:inputText value="#{registrationBean.email}" placeholder="mail@gmail.com"
+                                         id="r_mail"
+                                         required="true" tabindex="5"
+                                         validatorMessage="Неверный формат почты"
+                                         requiredMessage="Необходимо ввести адрес почты">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                            </p:inputText>
+                            <p:message for="r_mail" display="both"/>
+                            <f:facet name="footer">
+                                <p:commandButton id="registerButton" value="Зарегистрироваться" tabindex="6"
+                                                 action="#{registrationBean.register()}"
+                                                 ajax="true" update="grid" validateClient="true"
+                                                 styleClass="acceptButton" icon="ui-icon-circle-check"/>
+                                <p:button outcome="/index.xhtml" value="Отмена" icon="ui-icon-circle-close"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
