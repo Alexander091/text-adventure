@@ -19,11 +19,10 @@ public class QuestTimer {
 
     public String toString(){
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("Р’СЂРµРјСЏ: ");
         stringBuffer.append(appendValue(hours));
-        stringBuffer.append(":");
+        stringBuffer.append("ч ");
         stringBuffer.append(appendValue(minutes));
-
+        stringBuffer.append("мин");
         return stringBuffer.toString();
     }
 

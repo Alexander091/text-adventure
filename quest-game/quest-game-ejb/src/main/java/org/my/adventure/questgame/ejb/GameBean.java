@@ -46,8 +46,8 @@ public class GameBean {
         return new QuestWrapper(questId, quest.getName());
     }
 
-    public void refresh(long questId) {
-        gameStagesBean.refresh(questId);
+    public void reset(long questId) {
+        gameStagesBean.reset(questId);
     }
 
     public NodeWrapper goBack(long questId) {

@@ -71,8 +71,10 @@ public class GameStagesBean {
         gameStagesStacks.get(questId).push(new GameStage(questId, node));
     }
 
-    public void refresh(long questId) {
-        gameStagesStacks.remove(questId);
+    public void reset(long questId) {
+        if(gameStagesStacks.containsKey(questId)) {
+            gameStagesStacks.remove(questId);
+        }
     }
 
     public Resource getResourceById(long resourceId){
