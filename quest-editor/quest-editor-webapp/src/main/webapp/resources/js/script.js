@@ -1,4 +1,9 @@
 $(document).ready(function() { // on dom ready
+    $(window).bind("pageshow"), function(event) {
+        if(event.originalEvent.persisted) {
+            window.location.reload();
+        }
+    }
     $('#cy').height(window.innerHeight-165);
     var cy = cytoscape({
         container: document.getElementById('cy'),
@@ -185,7 +190,7 @@ $(document).ready(function() { // on dom ready
             console.log("error on undo");
         })
     });
-    $('.saveButton').click(function() {
+    function saveQuest() {
         PF('waitForSavingDialog').show();
         var outputArray = [];
         var nodesArray = cy.nodes();
@@ -203,6 +208,7 @@ $(document).ready(function() { // on dom ready
                     "severity": "info"
                 });
                 console.log("save success");
+                PF('waitForSavingDialog').hide();
             }
             else {
                 var totalMessage = "";
@@ -232,12 +238,74 @@ $(document).ready(function() { // on dom ready
                     "severity": "error"
                 });
                 console.log("error on save");
+                PF('waitForSavingDialog').hide();
             }
-            PF('waitForSavingDialog').hide();
+
         }).fail(function() {
+            PF('waitForSavingDialog').hide();
             console.log("error on save");
+            validQuest = false;
         })
-    });
+    }
+    $('.saveButton').click(saveQuest);
+    $('.playButton').click(function() {
+        PF('waitForSavingDialog').show();
+        var outputArray = [];
+        var nodesArray = cy.nodes();
+        for(var i=0; i<nodesArray.length; i++)
+            outputArray.push({"id": nodesArray[i].data().id, "position": nodesArray[i].position('x') + " " + nodesArray[i].position('y')});
+        $.ajax({
+            type: 'post',
+            data: JSON.stringify(outputArray),
+            url: "/TextAdventure/rest/command/save"
+        }).done(function(data) {
+            var responseArray = data.response;
+            if(responseArray[0] == "valid") {
+                PF('messages').renderMessage({
+                    "summary": "Успешно сохранено",
+                    "severity": "info"
+                });
+                console.log("save success");
+                PF('waitForSavingDialog').hide();
+                window.location.replace("/TextAdventure/game/index.xhtml?questId=" + $('.questIdInput').val() + "&test=true");
+            }
+            else {
+                var totalMessage = "";
+                for(var i = 0; i<responseArray.length; i++)
+                {
+                    switch(responseArray[i]) {
+                        case "invalid_start_node": {
+                            totalMessage += "Неправильный стартовый этап\r\n"; break;
+                        }
+                        case "missing_start_node": {
+                            totalMessage += "Не найден стартовый этап\r\n"; break;
+                        }
+                        case "multiple_start_nodes": {
+                            totalMessage += "Больше одного стартового этапа\r\n"; break;
+                        }
+                        case "missing_end_node": {
+                            totalMessage += "Не найдено ни одного финального этапа\r\n"; break;
+                        }
+                        case "not_connected": {
+                            totalMessage += "Не все этапы связаны\r\n"; break;
+                        }
+                    }
+                }
+                PF('messages').renderMessage({
+                    "summary": "Ошибка при сохранении",
+                    "detail": totalMessage,
+                    "severity": "error"
+                });
+                console.log("error on save");
+                PF('waitForSavingDialog').hide();
+            }
+
+        }).fail(function() {
+            PF('waitForSavingDialog').hide();
+            console.log("error on save");
+            validQuest = false;
+        })
+    })
     $('.exitButton').click(function() {
        PF('exitDialog').show();
     });
@@ -290,6 +358,13 @@ $(document).ready(function() { // on dom ready
         PF('deleteNodeDialog').hide();
     });
     $('.editDialogNodeOKButton').click(function() {
+        if($('.editDialogNodeName').val()=="" || $('.editDialogNodeDescription').val()=="") {
+            PF('messages').renderMessage({
+                "summary": "Не все поля заполнены",
+                "severity": "error"
+            });
+            return;
+        }
         var actions = [];
         var table = $('#editDialogActionsTable');
         var rows = $('tr', table);
@@ -329,6 +404,13 @@ $(document).ready(function() { // on dom ready
         PF('editNodeDialog').hide();
     });
     $('.editDialogEdgeOKButton').click(function() {
+        if($('.editDialogEdgeName').val()=="") {
+            PF('messages').renderMessage({
+                "summary": "Не все поля заполнены",
+                "severity": "error"
+            });
+            return;
+        }
         var edgeId = $('.editDialogEdgeId').val();
         var edge = {
             'name' : $('.editDialogEdgeName').val(),
@@ -356,6 +438,13 @@ $(document).ready(function() { // on dom ready
         PF('editEdgeDialog').hide();
     })
     $('.addDialogNodeOKButton').click(function () {
+        if($('.addDialogNodeName').val()=="" || $('.addDialogNodeDescription').val()=="") {
+            PF('messages').renderMessage({
+                "summary": "Не все поля заполнены",
+                "severity": "error"
+            });
+            return;
+        }
         var actions = [];
         var panPos = cy.pan();
         var width = cy.width();
@@ -398,6 +487,13 @@ $(document).ready(function() { // on dom ready
         PF('addNodeDialog').hide();
     });
     $('.addDialogEdgeOKButton').click(function () {
+        if($('.addDialogEdgeName').val()=="") {
+            PF('messages').renderMessage({
+                "summary": "Не все поля заполнены",
+                "severity": "error"
+            });
+            return;
+        }
         var edge = {
             'name' : $('.addDialogEdgeName').val(),
             'source' : $("#addDialogNodeFromMenu").val(),
