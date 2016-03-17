@@ -1,6 +1,6 @@
 package org.my.adventure.security.web;
 
-import org.my.adventure.security.ejb.LoginInfo;
+import org.my.adventure.security.ejb.LoginInfoBean;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -14,10 +14,10 @@ import java.io.Serializable;
  */
 @ManagedBean(name="loginController")
 @SessionScoped
-public class JaasSessionBean implements Serializable{
+public class JaasSessionController implements Serializable{
 
     @EJB
-    LoginInfo loginInfo;
+    LoginInfoBean loginInfo;
 
     public boolean isAdmin(){
         return loginInfo.isAdmin();

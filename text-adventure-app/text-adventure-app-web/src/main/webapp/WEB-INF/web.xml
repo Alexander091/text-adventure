@@ -36,10 +36,6 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
-    <!--<context-param>-->
-        <!--<param-name>log4jConfiguration</param-name>-->
-        <!--<param-value>log4j2.xml</param-value>-->
-    <!--</context-param>-->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
@@ -49,6 +45,16 @@
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>excite-bike</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6LfVBRsTAAAAAAosygOVZ1DAq-vFPCXwgFg2ZB3S</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LfVBRsTAAAAAP_iM9LFRYphOTPLFzuH7uP6CMBq</param-value>
     </context-param>
 
     <filter>
@@ -108,16 +114,6 @@
         <location>/authorization/login.xhtml</location>
         <!--TODO: create proper forbidden page-->
     </error-page>
-    <!--<error-page>-->
-        <!--&lt;!&ndash; Uncaught exception &ndash;&gt;-->
-        <!--<error-code>500</error-code>-->
-        <!--<location>/authorization/login_error.xhtml</location>-->
-    <!--</error-page>-->
-    <!--<error-page>-->
-        <!--&lt;!&ndash; Unsupported servlet method &ndash;&gt;-->
-        <!--<error-code>503</error-code>-->
-        <!--<location>/authorization/login_error.xhtml</location>-->
-    <!--</error-page>-->
     <error-page>
         <!-- Not found -->
         <error-code>404</error-code>

@@ -89,12 +89,12 @@
 
     <profile>
         <subsystem xmlns="urn:jboss:domain:logging:3.0">
-            <genreFilter-handler name="CONSOLE">
+            <console-handler name="CONSOLE">
                 <level name="INFO"/>
                 <formatter>
                     <named-formatter name="COLOR-PATTERN"/>
                 </formatter>
-            </genreFilter-handler>
+            </console-handler>
             <periodic-rotating-file-handler name="FILE" autoflush="true">
                 <formatter>
                     <named-formatter name="PATTERN"/>
@@ -157,8 +157,7 @@
                 </datasource>
                 <datasource jta="true" jndi-name="java:/PostgresDS" pool-name="PostgresDS" enabled="true" use-ccm="true">
                     <connection-url>jdbc:postgresql://localhost:5432/netcracker</connection-url>
-                    <driver-class>org.postgresql.Driver</driver-class>
-                    <driver>workaround_ear_exploded.ear_org.postgresql.Driver_9_4</driver>
+                    <driver>postgresql</driver>
                     <pool>
                         <min-pool-size>5</min-pool-size>
                         <max-pool-size>20</max-pool-size>
@@ -174,6 +173,10 @@
                     </validation>
                 </datasource>
                 <drivers>
+                    <driver name="postgresql" module="org.postgresql">
+                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+                        <datasource-class>org.postgresql.Driver</datasource-class>
+                    </driver>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
@@ -342,19 +345,19 @@
                     <authentication>
                         <login-module code="Database" flag="required">
                             <module-option name="dsJndiName" value="java:/PostgresDS"/>
-                            <module-option name="rolesQuery" value="SELECT ur.name, 'Roles' from users u left join user_role ur on u.user_role = ur.id where u.name = ?"/>
+                            <module-option name="rolesQuery" value="SELECT ur.name, 'Roles' from users u left join user_role ur on u.user_role = ur.id where u.log_name = ?"/>
                             <module-option name="hashAlgorithm" value="SHA-256"/>
                             <module-option name="hashEncoding" value="base64"/>
-                            <module-option name="principalsQuery" value="SELECT password from users WHERE name=?"/>
+                            <module-option name="principalsQuery" value="SELECT password from users WHERE log_name=?"/>
                         </login-module>
                     </authentication>
                     <authorization>
                         <policy-module code="Database" flag="required">
                             <module-option name="dsJndiName" value="java:/PostgresDS"/>
-                            <module-option name="rolesQuery" value="SELECT ur.name, 'Roles' from users u left join user_role ur on u.user_role = ur.id where u.name = ?"/>
+                            <module-option name="rolesQuery" value="SELECT ur.name, 'Roles' from users u left join user_role ur on u.user_role = ur.id where u.log_name = ?"/>
                             <module-option name="hashAlgorithm" value="SHA-256"/>
                             <module-option name="hashEncoding" value="base64"/>
-                            <module-option name="principalsQuery" value="SELECT password from users WHERE name=?"/>
+                            <module-option name="principalsQuery" value="SELECT password from users WHERE log_name=?"/>
                         </policy-module>
                     </authorization>
                 </security-domain>
