@@ -23,7 +23,6 @@
 </f:metadata>
 
 <h:body>
-    <div id="fb-root"></div>
     <ui:composition template="/templates/layout.xhtml">
         <ui:define name="content">
             <div class="ui-grid ui-grid-responsive">
@@ -119,13 +118,24 @@
                                                 </p:outputPanel>
                                                 <p:separator/>
                                         </p:dataScroller>
-                                <p:panel rendered="#{gameController.final}" style="margin-top: 10px;" >
+                                <p:panel rendered="#{gameController.final}" style="margin-top: 3px;" >
                                     <h:panelGrid style="width: 100%" columns="2" >
                                     <h:outputText value="Поделитесь впечатлениями с друзьями: " style="margin-top: 5px; font-weight: bold; color: #1484e6" />
                                     <script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
                                     <script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
-                                    <div class="ya-share2" data-services="facebook,vkontakte,gplus,linkedin,twitter"></div>
+                                    <div class="ya-share2" data-services="facebook,vkontakte,gplus,linkedin,twitter" data-description="Я прошел текстовый квест «#{gameController.name}» на Questcracker за #{timeController.questTimer}!"></div>
                                     </h:panelGrid>
+                                </p:panel>
+                                <p:panel rendered="#{gameController.final}" style="margin-top: 3px;" >
+                                    <div id="fb-root"></div>
+                                    <script type="text/javascript">(function(d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) return;
+                                        js = d.createElement(s); js.id = id;
+                                        js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&amp;version=v2.5&amp;appId=178056302582324";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }(document, 'script', 'facebook-jssdk'));</script>
+                                    <div class="fb-comments" data-href="http://questcracker.duckdns.org:8080/TextAdventure/faces/game/index.xhtml?questId=#{gameController.questId}" data-numposts="3" data-width="100%"></div>
                                 </p:panel>
                             </h:form>
                             <!--Buttons (refresh, exit):
