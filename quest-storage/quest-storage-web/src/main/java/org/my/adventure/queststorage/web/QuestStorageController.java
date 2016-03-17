@@ -102,6 +102,7 @@ public class QuestStorageController implements Serializable{
         model.addTag(new DefaultTagCloudItem("Фэнтези", 3));
         model.addTag(new DefaultTagCloudItem("Фантастика", "#", 2));
         model.addTag(new DefaultTagCloudItem("Ужасы", 2));
+        model.addTag(new DefaultTagCloudItem("Образовательные", 2));
         model.addTag(new DefaultTagCloudItem("Детектив", 1));
         model.addTag(new DefaultTagCloudItem("Литература", "#", 1));
 
