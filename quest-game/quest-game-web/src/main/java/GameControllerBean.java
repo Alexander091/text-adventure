@@ -7,7 +7,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.*;
 import java.util.List;
@@ -24,7 +23,8 @@ public class GameControllerBean implements Serializable {
 
     private long questId;
     private NodeWrapper node;
-    private boolean soundEnabled=false;
+    private boolean soundEnabled=true;
+    private boolean test;
 
     @EJB
     GameBean gameBean;
@@ -38,13 +38,19 @@ public class GameControllerBean implements Serializable {
     }
 
     public void refresh(){
-        gameBean.refresh(questId);
+        gameBean.reset(questId);
         node = gameBean.loadGame(questId);
-
     }
 
     public void goBack(){
         node = gameBean.goBack(questId);
+    }
+
+    public void testMode(){
+        if(test){
+            refresh();
+        }
+        test=false;
     }
 
     public boolean isAlreadyStarted(){
@@ -104,4 +110,11 @@ public class GameControllerBean implements Serializable {
         return node.getSoundResourceId();
     }
 
+    public void setTest(boolean test) {
+        this.test = test;
+    }
+
+    public boolean isTest(){
+        return test;
+    }
 }
