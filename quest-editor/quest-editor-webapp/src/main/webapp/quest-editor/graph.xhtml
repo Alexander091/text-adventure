@@ -20,7 +20,10 @@
             <p:commandButton type="button" value="Удалить" styleClass="deleteButton" widgetVar="deleteButton" disabled="true" icon="ui-icon-trash"/>
         </f:facet>
         <f:facet name="right">
-            <p:commandButton type="button" value="Сохранить" styleClass="saveButton" icon="ui-icon-disk"/>
+            <p:commandButton type="button" value="Играть" styleClass="playButton" icon="ui-icon-play"/>
+        </f:facet>
+        <f:facet name="right">
+            <p:commandButton type="button" value="Сохранить" styleClass="saveButton" icon="ui-icon-disk" action="#{questEditorController.quit()}"/>
         </f:facet>
         <f:facet name="left">
             <p:commandButton type="button" value="Отмена" styleClass="undoButton" disabled="true" rendered="false"/>
@@ -148,7 +151,7 @@
         <p:dialog header="Выйти" widgetVar="exitDialog" resizable="false" modal="true" closable="false">
             <p:outputLabel value="Вы действительно хотите выйти? Все несохраненные изменения будут потеряны."/>
             <f:facet name="footer">
-                <p:commandButton value="Выйти" styleClass="exitDialogOKButton" action="/quest-storage/storage?faces-redirect=true"/>
+                <p:commandButton value="Выйти" styleClass="exitDialogOKButton" action="#{questEditorController.quit()}"/>
                 <p:commandButton value="Отмена" styleClass="exitDialogCloseButton"/>
             </f:facet>
         </p:dialog>
