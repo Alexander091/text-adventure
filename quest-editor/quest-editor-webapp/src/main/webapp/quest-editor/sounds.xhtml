@@ -3,14 +3,35 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    <f:view>
         <h:form enctype="multipart/form-data">
 
-
-            <p:fileUpload mode="advanced" auto="true" fileUploadListener="#{uploadController.upload}" sizeLimit="5000000" allowTypes="/(\.|\/)(wav|mp3)$/"/>
+            <f:metadata>
+                <f:viewParam name="questId" value="#{uploadController.questId}"/>
+            </f:metadata>
+            <p:fileUpload fileUploadListener="#{uploadController.upload}" mode="advanced" dragDropSupport="true"
+                          label="Загрузить звук"
+                          multiple="true"
+                          update="soundTable, messages"
+                          auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(mp3|wav)$/">
+                <f:attribute name="questId" value="#{questEditorController.questId}" />
+            </p:fileUpload>
             <p:growl id="messages" showDetail="true" />
+            <p:dataTable id="soundTable" var="soundVar" value="#{resourceController.getSounds(questEditorController.questId)}">
+                <!--<p:column headerText="" width="20%">-->
+
+
+                    <!--<p:media  style="align: center;" value="#{uploadController.sound}" width="100%" height="100%" player="quicktime">-->
+                        <!--<f:param name="autostart" value="0"/>-->
+                        <!--<f:param name="resourceId" value="#{soundVar.id}" />-->
+
+                    <!--</p:media>-->
+                <!--</p:column>-->
+                <p:column headerText="Имя файла" width="90%"><h:outputText value="#{soundVar.name}"/></p:column>
+                <p:column headerText="" width="10%">
+                    <p:commandButton style="align: center;" value="Удалить" update="soundTable" actionListener="#{resourceController.deleteResource(soundVar.id)}"/>
+                </p:column>
+            </p:dataTable>
         </h:form>
-    </f:view>
 
     <!--<p:dataList type="ordered">-->
         <!--<f:facet name="header">-->

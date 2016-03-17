@@ -8,11 +8,11 @@ import org.my.adventure.dao_manager.api.entities.Quest;
 public class QuestBuilder {
     public static Quest buildDefaultQuest() {
         Quest quest = new Quest();
-        quest.setName("Имя квеста");
-        quest.setDescription("Описание квеста");
+        quest.setName("");
+        quest.setDescription("");
         quest.setAgeLimit(12);
         quest.setVersion(1);
-        quest.setGenre("Жанр");
+        quest.setGenre("");
         //Node node = new Node()
         return quest;
     }

@@ -61,7 +61,23 @@ public class UploadController implements Serializable{
         }
         return streamedContent;
     }
-
+    public StreamedContent getSound(){
+        StreamedContent streamedContent;
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+//             So, we're rendering the HTML. Return a stub StreamedContent so that it will generate right URL.
+            streamedContent = new DefaultStreamedContent();
+        }else {
+            String resourceId = context.getExternalContext().getRequestParameterMap().get("resourceId");
+            byte[] imageData = uploaderBean.getImage(Long.parseLong(resourceId));
+            if (imageData != null) {
+                streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(imageData), "audio/mpeg");
+            } else {
+                streamedContent = new DefaultStreamedContent();
+            }
+        }
+        return streamedContent;
+    }
     public List<Resource> getImages(){
         return uploaderBean.getQuestResources(questId, IMAGE);
     }
