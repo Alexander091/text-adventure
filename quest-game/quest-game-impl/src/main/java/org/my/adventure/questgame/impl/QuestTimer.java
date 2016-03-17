@@ -1,7 +1,7 @@
 package org.my.adventure.questgame.impl;
 
 /**
- * Created by пїЅпїЅпїЅпїЅпїЅпїЅ on 12.03.2016.
+ * Created by ������ on 12.03.2016.
  */
 public class QuestTimer {
     private int hours = 0;
@@ -19,11 +19,10 @@ public class QuestTimer {
 
     public String toString(){
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("Время: ");
         stringBuffer.append(appendValue(hours));
-        stringBuffer.append("ч ");
+        stringBuffer.append("� ");
         stringBuffer.append(appendValue(minutes));
-        stringBuffer.append("мин");
+        stringBuffer.append("���");
         return stringBuffer.toString();
     }
 
