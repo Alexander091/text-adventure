@@ -1,5 +1,7 @@
 package org.my.adventure.security.ejb;
 
+import de.rtner.security.auth.spi.PBKDF2Parameters;
+import de.rtner.security.auth.spi.SimplePBKDF2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.my.adventure.dao_manager.api.dao.UserDAO;
@@ -8,9 +10,6 @@ import org.my.adventure.dao_manager.api.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 
 
 /**
@@ -29,11 +28,14 @@ public class RegistrationBean {
     @EJB
     UserRoleDAO userRoleDAO;
 
-    public String generateHash(String input) throws NoSuchAlgorithmException {
-        MessageDigest objSHA = MessageDigest.getInstance("SHA-256");
-        byte[] bytSHA = objSHA.digest(input.getBytes());
-        Base64.Encoder encoder = Base64.getEncoder();
-        return encoder.encodeToString(bytSHA);
+    public static String hash(String plainText) {
+        if (plainText == null) return null;
+        SimplePBKDF2 crypto = new SimplePBKDF2();
+        PBKDF2Parameters params = crypto.getParameters();
+        params.setHashCharset("UTF-8");
+        params.setHashAlgorithm("HmacSHA1");
+        params.setIterationCount(1000);
+        return crypto.deriveKeyFormatted(plainText);
     }
 
     public void addUser(UserWrapper userWrapper){
@@ -43,11 +45,7 @@ public class RegistrationBean {
         user.setLogName(userWrapper.getLogName());
         user.setEmail(userWrapper.getEmail());
         user.setUserRole(userRoleDAO.getById(ADMIN_ROLE));
-        try {
-            user.setPassword(generateHash(userWrapper.getPassword()));
-        } catch (NoSuchAlgorithmException e) {
-            log.error(e.getMessage(), e);
-        }
+        user.setPassword(hash(userWrapper.getPassword()));
         userDAO.saveOrUpdate(user);
     }
 }
