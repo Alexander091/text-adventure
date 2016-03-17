@@ -35,11 +35,12 @@
                                 <p:panel header="Жанры" id="genres" toggleable="true" toggleOrientation="horizontal">
                                     <p:growl id="msgs" showDetail="true" />
                                     <p:tagCloud model="#{questStorageController.model}">
-                                        <p:ajax event="select" update="all, msgs" listener="#{questStorageController.selectGenre}" />
+                                        <p:ajax event="select" update="all, msgs"
+                                                listener="#{questStorageController.selectGenre}" />
                                     </p:tagCloud>
                                     <div align="left">
                                         <p:dataList value="#{questStorageController.genres}" var="genre">
-                                            <p:commandButton value="#{genre}" update="all"
+                                            <p:commandButton value="#{genre}" update="all" ajax="false"
                                                              actionListener="#{questStorageController.setGenreFilter(genre)}"
                                             />
                                         </p:dataList>

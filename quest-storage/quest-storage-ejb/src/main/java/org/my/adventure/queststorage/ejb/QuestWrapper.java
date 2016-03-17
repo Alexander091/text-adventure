@@ -15,6 +15,15 @@ public class QuestWrapper {
     private Float rating;
     private String name;
     private Resource image;
+    private Long ownerId;
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
 
     public String getDescription() {
         return description;
@@ -89,5 +98,10 @@ public class QuestWrapper {
         this.rating = quest.getRating();
         this.name = quest.getName();
         this.image = quest.getImage();
+        if (quest.getOwner() != null){
+            this.ownerId = quest.getOwner().getId();
+        }else{
+            this.ownerId = null;
+        }
     }
 }

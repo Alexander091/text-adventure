@@ -1,7 +1,7 @@
 package org.my.adventure.dao_manager.api.entities;
 
-import java.util.List;
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Дмитрий on 02.12.2015.
@@ -20,6 +20,17 @@ public class Quest extends Common{
     private List<Stat> stats;
     private Node startNode;
     private Resource image;
+    private User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "owner", referencedColumnName = "id")
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     @OneToOne
     @JoinColumn(name = "image")
@@ -43,7 +54,6 @@ public class Quest extends Common{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "quest")
     public List<Item> getItems() {
-
         return items;
     }
 

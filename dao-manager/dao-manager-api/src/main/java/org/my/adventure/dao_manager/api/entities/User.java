@@ -1,7 +1,7 @@
 package org.my.adventure.dao_manager.api.entities;
 
-import java.util.List;
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Дмитрий on 02.12.2015.
@@ -15,7 +15,17 @@ public class User extends Common {
     private String password;
     private String email;
     private List<Game> games;
+    private List<Quest> quests;
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "owner")
+    public List<Quest> getQuests(){
+        return quests;
+    }
+
+    public void setQuests(List<Quest> quests) {
+        this.quests = quests;
+    }
 
     @OneToMany(mappedBy = "user")
     public List<Game> getGames() {

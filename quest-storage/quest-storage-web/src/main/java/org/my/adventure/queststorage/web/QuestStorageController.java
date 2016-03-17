@@ -29,6 +29,8 @@ public class QuestStorageController implements Serializable{
     @EJB
     QuestStorageBean questStorageBean;
 
+
+
     private String genreFilter = QuestStorageBean.ALL_GENRES;
 
     private List<String> genres;
@@ -85,8 +87,12 @@ public class QuestStorageController implements Serializable{
         return layout;
     }
 
-    public List<QuestWrapper> getQuests(){
-        return questStorageBean.getQuests(genreFilter);
+//    public List<QuestWrapper> getQuests(){
+//        return questStorageBean.getQuests(genreFilter, null);
+//    }
+
+    public List<QuestWrapper> getQuests(Long userId){
+        return questStorageBean.getQuests(genreFilter, userId);
     }
 
     public void deleteQuest(Long id){
@@ -99,10 +105,11 @@ public class QuestStorageController implements Serializable{
     public void init() {
         model = new DefaultTagCloudModel();
         model.addTag(new DefaultTagCloudItem("Все", "#", 5));
-        model.addTag(new DefaultTagCloudItem("Фэнтези", 3));
+        model.addTag(new DefaultTagCloudItem("Мои", 3));
+        model.addTag(new DefaultTagCloudItem("Фэнтези", 1));
         model.addTag(new DefaultTagCloudItem("Фантастика", "#", 2));
         model.addTag(new DefaultTagCloudItem("Ужасы", 2));
-        model.addTag(new DefaultTagCloudItem("Образовательные", 2));
+        model.addTag(new DefaultTagCloudItem("Образовательные", 3));
         model.addTag(new DefaultTagCloudItem("Детектив", 1));
         model.addTag(new DefaultTagCloudItem("Литература", "#", 1));
 
