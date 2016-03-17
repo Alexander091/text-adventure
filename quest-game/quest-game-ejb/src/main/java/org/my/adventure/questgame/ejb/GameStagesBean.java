@@ -8,6 +8,7 @@ import org.my.adventure.questgame.impl.GameStage;
 import org.my.adventure.questgame.impl.QuestTimer;
 import org.my.adventure.questgame.impl.wrappers.NodeWrapper;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import java.util.*;
@@ -18,8 +19,8 @@ import java.util.*;
 
 @Stateful
 public class GameStagesBean {
-    private static final Map<Long,Stack<GameStage>> gameStagesStacks = new HashMap<Long, Stack<GameStage>>();
-    private static final Map<Long, QuestTimer> timeMap = new HashMap<Long, QuestTimer>();
+    private Map<Long,Stack<GameStage>> gameStagesStacks;// = new HashMap<Long, Stack<GameStage>>();
+    private Map<Long, QuestTimer> timeMap;// = new HashMap<Long, QuestTimer>();
 
     @EJB
     QuestDAO questDAO;
@@ -27,6 +28,12 @@ public class GameStagesBean {
     NodeDAO nodeDAO;
     @EJB
     ResourceDAO resourceDAO;
+
+    @PostConstruct
+    void init(){
+        gameStagesStacks = new HashMap<Long, Stack<GameStage>>();
+        timeMap = new HashMap<Long, QuestTimer>();
+    }
 
 
     public Map<Long,Stack<GameStage>> getGameStages() {
@@ -94,6 +101,12 @@ public class GameStagesBean {
     }
 
     public String getQuestTimerString(long questId) {
-        return timeMap.get(questId).toString();
+        QuestTimer qt = timeMap.get(questId);
+        if(qt==null){
+            return "";
+        }
+        else {
+            return qt.toString();
+        }
     }
 }

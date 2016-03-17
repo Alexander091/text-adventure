@@ -100,10 +100,10 @@ public class QuestStorageController implements Serializable{
         model = new DefaultTagCloudModel();
         model.addTag(new DefaultTagCloudItem("Все", "#", 5));
         model.addTag(new DefaultTagCloudItem("Фэнтези", 3));
-        model.addTag(new DefaultTagCloudItem("Sci-fi", "#", 2));
-        model.addTag(new DefaultTagCloudItem("Хоррор", 2));
+        model.addTag(new DefaultTagCloudItem("Фантастика", "#", 2));
+        model.addTag(new DefaultTagCloudItem("Ужасы", 2));
         model.addTag(new DefaultTagCloudItem("Детектив", 1));
-        model.addTag(new DefaultTagCloudItem("Slice of life", "#", 1));
+        model.addTag(new DefaultTagCloudItem("Литература", "#", 1));
 
         genres = new ArrayList<>();
         for (TagCloudItem item : model.getTags()) {
@@ -117,8 +117,6 @@ public class QuestStorageController implements Serializable{
 
     public void selectGenre(SelectEvent event) {
         TagCloudItem item = (TagCloudItem) event.getObject();
-//        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", item.getLabel());
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
         genreFilter = item.getLabel();
     }
 }

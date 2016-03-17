@@ -60,7 +60,7 @@ public class QuestStorageBean {
             quests = questDAO.getAll();
         else
             quests = questDAO.getAllByGenre(genre);
-        List<QuestWrapper> questWrappers = new ArrayList<>();
+        List<QuestWrapper> questWrappers = new ArrayList<QuestWrapper>();
         for (Quest quest : quests) {
             if (quest.getId()!=null){
                 QuestWrapper questWrapper = new QuestWrapper(quest);
@@ -71,11 +71,11 @@ public class QuestStorageBean {
                 questWrappers.add(questWrapper);
             }
         }
-        questWrappers.sort(new Comparator<QuestWrapper>() {
+        /*questWrappers.sort(new Comparator<QuestWrapper>() {
             public int compare(QuestWrapper o1, QuestWrapper o2) {
                 return o1.getName().compareTo(o2.getName());
             }
-        });
+        });*/
         return questWrappers;
     }
 

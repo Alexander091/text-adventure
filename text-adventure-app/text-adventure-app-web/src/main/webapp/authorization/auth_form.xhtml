@@ -32,14 +32,14 @@
                 </p:password>
                 <p:message for="j_password" display="icon"/>
                 <f:facet name="footer">
-                    <div align="center">
+                    <div align="center" style="white-space: nowrap;">
                         <p:commandButton id="submit" value="Войти"
                                          validateClient="true"
                                          tabindex="3"
                                          onclick='j_security_check'
                                          ajax="true" update="grid" />
-                        <p:button outcome="/index.xhtml" value="Отмена"
-                                  tabindex="4"/>
+                        <p:button outcome="/security/registration.xhtml" value="Регистрация" tabindex="4"/>
+                        <p:button outcome="/index.xhtml" value="Отмена" tabindex="4"/>
                     </div>
                 </f:facet>
                 <!--disabled="#{not facesContext.postback or facesContext.validationFailed}"-->
