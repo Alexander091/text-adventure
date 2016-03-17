@@ -17,9 +17,11 @@
 <f:metadata>
     <f:viewParam name="questId" value="#{gameController.questId}" />
     <f:viewParam name="questId" value="#{timeController.questId}" />
+    <f:viewParam name="test" value="#{gameController.test}" />
     <f:event type="preRenderView" listener="#{gameController.loadQuest()}"/>
-   <!-- <f:viewAction action="#{gameController.loadQuest()}" onPostback="false"/>-->
+    <!--<f:viewAction action="#{gameController.loadQuest()}" onPostback="false"/>-->
     <f:viewAction action="#{timeController.init()}" onPostback="false"/>
+    <f:viewAction action="#{gameController.testMode()}" onPostback="false"/>
 </f:metadata>
 
 <h:body>
