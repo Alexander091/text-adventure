@@ -17,18 +17,18 @@
             </p:fileUpload>
             <p:growl id="messages" showDetail="true" />
             <p:dataTable id="soundTable" var="soundVar" value="#{resourceController.getSounds(questEditorController.questId)}">
-                <p:column headerText="" width="20%">
+                <!--<p:column headerText="" width="20%">-->
 
 
-                    <p:media value="#{uploadController.sound}" width="100%" height="50px" player="quicktime">
-                        <f:param name="autoPlay" value="#{false}"/>
-                        <f:param name="resourceId" value="#{soundVar.id}" />
+                    <!--<p:media  style="align: center;" value="#{uploadController.sound}" width="100%" height="100%" player="quicktime">-->
+                        <!--<f:param name="autostart" value="0"/>-->
+                        <!--<f:param name="resourceId" value="#{soundVar.id}" />-->
 
-                    </p:media>
-                </p:column>
-                <p:column headerText="Имя файла" width="70%"><h:outputText value="#{soundVar.name}"/></p:column>
+                    <!--</p:media>-->
+                <!--</p:column>-->
+                <p:column headerText="Имя файла" width="90%"><h:outputText value="#{soundVar.name}"/></p:column>
                 <p:column headerText="" width="10%">
-                    <p:commandButton value="Удалить" update="soundTable" actionListener="#{resourceController.deleteResource(soundVar.id)}"/>
+                    <p:commandButton style="align: center;" value="Удалить" update="soundTable" actionListener="#{resourceController.deleteResource(soundVar.id)}"/>
                 </p:column>
             </p:dataTable>
         </h:form>
