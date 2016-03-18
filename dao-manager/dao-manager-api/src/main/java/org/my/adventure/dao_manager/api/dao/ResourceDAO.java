@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface ResourceDAO extends CommonDAO<Resource> {
     List<Resource> getResources(Long questId, Long typeOfResourceId);
-
+    List<Resource> getPartialResources(Long questId, Long typeOfResourceId);
     void deleteById(Long resourceId);
 }

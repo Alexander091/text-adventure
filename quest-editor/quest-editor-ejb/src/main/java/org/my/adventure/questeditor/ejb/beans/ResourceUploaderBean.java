@@ -39,7 +39,9 @@ public class ResourceUploaderBean {
     public List<Resource> getQuestResources(Long questId, Long typeOfResourceId){
         return resourceDAO.getResources(questId, typeOfResourceId);
     }
-
+    public List<Resource> getPartialQuestResources(Long questId, Long typeOfResourceId){
+        return resourceDAO.getPartialResources(questId, typeOfResourceId);
+    }
     public void deleteResource(Long id){
         log.debug("deleting " + id+ " " + questDAO.getById(id));
         try {
