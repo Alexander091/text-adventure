@@ -23,8 +23,26 @@ public class JaasSessionController implements Serializable{
         return loginInfo.isAdmin();
     }
 
+    public boolean isUser() {
+        return loginInfo.isUser();
+    }
+
     public String jaasUser(){
         return loginInfo.jaasUser();
+    }
+
+    public boolean checkUserCredentialsToQuest(Long ownerId){
+        boolean result = false;
+        if (isAdmin()){
+            result = true;
+        }else if (ownerId.equals(loginInfo.getUserId())){
+            result = true;
+        }
+        return result;
+    }
+
+    public Long getUserId(){
+        return loginInfo.getUserId();
     }
 
     public String jaasLogout(){

@@ -6,19 +6,17 @@ import org.my.adventure.dao_manager.api.entities.Resource;
 import org.my.adventure.questeditor.ejb.beans.NodeBean;
 import org.my.adventure.questeditor.ejb.beans.QuestEditorBean;
 import org.my.adventure.questeditor.ejb.beans.ResourceEditorBean;
-import org.primefaces.component.tabview.Tab;
+import org.my.adventure.security.ejb.LoginInfoBean;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.ejb.EJB;
-import javax.faces.bean.*;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import javax.faces.event.ValueChangeEvent;
-import javax.inject.Inject;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.List;
@@ -40,6 +38,8 @@ public class QuestEditorController implements Serializable{
     NodeBean nodeBean;
     @EJB
     ResourceEditorBean resourceEditorBean;
+    @EJB
+    LoginInfoBean loginInfoBean;
     public Integer getActiveIndex() {
         return activeIndex;
     }
@@ -108,6 +108,7 @@ public class QuestEditorController implements Serializable{
         node.setQuestByQuestId(quest);
         nodeBean.saveOrUpdate(node);
         quest.setStartNode(node);
+        quest.setOwner(loginInfoBean.getUser());
         questEditorBean.saveOrUpdate(quest);
         questId=quest.getId();
         return "editor?faces-redirect=true&questId="+questId;

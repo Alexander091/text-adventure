@@ -8,7 +8,7 @@
 <h:body>
     <div align="center">
         <h:form id="form">
-            <p:dataGrid var="quest" value="#{questStorageController.quests}" columns="3" layout="grid"
+            <p:dataGrid var="quest" value="#{questStorageController.getQuests(loginController.userId)}" columns="3" layout="grid"
                         rows="6" paginator="true" id="quests"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -58,12 +58,13 @@
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                             <p:button outcome="/quest-editor/editor.xhtml" icon="ui-icon-wrench"
-                                      rendered="#{loginController.admin}"
+                                      rendered="#{loginController.checkUserCredentialsToQuest(quest.ownerId)}"
                                       value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                             <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
-                                             rendered="#{loginController.admin}" icon="ui-icon-trash" update="quests">
+                                             rendered="#{loginController.checkUserCredentialsToQuest(quest.ownerId)}"
+                                             icon="ui-icon-trash" update="quests">
                                 <p:confirm header="Подтверждение" message="Вы уверены?"/>
                             </p:commandButton>
                         </div>
@@ -74,12 +75,14 @@
                             <p:button outcome="/game/index.xhtml" value="Играть" icon="ui-icon-play">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
-                            <p:button outcome="/quest-editor/editor.xhtml" rendered="#{loginController.admin}"
+                            <p:button outcome="/quest-editor/editor.xhtml"
+                                      rendered="#{loginController.checkUserCredentialsToQuest(quest.ownerId)}"
                                       value="Редактировать">
                                 <f:param name="questId" value="#{quest.id}" />
                             </p:button>
                             <p:commandButton value="Удалить" actionListener="#{questStorageController.deleteQuest(quest.id)}"
-                                             rendered="#{loginController.admin}" icon="ui-icon-trash"
+                                             rendered="#{loginController.checkUserCredentialsToQuest(quest.ownerId)}"
+                                             icon="ui-icon-trash"
                                              update="quests">
                                 <p:confirm header="Требуется подтверждение" message="Вы уверены?"/>
                             </p:commandButton>

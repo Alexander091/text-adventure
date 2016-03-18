@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -35,11 +35,12 @@
                                 <p:panel header="Жанры" id="genres" toggleable="true" toggleOrientation="horizontal">
                                     <p:growl id="msgs" showDetail="true" />
                                     <p:tagCloud model="#{questStorageController.model}">
-                                        <p:ajax event="select" update="all, msgs" listener="#{questStorageController.selectGenre}" />
+                                        <p:ajax event="select" update="all, msgs"
+                                                listener="#{questStorageController.selectGenre}" />
                                     </p:tagCloud>
                                     <div align="left">
                                         <p:dataList value="#{questStorageController.genres}" var="genre">
-                                            <p:commandButton value="#{genre}" update="all"
+                                            <p:commandButton value="#{genre}" update="all" ajax="false"
                                                              actionListener="#{questStorageController.setGenreFilter(genre)}"
                                             />
                                         </p:dataList>

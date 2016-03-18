@@ -21,6 +21,7 @@ public class RegistrationBean {
 
     private final Logger log = LogManager.getLogger(RegistrationBean.class);
     private final Long ADMIN_ROLE = 0L;
+    private final Long USER_ROLE = 1L;
 
     @EJB
     UserDAO userDAO;
@@ -28,7 +29,7 @@ public class RegistrationBean {
     @EJB
     UserRoleDAO userRoleDAO;
 
-    public static String hash(String plainText) {
+    public String hash(String plainText) {
         if (plainText == null) return null;
         SimplePBKDF2 crypto = new SimplePBKDF2();
         PBKDF2Parameters params = crypto.getParameters();
@@ -44,7 +45,7 @@ public class RegistrationBean {
         user.setSurname(userWrapper.getSurname());
         user.setLogName(userWrapper.getLogName());
         user.setEmail(userWrapper.getEmail());
-        user.setUserRole(userRoleDAO.getById(ADMIN_ROLE));
+        user.setUserRole(userRoleDAO.getById(USER_ROLE));
         user.setPassword(hash(userWrapper.getPassword()));
         userDAO.saveOrUpdate(user);
     }
