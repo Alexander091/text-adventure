@@ -29,8 +29,6 @@ public class QuestStorageController implements Serializable{
     @EJB
     QuestStorageBean questStorageBean;
 
-
-
     private String genreFilter = QuestStorageBean.ALL_GENRES;
 
     private List<String> genres;
