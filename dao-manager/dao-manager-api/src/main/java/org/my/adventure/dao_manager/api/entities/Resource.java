@@ -31,8 +31,7 @@ public class Resource extends Common{
     public void setName(String name) {
         this.name = name;
     }
-
-    @Basic
+    
     @Column(name = "data", nullable = false, insertable = true, updatable = true)
     public byte[] getData() {
         return data;

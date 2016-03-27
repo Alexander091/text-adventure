@@ -164,7 +164,7 @@ public class GraphEditorBean implements Serializable {
     }
     public List<Resource> getResourcesList(Long questId, Long typeOfActionId) {
         TypeOfAction typeOfAction = typeOfActionBean.getById(typeOfActionId);
-        return resourceEditorBean.getResourcesList(questId, typeOfAction.getTypeOfResource().getId());
+        return resourceEditorBean.getPartialResourcesList(questId, typeOfAction.getTypeOfResource().getId());
     }
     public String save(JSONArray data) {
         List<ValidationStatus> validationStatuses = validator.validate(viewGraph, quest.getStartNode());

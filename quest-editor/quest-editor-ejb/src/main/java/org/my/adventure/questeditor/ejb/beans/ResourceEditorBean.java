@@ -28,4 +28,7 @@ public class ResourceEditorBean extends CommonBean<Resource>{
     public List<Resource> getResourcesList(Long questId, Long typeOfResourceId) {
         return resourceDAO.getResources(questId, typeOfResourceId);
     }
+    public List<Resource> getPartialResourcesList(Long questId, Long typeOfResourceId) {
+        return resourceDAO.getPartialResources(questId, typeOfResourceId);
+    }
 }

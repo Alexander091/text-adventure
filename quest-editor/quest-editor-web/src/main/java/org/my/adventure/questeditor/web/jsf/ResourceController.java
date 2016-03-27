@@ -18,7 +18,7 @@ public class ResourceController {
 
     @EJB
     private ResourceUploaderBean uploaderBean;
-    public List<Resource> getSounds(Long questId) {return uploaderBean.getQuestResources(questId, 2L);}
+    public List<Resource> getSounds(Long questId) {return uploaderBean.getPartialQuestResources(questId, 2L);}
     public List<Resource> getImages(Long questId){
         return uploaderBean.getQuestResources(questId, 1L);
     }
